@@ -25,3 +25,6 @@ Répartitions des fonctions dans les fichiers :
 - mouvement -> validation/légalité + effectuer le mouvement
 ** futur, à voir dans les prochains jours
 
+Liens coverage et documentation :
+- https://app.codecov.io/gh/farahsalamaa/Abalone
+- https://farahsalamaa.github.io/Abalone (il manque le Doxyfile)
