@@ -27,4 +27,4 @@ Répartitions des fonctions dans les fichiers :
 
 Liens coverage et documentation :
 - https://app.codecov.io/gh/farahsalamaa/Abalone
-- https://farahsalamaa.github.io/Abalone (il manque le Doxyfile)
+- https://farahsalamaa.github.io/Abalone
