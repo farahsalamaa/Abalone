@@ -1,0 +1,10 @@
+.svn
+.vscode
+.idea
+test
+abalone
+*.o
+*.o_t
+*.gcno
+*.gcda
+*.gcov
