@@ -30,8 +30,8 @@ coverage: test
 ./serveur.o:./serveur.c ./abalone_terminal.h ./abalone_gtk.h ./serveur.h ./client.h ./mouvement.h ./ia.h
 ./client.o:./client.c ./abalone_terminal.h ./abalone_gtk.h ./serveur.h ./mouvement.h ./ia.h
 
-./main_test: ./main_test.c ./mouvement_test.h
-./mouvement_test: ./mouvement.h
+./main_test.o: ./main_test.c ./mouvement_test.h
+./mouvement_test.o: ./mouvement.h
 
 .PHONY: clean docs
 
