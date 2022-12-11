@@ -10,7 +10,7 @@ all: clean test $(EXEC)
 $(EXEC): ./main.o ./abalone_terminal.o ./abalone_gtk.o  ./serveur.o ./client.o  ./ia.o ./mouvement.o
 	$(CC) -o $@ $^ $(LDFLAGS) 
 
-test: ./main_test.o ./mouvement_test.o ./mouvement.o
+test: ./main_test.o ./mouvement_test.o ./abalone_terminal.o ./serveur.o ./client.o ./mouvement.o ./ia.o
 	$(CC) -fprofile-arcs -ftest-coverage -o $@ $(addsuffix _t, $^) $(LDFLAGS) 
 	./$@
 
@@ -31,7 +31,7 @@ coverage: test
 ./client.o:./client.c ./abalone_terminal.h ./abalone_gtk.h ./serveur.h ./mouvement.h ./ia.h
 
 ./main_test.o: ./main_test.c ./mouvement_test.h
-./mouvement_test.o: ./mouvement.h
+./mouvement_test.o: ./abalone_terminal.h ./serveur.h ./client.h ./mouvement.h ./ia.h
 
 .PHONY: clean docs
 
