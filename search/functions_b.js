@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['string_5fto_5fcoord_127',['string_to_coord',['../mouvement_8c.html#a0c2b3b3c978f51d2c71f33a8cc35ac26',1,'string_to_coord(char *mvt, PCoord coord):&#160;mouvement.c'],['../mouvement_8h.html#ac12f8d05bb96b17bf6e165fe6d727dbc',1,'string_to_coord(char *mvt, PCoord coord):&#160;mouvement.c']]]
+  ['type_5fmvt_130',['type_mvt',['../mouvement_8c.html#ac178afec7c6406d4ed179fc987f9c7c1',1,'type_mvt(Mouvement mvt):&#160;mouvement.c'],['../mouvement_8h.html#ada0f5a9139b51abc9a61594efe606e51',1,'type_mvt(Mouvement mvt):&#160;mouvement.c']]]
 ];

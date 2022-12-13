@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['random_5fnumber_126',['random_number',['../ia_8c.html#a032e109c72b2e2754ead2f88bb2e6570',1,'random_number(int min, int max):&#160;ia.c'],['../ia_8h.html#a032e109c72b2e2754ead2f88bb2e6570',1,'random_number(int min, int max):&#160;ia.c']]]
+  ['score_5fdensity_128',['score_density',['../ia_8c.html#abc6830ccca5794ac831fea153283b06a',1,'score_density(char **board, char player):&#160;ia.c'],['../ia_8h.html#abc6830ccca5794ac831fea153283b06a',1,'score_density(char **board, char player):&#160;ia.c']]],
+  ['score_5futility_129',['score_utility',['../group__g1.html#gaca5f37fdc0888f15ac6961c2ee660b5e',1,'score_utility(char **board, char player):&#160;ia.c'],['../group__g1.html#gaca5f37fdc0888f15ac6961c2ee660b5e',1,'score_utility(char **board, char player):&#160;ia.c']]]
 ];

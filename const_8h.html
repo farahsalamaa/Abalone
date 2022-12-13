@@ -87,6 +87,8 @@ Data Structures</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structMouvement.html">Mouvement</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le structure d'un mouvement contenant ses characteristiques.  <a href="structMouvement.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structNode.html">Node</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>
@@ -234,6 +236,24 @@ Macros</h2></td></tr>
 #define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="const_8h.html#adfddf3ba70d6c73bec60fe40de948600">COULEUR_NOIR</a>&#160;&#160;&#160;'N'</td></tr>
 <tr class="memdesc:adfddf3ba70d6c73bec60fe40de948600"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un pion noir. <br /></td></tr>
 <tr class="separator:adfddf3ba70d6c73bec60fe40de948600"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac760eaf4b19dd6359a2b1e52091ae919"><td class="memItemLeft" align="right" valign="top"><a id="ac760eaf4b19dd6359a2b1e52091ae919"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>MAX_CHILDREN</b>&#160;&#160;&#160;100</td></tr>
+<tr class="separator:ac760eaf4b19dd6359a2b1e52091ae919"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af5abd28c44c29b7397c84f1fec4b1d84"><td class="memItemLeft" align="right" valign="top"><a id="af5abd28c44c29b7397c84f1fec4b1d84"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>ALPHA</b>&#160;&#160;&#160;1</td></tr>
+<tr class="separator:af5abd28c44c29b7397c84f1fec4b1d84"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1b996515309fc3c03449912bb33046e3"><td class="memItemLeft" align="right" valign="top"><a id="a1b996515309fc3c03449912bb33046e3"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>BETA</b>&#160;&#160;&#160;1</td></tr>
+<tr class="separator:a1b996515309fc3c03449912bb33046e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8659b9de3e544ff142b153b076f30fd5"><td class="memItemLeft" align="right" valign="top"><a id="a8659b9de3e544ff142b153b076f30fd5"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>GAMMA</b>&#160;&#160;&#160;1</td></tr>
+<tr class="separator:a8659b9de3e544ff142b153b076f30fd5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaa169fd8b9a843d1bd57fe1eae032115"><td class="memItemLeft" align="right" valign="top"><a id="aaa169fd8b9a843d1bd57fe1eae032115"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>THETA</b>&#160;&#160;&#160;1</td></tr>
+<tr class="separator:aaa169fd8b9a843d1bd57fe1eae032115"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a50267d552ca6f788254032e40046b770"><td class="memItemLeft" align="right" valign="top"><a id="a50267d552ca6f788254032e40046b770"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>DEPTH</b>&#160;&#160;&#160;5</td></tr>
+<tr class="separator:a50267d552ca6f788254032e40046b770"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
 Typedefs</h2></td></tr>
@@ -246,6 +266,12 @@ typedef struct <a class="el" href="structCoord.html">Coord</a> *&#160;</td><td c
 <tr class="memitem:a7acfdb8a2cb46c34b951dc1d7c4d71e2"><td class="memItemLeft" align="right" valign="top"><a id="a7acfdb8a2cb46c34b951dc1d7c4d71e2"></a>
 typedef struct <a class="el" href="structMouvement.html">Mouvement</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>PMouvement</b></td></tr>
 <tr class="separator:a7acfdb8a2cb46c34b951dc1d7c4d71e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3b09f37e675bcd48a01bf22155996872"><td class="memItemLeft" align="right" valign="top"><a id="a3b09f37e675bcd48a01bf22155996872"></a>
+typedef struct <a class="el" href="structNode.html">Node</a>&#160;</td><td class="memItemRight" valign="bottom"><b>Node</b></td></tr>
+<tr class="separator:a3b09f37e675bcd48a01bf22155996872"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad58e99a35ac037a3f9ccfaeb5f42fa4a"><td class="memItemLeft" align="right" valign="top"><a id="ad58e99a35ac037a3f9ccfaeb5f42fa4a"></a>
+typedef struct <a class="el" href="structNode.html">Node</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>PNode</b></td></tr>
+<tr class="separator:ad58e99a35ac037a3f9ccfaeb5f42fa4a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Bibliothèque de toutes les definitions. </p>
