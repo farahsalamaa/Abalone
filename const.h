@@ -134,7 +134,7 @@
 #define ERROR_OUT_OF_BOUNDS 1
 #define ERROR_MISSING_PIECE 2
 #define ERROR_WRONG_COLOR 3
-#define ERROR_NO_LENGTH 4   //NON UTILISE
+#define ERROR_NO_LENGTH 4   
 #define ERROR_BLOCKED 11
 #define ERROR_LINE_INCOMPLETE 21
 #define ERROR_NOT_ENOUGH_STRENGTH 22
@@ -152,6 +152,15 @@
 #define COULEUR_BLANC 'B'
 #define COULEUR_NOIR 'N'
 
+#define MAX_CHILDREN 100
+
+#define ALPHA 1
+#define BETA 1
+#define GAMMA 1
+#define THETA 1
+
+#define DEPTH 5
+
 //Défintion des structures utilisées par l'ensemble du projet (temporaire!)
 
 /**
@@ -165,7 +174,7 @@ typedef struct {
     char state;
     /*!L'identité du joueur, noir ou blanc*/
     char player;
-    /*!Le temps écoulé*/
+    /*!Le temps écoulé, en secondes*/
     int timer;
 } Abalone, *PAbalone;
 
@@ -185,16 +194,20 @@ typedef struct {
  * \brief Le structure d'un mouvement contenant ses characteristiques
 */
 typedef struct {
-    /*! direction du mouvement*/
-    char dir;
-    /*! type du mouvement*/
-    char type;
-    /*! longueur du mouvement*/
-    char longueur;
     /*! Coordonnées du depart*/
     Coord start;
     /*! Coordonnées d'arrivé*/
     Coord end;
 } Mouvement, *PMouvement;
+
+
+typedef struct Node {
+    struct Node** children;
+    int nb_children;
+    char** board;
+    Mouvement mouvement;
+    int depth;
+    int value;
+} Node, *PNode;
 
 #endif //IMM2223_GR6_CONST_H

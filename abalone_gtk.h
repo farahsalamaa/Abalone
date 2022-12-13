@@ -18,5 +18,7 @@
 */
 
 int play_game_gtk(int argc, char **argv);
+void play_game_gtk2(int argc, char **argv);
+void play_game_gtk3(int argc, char **argv);
 
 #endif //IMM2223_GR6_ABALONE_GTK_H

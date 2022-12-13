@@ -18,9 +18,12 @@
 void afficheOptions(){
     /* affiche toutes les options de lancement du programme */
     printf("Liste des options : \n");
-    printf("\t--pvp => joueur contre joueur\n");
+    printf("\t-l pvp=> joueur contre joueur sous gtk\n");
+    printf("\t-l noir => joueur noir contre ia blanc sous gtk\n");
+    printf("\t-l blanc => joueur blanc contre ia noir sous gtk\n");
+    printf("\t-ia => ia contre ia sous gtk\n");
     printf("\t--r_ia => joueur contre ia aléatoire\n");
-    printf("\t--gtk => lancer le mode gtk\n");
+ 
     printf("\t--port XXXX => créer un serveur (ex:2000)\n");
     printf("\t--connect XXX.XXX.XXX.XXX:YYYY (ex:127.0.0.1:2000)=> se connecter au serveur\n");
 
@@ -29,8 +32,8 @@ void afficheOptions(){
 /**
  * \fn main(int argc, char **argv)
  * \brief 
- * \param argc longueur de l'entrée
- * \param argv les inputs de l'utilisateur
+ * \param argc Longueur de l'entrée
+ * \param argv Les inputs de l'utilisateur
 */
 int main(int argc, char **argv){
 
@@ -44,15 +47,42 @@ int main(int argc, char **argv){
         	afficheOptions();
         	return EXIT_SUCCESS;
     	}
+        else if(strcmp("--terminator", argv[1]) == 0) {
+            play_terminator(DEPTH);
+        }
     	 else if(strcmp("--pvp", argv[1]) == 0){ // on lance le mode joueur contre joueur
     	 	play_game();
-    	 }
-         else if(strcmp("--r_ia", argv[1]) == 0){ // on lance le mode joueur contre ia aléatoire
-             play_game_random_ia();
-         }
-    	 else if(strcmp("--gtk", argv[1]) == 0){
+    	}
+        else if(strcmp("--r_ia", argv[1]) == 0){ // on lance le mode joueur contre ia aléatoire
+            play_game_random_ia();
+        }
+         else if(strcmp("--port", argv[1]) == 0){
+			play_game_server(argv[2]);
+		}
+		else if(strcmp("--connect", argv[1]) == 0){
+			play_game_client(argv[2]);
+		}
+        else if(strcmp("-ia", argv[1]) == 0){
+    	 	play_game_gtk3(argc, argv);
+    	}
+         
+        else if(strcmp("-l", argv[1]) == 0){
+          	if(strcmp("noir", argv[2]) == 0){
+    	 	play_game_gtk2(argc, argv);
+    	 	
+    	 	}
+    	 	if(strcmp("blanc", argv[2]) == 0){
+    	 	play_game_gtk2(argc, argv);
+    	 	
+    	 	}
+    	 	if(strcmp("pvp", argv[2]) == 0){
     	 	play_game_gtk(argc, argv);
-    	 }
+    	 	
+    	 	}
+          }
+          	
+   
+    	 
     
     	else{
 

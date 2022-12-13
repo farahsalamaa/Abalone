@@ -33,15 +33,14 @@ char type_mvt(Mouvement mvt) {
 }
 
 /**
- * \fn orientation_grp(Coord start, Coord end)
+ * \fn orientation_grp(Mouvement mvt)
  * \brief determiner si le mouvement d'un groupe de pions est horizontal ou vertical ou non
- * \param start coordonnées du debut du mouvement
- * \param end coordonnées de la fin du mouvement
+ * \param mvt Le mouvement avec les coordonnées de début et fin
  * \return l'orientation horizontal ou vertical ou non
 */
-char orientation_grp(Coord start, Coord end){
-    if (start.x == end.x) return HORIZONTAL;
-    else if (start.y == end.y) return VERTICAL;
+char orientation_grp(Mouvement mvt){
+    if (mvt.start.x == mvt.end.x) return HORIZONTAL;
+    else if (mvt.start.y == mvt.end.y) return VERTICAL;
     else return ERROR_NOT_ALIGNED;
 }
 
@@ -85,13 +84,13 @@ char length_mvt(Mouvement mvt){
 }
 
 /**
- * \fn voisin_carre(PAbalone abalone, Mouvement mvt)
+ * \fn voisin_carre(char** board, Mouvement mvt)
  * \brief determiner le pion voisin dans un carre (cas specifique)
- * \param mvt le mouvement donné
- * \param abalone le jeu contenant le board
- * \return les coordonnées du voisin d'un pion en mouvement carré
+ * \param board Le jeu
+ * \param mvt Le mouvement donné
+ * \return Les coordonnées du voisin d'un pion en mouvement carré
 */
-Coord voisin_carre(PAbalone abalone, Mouvement mvt){
+Coord voisin_carre(char** board, Mouvement mvt){
     Coord v;
     int x0 = mvt.start.x;
     int y0 = mvt.start.y;
@@ -103,12 +102,12 @@ Coord voisin_carre(PAbalone abalone, Mouvement mvt){
     || x0 < 0 || y0 < 0 || x1 < 0 || y1 < 0){
         return v;
     }
-    if (abalone->board[x0][y0] == abalone->board[x0][y1]){
+    if (board[x0][y0] == board[x0][y1]){
         v.x = x0;
         v.y = y1;
         return v;
     }
-    else if (abalone->board[x0][y0] == abalone->board[x1][y0]){
+    else if (board[x0][y0] == board[x1][y0]){
         v.x = x1;
         v.y = y0;
         return v;
@@ -117,13 +116,13 @@ Coord voisin_carre(PAbalone abalone, Mouvement mvt){
 }
 
 /**
- * \fn direction_mvt(PAbalone abalone, Mouvement mvt)
+ * \fn direction_mvt(char** board, Mouvement mvt)
  * \brief determiner la direction du mouvement
+ * \param board le tableau représentant le plateau
  * \param mvt le mouvement donné
- * \param abalone le jeu contenant le board
  * \return la direction mouvement
 */
-char direction_mvt(PAbalone abalone, Mouvement mvt){
+char direction_mvt(char** board, Mouvement mvt){
     char len = length_mvt(mvt);
     char type = type_mvt(mvt);
     switch (len){
@@ -133,13 +132,13 @@ char direction_mvt(PAbalone abalone, Mouvement mvt){
                 else if (mvt.start.y < mvt.end.y){return DIR_RIGHT;}
             }
             else if (mvt.start.y == mvt.end.y){
-                if (mvt.start.x > mvt.end.x){return DIR_DOWN;}
-                else if (mvt.start.x < mvt.end.x){return DIR_UP;}
+                if (mvt.start.x > mvt.end.x){return DIR_UP;}
+                else if (mvt.start.x < mvt.end.x){return DIR_DOWN;}
             }
             break;
         case L_2:
             if (type == MVT_LARGEUR){
-                Coord voisin = voisin_carre(abalone, mvt);
+                Coord voisin = voisin_carre(board, mvt);
                 if (voisin.x == mvt.start.x){
                     if (mvt.start.x > mvt.end.x){return DIR_UP;}
                     else if (mvt.start.x < mvt.end.x){return DIR_DOWN;}
@@ -184,15 +183,16 @@ char direction_mvt(PAbalone abalone, Mouvement mvt){
 }
 
 /**
- * \fn validate_mvt_piece(PAbalone abalone, Mouvement mvt)
+ * \fn validate_mvt_piece(char** board,char player, Mouvement mvt)
  * \brief verifier si le mouvement donné contient le pion appartenant au joueur
- * \param mvt le mouvement donné
- * \param abalone le jeu contenant le board
+ * \param board Le jeu
+ * \param player Le joueur
+ * \param mvt Le mouvement donné
  * \return ERROR_MISSING_PIECE s'il n'ya pas de pion, ERROR_WRONG_COLOR si pion n'appartient pas au joueur et VALIDATION_OK sinon
 */
-int validate_mvt_piece(PAbalone abalone, Mouvement mvt){
-    if (abalone->board[mvt.start.x][mvt.start.y] != abalone->player){
-        if (abalone->board[mvt.start.x][mvt.start.y] == 'Z')
+int validate_mvt_piece(char** board,char player, Mouvement mvt){
+    if (board[mvt.start.x][mvt.start.y] != player){
+        if (board[mvt.start.x][mvt.start.y] == 'Z')
         {
             return ERROR_MISSING_PIECE;
         }else{
@@ -205,8 +205,8 @@ int validate_mvt_piece(PAbalone abalone, Mouvement mvt){
 
 /**
  * \fn validate_mvt_bounds(Mouvement mvt)
- * \brief verifier si le mouvement donné reste bien dans la grille
- * \param mvt le mouvement donné
+ * \brief Vérifier si le mouvement donné reste bien dans la grille
+ * \param mvt Le mouvement donné
  * \return ERROR_OUT_OF_BOUNDS si erreur et VALIDATION_OK sinon
 */
 int validate_mvt_bounds(Mouvement mvt){
@@ -225,31 +225,32 @@ int validate_mvt_bounds(Mouvement mvt){
 }
 
 /**
- * \fn validate_mvt_ligne_1(PAbalone abalone, Mouvement mvt)
- * \brief verifier si le mouvement d'un pion n'est pas bloqué par un autre pion
- * \param mvt le mouvement donné
- * \param abalone le jeu contenant le board
+ * \fn validate_mvt_ligne_1(char** board, Mouvement mvt)
+ * \brief Vérifier si le mouvement d'un pion n'est pas bloqué par un autre pion
+ * \param board Le tableau representant le plateau
+ * \param mvt Le mouvement donné
  * \return ERROR_BLOCKED s'il est bloqué et VALIDATION_OK sinon
 */
-int validate_mvt_ligne_1(PAbalone abalone, Mouvement mvt){
-    if (abalone->board[mvt.end.x][mvt.end.y] != 'Z'){
+int validate_mvt_ligne_1(char** board, Mouvement mvt){
+    if (board[mvt.end.x][mvt.end.y] != COULEUR_VIDE){
         return ERROR_BLOCKED;
     }
     return VALIDATION_OK;   
 }
 
 /**
- * \fn validate_mvt_ligne_2(PAbalone abalone, Mouvement mvt)
- * \brief verifier si le mouvement en ligne de deux pion n'est pas bloqué par un autre pion
- * \param mvt le mouvement donné
- * \param abalone le jeu contenant le board
+ * \fn validate_mvt_ligne_2(char** board, char player, Mouvement mvt)
+ * \brief Vérifier si le mouvement en ligne de deux pion n'est pas bloqué par un autre pion
+ * \param board Le jeu
+ * \param player Le joueur
+ * \param mvt Le mouvement donné
  * \return VALIDATION_OK s'il n'est pas bloqué, sinon un message d'erreur correspondant 
 */
-int validate_mvt_ligne_2(PAbalone abalone, Mouvement mvt){
+int validate_mvt_ligne_2(char** board, char player, Mouvement mvt){
     int modX = 0;
     int modY = 0;
     
-    switch (mvt.dir){
+    switch (direction_mvt(board, mvt)){
         case DIR_UP:
             modX = -1;
             break;
@@ -264,21 +265,21 @@ int validate_mvt_ligne_2(PAbalone abalone, Mouvement mvt){
             break;
     }
 
-    if (abalone->board[mvt.start.x+modX][mvt.start.y+modY] != abalone->player){
+    if (board[mvt.start.x+modX][mvt.start.y+modY] != player){
         return ERROR_LINE_INCOMPLETE;
     }
 
-    if (abalone->board[mvt.end.x][mvt.end.y] == abalone->player){
+    if (board[mvt.end.x][mvt.end.y] == player){
         return ERROR_ALLY_IN_THE_WAY;
-    }else if(abalone->board[mvt.end.x][mvt.end.y] == COULEUR_VIDE){
+    }else if(board[mvt.end.x][mvt.end.y] == COULEUR_VIDE){
         return VALIDATION_OK;
     }else{
-        if (mvt.dir == DIR_UP || mvt.dir == DIR_DOWN){
+        if (direction_mvt(board, mvt) == DIR_UP || direction_mvt(board, mvt) == DIR_DOWN){
             if (mvt.end.x+modX < 0 || mvt.end.x+modX > 7){
                 return VALIDATION_OK;
-            }else if(abalone->board[mvt.end.x+modX][mvt.end.y] == COULEUR_VIDE){
+            }else if(board[mvt.end.x+modX][mvt.end.y] == COULEUR_VIDE){
                 return VALIDATION_OK;
-            }else if(abalone->board[mvt.end.x+modX][mvt.end.y] == abalone->player){
+            }else if(board[mvt.end.x+modX][mvt.end.y] == player){
                 return ERROR_ALLY_IN_THE_WAY;
             }
 
@@ -286,9 +287,9 @@ int validate_mvt_ligne_2(PAbalone abalone, Mouvement mvt){
         }else{
             if (mvt.end.y+modY < 0 || mvt.end.y+modY > 7){
                 return VALIDATION_OK;
-            }else if(abalone->board[mvt.end.x][mvt.end.y+modY] == COULEUR_VIDE){
+            }else if(board[mvt.end.x][mvt.end.y+modY] == COULEUR_VIDE){
                 return VALIDATION_OK;
-            }else if(abalone->board[mvt.end.x][mvt.end.y+modY] == abalone->player){
+            }else if(board[mvt.end.x][mvt.end.y+modY] == player){
                 return ERROR_ALLY_IN_THE_WAY;
             }
 
@@ -299,17 +300,18 @@ int validate_mvt_ligne_2(PAbalone abalone, Mouvement mvt){
 }
 
 /**
- * \fn validate_mvt_ligne_3(PAbalone abalone, Mouvement mvt)
+ * \fn validate_mvt_ligne_3(char** board, char player, Mouvement mvt)
  * \brief verifier si le mouvement en ligne de trois pion n'est pas bloqué par un autre pion
  * \param mvt le mouvement donné
- * \param abalone le jeu contenant le board
+ * \param board le tableau de la partie
+ * \param player le joueur actif
  * \return VALIDATION_OK s'il n'est pas bloqué, sinon un message d'erreur correspondant
 */
-int validate_mvt_ligne_3(PAbalone abalone, Mouvement mvt){
+int validate_mvt_ligne_3(char** board, char player, Mouvement mvt){
     int modX = 0;
     int modY = 0;
     
-    switch (mvt.dir){
+    switch (direction_mvt(board, mvt)){
         case DIR_UP:
             modX = -1;
             break;
@@ -324,32 +326,32 @@ int validate_mvt_ligne_3(PAbalone abalone, Mouvement mvt){
             break;
     }
 
-    if (abalone->board[mvt.start.x+modX][mvt.start.y+modY] != abalone->player){
+    if (board[mvt.start.x+modX][mvt.start.y+modY] != player){
         return ERROR_LINE_INCOMPLETE;
     }
-    if (abalone->board[mvt.start.x+2*modX][mvt.start.y+2*modY] != abalone->player){
+    if (board[mvt.start.x+2*modX][mvt.start.y+2*modY] != player){
         return ERROR_LINE_INCOMPLETE;
     }
 
-    if (abalone->board[mvt.end.x][mvt.end.y] == abalone->player){
+    if (board[mvt.end.x][mvt.end.y] == player){
         return ERROR_ALLY_IN_THE_WAY;
-    }else if(abalone->board[mvt.end.x][mvt.end.y] == COULEUR_VIDE){
+    }else if(board[mvt.end.x][mvt.end.y] == COULEUR_VIDE){
         return VALIDATION_OK;
     }else{
-        if (mvt.dir == DIR_UP || mvt.dir == DIR_DOWN){
+        if (direction_mvt(board, mvt) == DIR_UP || direction_mvt(board, mvt) == DIR_DOWN){
             if (mvt.end.x+modX < 0 || mvt.end.x+modX > 7){
                 return VALIDATION_OK;
-            }else if(abalone->board[mvt.end.x+modX][mvt.end.y] == COULEUR_VIDE){
+            }else if(board[mvt.end.x+modX][mvt.end.y] == COULEUR_VIDE){
                 return VALIDATION_OK;
-            }else if(abalone->board[mvt.end.x+modX][mvt.end.y] == abalone->player){
+            }else if(board[mvt.end.x+modX][mvt.end.y] == player){
                 return ERROR_ALLY_IN_THE_WAY;
             }
 
             if (mvt.end.x+2*modX < 0 || mvt.end.x+2*modX > 7){
                 return VALIDATION_OK;
-            }else if(abalone->board[mvt.end.x+2*modX][mvt.end.y] == COULEUR_VIDE){
+            }else if(board[mvt.end.x+2*modX][mvt.end.y] == COULEUR_VIDE){
                 return VALIDATION_OK;
-            }else if(abalone->board[mvt.end.x+2*modX][mvt.end.y] == abalone->player){
+            }else if(board[mvt.end.x+2*modX][mvt.end.y] == player){
                 return ERROR_ALLY_IN_THE_WAY;
             }
 
@@ -357,17 +359,17 @@ int validate_mvt_ligne_3(PAbalone abalone, Mouvement mvt){
         }else{
             if (mvt.end.y+modY < 0 || mvt.end.y+modY > 7){
                 return VALIDATION_OK;
-            }else if(abalone->board[mvt.end.x][mvt.end.y+modY] == COULEUR_VIDE){
+            }else if(board[mvt.end.x][mvt.end.y+modY] == COULEUR_VIDE){
                 return VALIDATION_OK;
-            }else if(abalone->board[mvt.end.x][mvt.end.y+modY] == abalone->player){
+            }else if(board[mvt.end.x][mvt.end.y+modY] == player){
                 return ERROR_ALLY_IN_THE_WAY;
             }
 
             if (mvt.end.y+2*modY < 0 || mvt.end.y+2*modY > 7){
                 return VALIDATION_OK;
-            }else if(abalone->board[mvt.end.x][mvt.end.y+2*modY] == COULEUR_VIDE){
+            }else if(board[mvt.end.x][mvt.end.y+2*modY] == COULEUR_VIDE){
                 return VALIDATION_OK;
-            }else if(abalone->board[mvt.end.x][mvt.end.y+2*modY] == abalone->player){
+            }else if(board[mvt.end.x][mvt.end.y+2*modY] == player){
                 return ERROR_ALLY_IN_THE_WAY;
             }
 
@@ -381,11 +383,11 @@ int validate_mvt_ligne_3(PAbalone abalone, Mouvement mvt){
  * \fn validate_mvt_largeur_1(PAbalone abalone, Mouvement mvt)
  * \brief verifier si le mouvement d'un pion n'est pas bloqué par un autre pion
  * \param mvt le mouvement donné
- * \param abalone le jeu contenant le board
+ * \param board le tableau représentant le plateau
  * \return VALIDATION_OK s'il n'est pas bloqué, ERROR_BLOCKED sinon 
 */
-int validate_mvt_largeur_1(PAbalone abalone, Mouvement mvt){
-    if (abalone->board[mvt.end.x][mvt.end.y] != 'Z'){
+int validate_mvt_largeur_1(char** board, Mouvement mvt){
+    if (board[mvt.end.x][mvt.end.y] != COULEUR_VIDE){
         return ERROR_BLOCKED;
     }
     return VALIDATION_OK;
@@ -395,14 +397,15 @@ int validate_mvt_largeur_1(PAbalone abalone, Mouvement mvt){
  * \fn validate_mvt_largeur_2(PAbalone abalone, Mouvement mvt)
  * \brief verifier si le mouvement en largeur de deux pion n'est pas bloqué par un autre pion
  * \param mvt le mouvement donné
- * \param abalone le jeu contenant le board
+ * \param board le tableau de la partie
+ * \param player le joueur actif
  * \return VALIDATION_OK s'il n'est pas bloqué, sinon un message d'erreur correspondant 
 */
-int validate_mvt_largeur_2(PAbalone abalone, Mouvement mvt){
+int validate_mvt_largeur_2(char** board, char player, Mouvement mvt){
     int modX = 0;
     int modY = 0;
     
-    switch (mvt.dir){
+    switch (direction_mvt(board, mvt)){
         case DIR_UP:
             modX = -1;
             break;
@@ -417,17 +420,17 @@ int validate_mvt_largeur_2(PAbalone abalone, Mouvement mvt){
             break;
     }
 
-    if(mvt.dir == DIR_UP || mvt.dir == DIR_DOWN){
+    if(direction_mvt(board, mvt) == DIR_UP || direction_mvt(board, mvt) == DIR_DOWN){
         int progression =  mvt.end.y - mvt.start.y;
         
-        if (abalone->board[mvt.start.x+modX][mvt.start.y] != COULEUR_VIDE){
+        if (board[mvt.start.x+modX][mvt.start.y] != COULEUR_VIDE){
             return ERROR_OBSTRUCTED;
         }
 
-        if (abalone->board[mvt.start.x][mvt.start.y+progression] != abalone->player){
+        if (board[mvt.start.x][mvt.start.y+progression] != player){
             return ERROR_TUPLE_INCOMPLETE;
         }
-        if (abalone->board[mvt.start.x+modX][mvt.start.y+progression] != COULEUR_VIDE){
+        if (board[mvt.start.x+modX][mvt.start.y+progression] != COULEUR_VIDE){
             return ERROR_OBSTRUCTED;
         }
 
@@ -435,14 +438,14 @@ int validate_mvt_largeur_2(PAbalone abalone, Mouvement mvt){
     }else{
         int progression =  mvt.end.x - mvt.start.x;
         
-        if (abalone->board[mvt.start.x][mvt.start.y+modY] != COULEUR_VIDE){
+        if (board[mvt.start.x][mvt.start.y+modY] != COULEUR_VIDE){
             return ERROR_OBSTRUCTED;
         }
         
-        if (abalone->board[mvt.start.x+progression][mvt.start.y] != abalone->player){
+        if (board[mvt.start.x+progression][mvt.start.y] != player){
             return ERROR_TUPLE_INCOMPLETE;
         }
-        if (abalone->board[mvt.start.x+progression][mvt.start.y+modY] != COULEUR_VIDE){
+        if (board[mvt.start.x+progression][mvt.start.y+modY] != COULEUR_VIDE){
             return ERROR_OBSTRUCTED;
         }
 
@@ -456,14 +459,15 @@ int validate_mvt_largeur_2(PAbalone abalone, Mouvement mvt){
  * \fn validate_mvt_largeur_3(PAbalone abalone, Mouvement mvt)
  * \brief verifier si le mouvement en largeur de trois pion n'est pas bloqué par un autre pion
  * \param mvt le mouvement donné
- * \param abalone le jeu contenant le board
+ * \param board le tableau de la partie
+ * \param player le joueur actif
  * \return VALIDATION_OK s'il n'est pas bloqué, sinon un message d'erreur correspondant 
 */
-int validate_mvt_largeur_3(PAbalone abalone, Mouvement mvt){
+int validate_mvt_largeur_3(char** board, char player, Mouvement mvt){
     int modX = 0;
     int modY = 0;
     
-    switch (mvt.dir){
+    switch (direction_mvt(board, mvt)){
         case DIR_UP:
             modX = -1;
             break;
@@ -478,44 +482,44 @@ int validate_mvt_largeur_3(PAbalone abalone, Mouvement mvt){
             break;
     }
 
-    if(mvt.dir == DIR_UP || mvt.dir == DIR_DOWN){
+    if(direction_mvt(board, mvt) == DIR_UP || direction_mvt(board, mvt) == DIR_DOWN){
         int progression =  (mvt.end.y - mvt.start.y)/2;
-        if (abalone->board[mvt.start.x+modX][mvt.start.y] != COULEUR_VIDE){
+        if (board[mvt.start.x+modX][mvt.start.y] != COULEUR_VIDE){
             return ERROR_OBSTRUCTED;
         }
 
-        if (abalone->board[mvt.start.x][mvt.start.y+progression] != abalone->player){
+        if (board[mvt.start.x][mvt.start.y+progression] != player){
             return ERROR_TUPLE_INCOMPLETE;
         }
-        if (abalone->board[mvt.start.x+modX][mvt.start.y+progression] != COULEUR_VIDE){
+        if (board[mvt.start.x+modX][mvt.start.y+progression] != COULEUR_VIDE){
             return ERROR_OBSTRUCTED;
         }
 
-        if (abalone->board[mvt.start.x][mvt.start.y+2*progression] != abalone->player){
+        if (board[mvt.start.x][mvt.start.y+2*progression] != player){
             return ERROR_TUPLE_INCOMPLETE;
         }
-        if (abalone->board[mvt.start.x+modX][mvt.start.y+2*progression] != COULEUR_VIDE){
+        if (board[mvt.start.x+modX][mvt.start.y+2*progression] != COULEUR_VIDE){
             return ERROR_OBSTRUCTED;
         }
 
         return VALIDATION_OK;
     }else{
         int progression =  (mvt.end.x - mvt.start.x)/2;
-        if (abalone->board[mvt.start.x][mvt.start.y+modY] != COULEUR_VIDE){
+        if (board[mvt.start.x][mvt.start.y+modY] != COULEUR_VIDE){
             return ERROR_OBSTRUCTED;
         }
 
-        if (abalone->board[mvt.start.x+progression][mvt.start.y] != abalone->player){
+        if (board[mvt.start.x+progression][mvt.start.y] != player){
             return ERROR_TUPLE_INCOMPLETE;
         }
-        if (abalone->board[mvt.start.x+progression][mvt.start.y+modY] != COULEUR_VIDE){
+        if (board[mvt.start.x+progression][mvt.start.y+modY] != COULEUR_VIDE){
             return ERROR_OBSTRUCTED;
         }
 
-        if (abalone->board[mvt.start.x+2*progression][mvt.start.y] != abalone->player){
+        if (board[mvt.start.x+2*progression][mvt.start.y] != player){
             return ERROR_TUPLE_INCOMPLETE;
         }
-        if (abalone->board[mvt.start.x+2*progression][mvt.start.y+modY] != COULEUR_VIDE){
+        if (board[mvt.start.x+2*progression][mvt.start.y+modY] != COULEUR_VIDE){
             return ERROR_OBSTRUCTED;
         }
 
@@ -529,35 +533,36 @@ int validate_mvt_largeur_3(PAbalone abalone, Mouvement mvt){
  * \fn validate_mvt(PAbalone abalone, Mouvement mvt)
  * \brief verifier si le mouvement est valide
  * \param mvt le mouvement donné
- * \param abalone le jeu contenant le board
+ * \param board le tableau de la partie
+ * \param player le joueur actif
  * \return VALIDATION_OK si valide, sinon un message d'erreur correspondant 
 */
-int validate_mvt(PAbalone abalone, Mouvement mvt){
+int validate_mvt(char** board, char player, Mouvement mvt){
     /*Erreurs générales*/
     int error = validate_mvt_bounds(mvt);
     if(error != VALIDATION_OK){return error;}
-    error = validate_mvt_piece(abalone, mvt);
+    error = validate_mvt_piece(board, player, mvt);
     if(error != VALIDATION_OK){return error;}
     
-    if (mvt.longueur == L_0){
+    if (length_mvt(mvt) == L_0){
         return ERROR_NO_LENGTH;
     }
 
-    switch (mvt.type)
+    switch (type_mvt(mvt))
     {
     case MVT_LIGNE:
-        switch (mvt.longueur)
+        switch (length_mvt(mvt))
         {
         case L_1:
-            return validate_mvt_ligne_1(abalone, mvt);
+            return validate_mvt_ligne_1(board, mvt);
             break;
 
         case L_2:
-            return validate_mvt_ligne_2(abalone, mvt);
+            return validate_mvt_ligne_2(board, player, mvt);
             break;
 
         case L_3:
-            return validate_mvt_ligne_3(abalone, mvt);
+            return validate_mvt_ligne_3(board, player, mvt);
             break;
         
         default:
@@ -567,18 +572,18 @@ int validate_mvt(PAbalone abalone, Mouvement mvt){
         break;
 
     case MVT_LARGEUR:
-        switch (mvt.longueur)
+        switch (length_mvt(mvt))
         {
         case L_1:
-            return validate_mvt_largeur_1(abalone, mvt);
+            return validate_mvt_largeur_1(board, mvt);
             break;
 
         case L_2:
-            return validate_mvt_largeur_2(abalone, mvt);
+            return validate_mvt_largeur_2(board, player, mvt);
             break;
 
         case L_3:
-            return validate_mvt_largeur_3(abalone, mvt);
+            return validate_mvt_largeur_3(board, player, mvt);
             break;
         
         default:
@@ -595,42 +600,25 @@ int validate_mvt(PAbalone abalone, Mouvement mvt){
 
 /**
  * \fn string_to_coord(char* mvt, PCoord coord)
- * \brief changement de la chaine donnée par utilisateur en coordonnées 2D
- * \param mvt le mouvement donné
- * \param coord les coordonnées du mouvement qu'on veut
+ * \brief Changement de la chaine donnée par utilisateur en coordonnées 2D
+ * \param string La chaine de caractère à convertir
+ * \param mvt Le mouvement qui devient le mouvement converti. Ne pas utiliser si string_to_mouvement renvoie != 0
  * \return 0 si les coordonnées existe dans la grille, 1 sinon
 */
-int string_to_coord(char* mvt, PCoord coord){
-    coord[0].x = mvt[0]-65;
-    coord[0].y = mvt[1]-49;
-    coord[1].x = mvt[3]-65;
-    coord[1].y = mvt[4]-49;
-    if(coord[0].x > 7 || coord[0].y > 7 || coord[1].x > 7 || coord[1].y > 7 || mvt[2]!=':' 
-    || coord[0].x < 0 || coord[0].y < 0 || coord[1].x < 0 || coord[1].y < 0){
+int string_to_mouvement(char* string, PMouvement mvt){
+    mvt->start.x = string[0]-65;
+    mvt->start.y = string[1]-49;
+    mvt->end.x = string[3]-65;
+    mvt->end.y = string[4]-49;
+    if(mvt->start.x > 7 || mvt->start.y > 7 || mvt->end.x > 7 || mvt->end.y > 7 || string[2]!=':' 
+    || mvt->start.x < 0 || mvt->start.y < 0 || mvt->end.x < 0 || mvt->end.y < 0){
         return ERROR_OUT_OF_BOUNDS;   
     }else{
         return 0;
     }
 }
 
-/**
- * \fn coord_to_mouvement(PAbalone abalone, PMouvement mvt, PCoord coords)
- * \brief mettre les coordonnées dans un mouvement
- * \param mvt le mouvement donné
- * \param coord les coordonnées du mouvement qu'on veut
- * \param abalone le jeu contenant le board
- * \return 0
-*/
-int coord_to_mouvement(PAbalone abalone, PMouvement mvt, PCoord coords){
-    mvt->start = coords[0];
-    mvt->end = coords[1];
 
-    mvt->dir = direction_mvt(abalone,(*mvt)); //TODO ajouter le plateau correct 
-    mvt->type = type_mvt(*mvt);
-    mvt->longueur = length_mvt(*mvt);
-
-    return 0;
-}
 
 //fonction du dernier deplacement
 /* TODO Comprendre ce truc
@@ -653,14 +641,15 @@ et le stock en d sinon il affiche un erreur qui depend du retour de validate */
  * \fn finalise_mvt(PAbalone G,Mouvement mvt)
  * \brief finaliser un mouvement et l'executer
  * \param mvt le mouvement donné
- * \param G le jeu contenant le board
+ * \param board le tableau de la partie
+ * \param player le joueur actif
  * \return VALIDATION_OK si mouvement validé, error sinon
 */
-int finalise_mvt(PAbalone G,Mouvement mvt){
+int finalise_mvt(char** board, char player ,Mouvement mvt){
     Mouvement d;
-    int error = validate_mvt(G,mvt);
+    int error = validate_mvt(board, player,mvt);
     if(!error){
-        exec_mvt(G,mvt);
+        exec_mvt(board, player ,mvt);
         d = mvt;
         return VALIDATION_OK;
     }else{
@@ -669,65 +658,77 @@ int finalise_mvt(PAbalone G,Mouvement mvt){
 }
 
 /**
- * \fn push_mvt(PAbalone G,Mouvement mvt)
- * \brief fonction qui effectue la poussée des pions adverses
+ * \fn push_mvt(char** board, char player,Mouvement mvt)
+ * \brief Fonction qui effectue la poussée des pions ADVERSES
  * \param p le mouvement donné
- * \param plateau le jeu contenant le board
+ * \param board le tableau de la partie
+ * \param player le joueur actif
+ * \param out
 */
- void push_mvt(PAbalone plateau,Mouvement p,int out){
+void push_mvt(char** board, char player,Mouvement p,int out){
+    //on ne pousse pas le premier pion en dehors
     if (out==0){
-        if (plateau->board[p.end.x][p.end.y]!=COULEUR_VIDE){
+        if (board[p.end.x][p.end.y]!=COULEUR_VIDE){
+            //mouvement du deuxième piont poussé
             Mouvement pushed;
             pushed.start.x = p.end.x;
             pushed.start.y = p.end.y;
+            //le deuxième pion sort
             int pushedout = 1;
-            if (p.dir==DIR_UP){
+            // trace();
+            // debug("deplacement du premier pion adverse : (%d,%d) to (%d,%d)",p.start.x,p.start.y,p.end.x,p.end.y);
+            // debug("direction dumouvement du premier pion : %c",direction_mvt(board, p));
+            if (direction_mvt(board, p)==DIR_UP){
                 if (pushed.start.x>0){
                 pushed.end.x = p.end.x-1;
                 pushed.end.y = p.end.y;
+                //le deuxième pion le sort pas
                 pushedout=0;
                 }
             }
-            if (p.dir==DIR_DOWN){
+            if (direction_mvt(board, p)==DIR_DOWN){
                 if (pushed.start.x<7){
                     pushed.end.x = p.end.x+1;
                     pushed.end.y = p.end.y;
+                    //le deuxième pion le sort pas
                     pushedout=0;
                 }
             }
-            if (p.dir==DIR_LEFT){
+            if (direction_mvt(board, p)==DIR_LEFT){
                 if (pushed.start.y>0){
                 pushed.end.x = p.end.x;
                 pushed.end.y = p.end.y-1;
+                //le deuxième pion le sort pas
                 pushedout=0;
                 }
             }
-            if (p.dir==DIR_RIGHT){
+            if (direction_mvt(board, p)==DIR_RIGHT){
                 if (pushed.start.y<7){
                 pushed.end.x = p.end.x;
                 pushed.end.y = p.end.y+1;
+                //le deuxième pion le sort pas
                 pushedout=0;
                 }
             }
-            if (plateau->player==COULEUR_NOIR){
-                plateau->board[p.end.x][p.end.y]=COULEUR_BLANC;
+            if (player==COULEUR_NOIR){
+                board[p.end.x][p.end.y]=COULEUR_BLANC;
                 if (pushedout==0){
-                    plateau->board[pushed.end.x][pushed.end.y]=COULEUR_BLANC;
+                    board[pushed.end.x][pushed.end.y]=COULEUR_BLANC;
                 }
             }
-            if (plateau->player==COULEUR_BLANC){
-                plateau->board[p.end.x][p.end.y]=COULEUR_NOIR;
+            if (player==COULEUR_BLANC){
+                board[p.end.x][p.end.y]=COULEUR_NOIR;
                 if (pushedout==0){
-                plateau->board[pushed.end.x][pushed.end.y]=COULEUR_NOIR;
+                board[pushed.end.x][pushed.end.y]=COULEUR_NOIR;
                 }
             }
         }
         else {
-            if (plateau->player==COULEUR_NOIR){
-            plateau->board[p.end.x][p.end.y]=COULEUR_BLANC;
+            if (player==COULEUR_NOIR){
+            board[p.end.x][p.end.y]=COULEUR_BLANC;
             }
-            if (plateau->player==COULEUR_BLANC){
-            plateau->board[p.end.x][p.end.y]=COULEUR_NOIR;
+            if (player==COULEUR_BLANC){
+            board[p.end.x][p.end.y]=COULEUR_NOIR;
             }
         }
     }
@@ -738,138 +739,156 @@ int finalise_mvt(PAbalone G,Mouvement mvt){
 //fonction qui prend le plateau en entrée, le modifie avec le nouveau mvt et retourne le plateau actualisé
 //Appelle la fct push_mvt si un pion sort du plateau (à terminer)
 /**
- * \fn exec_mvt(PAbalone G,Mouvement mvt)
+ * \fn exec_mvt(char** board, char player,Mouvement mvt)
  * \brief fonction qui effectue le mouvement
  * \param p le mouvement donné
- * \param plateau le jeu contenant le board
+ * \param board le tableau de la partie
+ * \param player le joueur actif
  * \return le board actualisé avec le mouvement effectué
 */
-PAbalone exec_mvt(PAbalone plateau,Mouvement p){
-    if (p.longueur==L_1){
-        plateau->board[p.start.x][p.start.y]=COULEUR_VIDE;
-        plateau->board[p.end.x][p.end.y]=plateau->player;
+char** exec_mvt(char** board, char player, Mouvement p){
+    //longueur 1
+    if (length_mvt(p)==L_1){
+        board[p.start.x][p.start.y]=COULEUR_VIDE;
+        board[p.end.x][p.end.y]=player;
     }
+    //longueur > 1
     else {
-        if (p.type==MVT_LIGNE){     //mvt en ligne
-            plateau->board[p.start.x][p.start.y]=COULEUR_VIDE;
-            if (plateau->board[p.end.x][p.end.y]!=COULEUR_VIDE){
+        //LIGNE
+        if (type_mvt(p)==MVT_LIGNE){     
+            //On vide le début du mouvement
+            board[p.start.x][p.start.y]=COULEUR_VIDE;
+
+            //On pousse qqchose
+            if (board[p.end.x][p.end.y]!=COULEUR_VIDE){
+                //Mouvement de poussée du pion qui gêne
                 Mouvement mvtpush;
                 mvtpush.start.x = p.end.x;
                 mvtpush.start.y = p.end.y;
-                mvtpush.dir = p.dir;
+
+                //direction_mvt(board, mvtpush) = direction_mvt(board, p); let's see if it's really useful
+                
+                //on pousse le pion suivant en dehors
                 int out=1;
-                if (p.dir==DIR_UP){
+                if (direction_mvt(board, p)==DIR_UP){
                     if (mvtpush.start.x!=0){
                         mvtpush.end.x = p.end.x-1;
                         mvtpush.end.y = p.end.y;
+                        //on ne pousse pas le pion suivant en dehors
                         out = 0;
                     }
                 }
-                if (p.dir==DIR_DOWN){
+                if (direction_mvt(board, p)==DIR_DOWN){
                     if (mvtpush.start.x!=7){
                         mvtpush.end.x = p.end.x+1;
                         mvtpush.end.y = p.end.y;
+                        //on ne pousse pas le pion suivant en dehors
                         out = 0;
                     }
                 }
-                if (p.dir==DIR_LEFT){
+                if (direction_mvt(board, p)==DIR_LEFT){
                     if (mvtpush.start.y!=0){
                         mvtpush.end.x = p.end.x;
                         mvtpush.end.y = p.end.y-1;
+                        //on ne pousse pas le pion suivant en dehors
                         out = 0;
                     }
                 }
-                if (p.dir==DIR_RIGHT){
+                if (direction_mvt(board, p)==DIR_RIGHT){
                     if (mvtpush.start.y!=7){
                         mvtpush.end.x = p.end.x;
                         mvtpush.end.y = p.end.y+1;
+                        //on ne pousse pas le pion suivant en dehors
                         out = 0;
                     }
                 }
-                push_mvt(plateau,mvtpush,out);
-                plateau->board[p.end.x][p.end.y]=plateau->player;
+                //On effectue la poussée du pion suivant
+                push_mvt(board, player, mvtpush, out);
+                //on pousse le nôtre
+                board[p.end.x][p.end.y]=player;
             }
-            else {plateau->board[p.end.x][p.end.y]=plateau->player;
+            //On ne pousse rien (simple transfert)
+            else {board[p.end.x][p.end.y]=player;
             }
         }
-        else if (p.type==MVT_LARGEUR){   //mvt latéral
-            if (p.dir==DIR_UP){   //direction vers le haut
-                plateau->board[p.start.x][p.start.y]=COULEUR_VIDE;
-                plateau->board[p.end.x][p.end.y]=plateau->player;
-                plateau->board[p.start.x-1][p.start.y]=plateau->player;
+        else if (type_mvt(p)==MVT_LARGEUR){   //mvt latéral
+            if (direction_mvt(board, p)==DIR_UP){   //direction vers le haut
+                board[p.start.x][p.start.y]=COULEUR_VIDE;
+                board[p.end.x][p.end.y]=player;
+                board[p.start.x-1][p.start.y]=player;
                 if (p.start.y<p.end.y){   //comparaison de la valeur en Y
-                    plateau->board[p.start.x][p.start.y+1]=COULEUR_VIDE;
-                    if (p.longueur==L_3) {
-                        plateau->board[p.start.x][p.start.y+2]=COULEUR_VIDE;
-                        plateau->board[p.start.x-1][p.start.y+1]=plateau->player;
+                    board[p.start.x][p.start.y+1]=COULEUR_VIDE;
+                    if (length_mvt(p)==L_3) {
+                        board[p.start.x][p.start.y+2]=COULEUR_VIDE;
+                        board[p.start.x-1][p.start.y+1]=player;
                     }
                 }
                 else { 
-                    plateau->board[p.start.x][p.start.y-1]=COULEUR_VIDE;
-                    if (p.longueur==L_3) {
-                        plateau->board[p.start.x][p.start.y-2]=COULEUR_VIDE;
-                        plateau->board[p.start.x-1][p.start.y-1]=plateau->player;
+                    board[p.start.x][p.start.y-1]=COULEUR_VIDE;
+                    if (length_mvt(p)==L_3) {
+                        board[p.start.x][p.start.y-2]=COULEUR_VIDE;
+                        board[p.start.x-1][p.start.y-1]=player;
                     }
                 }
             }
-            if (p.dir==DIR_DOWN){          //direction vers le bas
-                plateau->board[p.start.x][p.start.y]=COULEUR_VIDE;
-                plateau->board[p.end.x][p.end.y]=plateau->player;
-                plateau->board[p.start.x+1][p.start.y]=plateau->player;
+            if (direction_mvt(board, p)==DIR_DOWN){          //direction vers le bas
+                board[p.start.x][p.start.y]=COULEUR_VIDE;
+                board[p.end.x][p.end.y]=player;
+                board[p.start.x+1][p.start.y]=player;
                 if (p.start.y<p.end.y){   //comparaison de la valeur en Y
-                    plateau->board[p.start.x][p.start.y+1]=COULEUR_VIDE;
-                    if (p.longueur==L_3) {
-                        plateau->board[p.start.x][p.start.y+2]=COULEUR_VIDE;
-                        plateau->board[p.start.x+1][p.start.y+1]=plateau->player;
+                    board[p.start.x][p.start.y+1]=COULEUR_VIDE;
+                    if (length_mvt(p)==L_3) {
+                        board[p.start.x][p.start.y+2]=COULEUR_VIDE;
+                        board[p.start.x+1][p.start.y+1]=player;
                     }
                 }
                 else { 
-                    plateau->board[p.start.x][p.start.y-1]=COULEUR_VIDE;
-                    if (p.longueur==L_3) {
-                        plateau->board[p.start.x][p.start.y-2]=COULEUR_VIDE;
-                        plateau->board[p.start.x+1][p.start.y-1]=plateau->player;
+                    board[p.start.x][p.start.y-1]=COULEUR_VIDE;
+                    if (length_mvt(p)==L_3) {
+                        board[p.start.x][p.start.y-2]=COULEUR_VIDE;
+                        board[p.start.x+1][p.start.y-1]=player;
                     }
                 }
             }
-            if (p.dir==DIR_LEFT){           //direction vers la gauche
-                plateau->board[p.start.x][p.start.y]=COULEUR_VIDE;
-                plateau->board[p.end.x][p.end.y]=plateau->player;
-                plateau->board[p.start.x][p.start.y-1]=plateau->player;
+            if (direction_mvt(board, p)==DIR_LEFT){           //direction vers la gauche
+                board[p.start.x][p.start.y]=COULEUR_VIDE;
+                board[p.end.x][p.end.y]=player;
+                board[p.start.x][p.start.y-1]=player;
                 if (p.start.x<p.end.x){ 
-                    plateau->board[p.start.x+1][p.start.y]=COULEUR_VIDE;
-                    if (p.longueur==L_3) {
-                        plateau->board[p.start.x+2][p.start.y]=COULEUR_VIDE;
-                        plateau->board[p.start.x+1][p.start.y-1]=plateau->player;
+                    board[p.start.x+1][p.start.y]=COULEUR_VIDE;
+                    if (length_mvt(p)==L_3) {
+                        board[p.start.x+2][p.start.y]=COULEUR_VIDE;
+                        board[p.start.x+1][p.start.y-1]=player;
                     }
                 }
                 else { 
-                    plateau->board[p.start.x-1][p.start.y]=COULEUR_VIDE;
-                    if (p.longueur==L_3) {
-                        plateau->board[p.start.x-2][p.start.y]=COULEUR_VIDE;
-                        plateau->board[p.start.x-1][p.start.y-1]=plateau->player;
+                    board[p.start.x-1][p.start.y]=COULEUR_VIDE;
+                    if (length_mvt(p)==L_3) {
+                        board[p.start.x-2][p.start.y]=COULEUR_VIDE;
+                        board[p.start.x-1][p.start.y-1]=player;
                     }
                 }
             }
-            if (p.dir==DIR_RIGHT){              //direction vers la droite
-                plateau->board[p.start.x][p.start.y]=COULEUR_VIDE;
-                plateau->board[p.end.x][p.end.y]=plateau->player;
-                plateau->board[p.start.x][p.start.y+1]=plateau->player;
+            if (direction_mvt(board, p)==DIR_RIGHT){              //direction vers la droite
+                board[p.start.x][p.start.y]=COULEUR_VIDE;
+                board[p.end.x][p.end.y]=player;
+                board[p.start.x][p.start.y+1]=player;
                 if (p.start.x<p.end.x){  
-                    plateau->board[p.start.x+1][p.start.y]=COULEUR_VIDE;
-                    if (p.longueur==L_3) {
-                        plateau->board[p.start.x+2][p.start.y]=COULEUR_VIDE;
-                        plateau->board[p.start.x+1][p.start.y+1]=plateau->player;
+                    board[p.start.x+1][p.start.y]=COULEUR_VIDE;
+                    if (length_mvt(p)==L_3) {
+                        board[p.start.x+2][p.start.y]=COULEUR_VIDE;
+                        board[p.start.x+1][p.start.y+1]=player;
                     }
                 }
                 else { 
-                    plateau->board[p.start.x-1][p.start.y]=COULEUR_VIDE;
-                    if (p.longueur==L_3) {
-                        plateau->board[p.start.x-2][p.start.y]=COULEUR_VIDE;
-                        plateau->board[p.start.x-1][p.start.y+1]=plateau->player;
+                    board[p.start.x-1][p.start.y]=COULEUR_VIDE;
+                    if (length_mvt(p)==L_3) {
+                        board[p.start.x-2][p.start.y]=COULEUR_VIDE;
+                        board[p.start.x-1][p.start.y+1]=player;
                     }
                 }
             }
         }
     } 
-    return plateau;
+    return board;
  }

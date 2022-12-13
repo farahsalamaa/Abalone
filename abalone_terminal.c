@@ -1,5 +1,5 @@
 #include "abalone_terminal.h"
-
+#include "client.h"
 /**
  * \file abalone_terminal.c
  * \brief Creation du jeu et lancement du jeu
@@ -79,6 +79,35 @@ PAbalone new_abalone_board(char** tab){
         }
 	}
     return r;
+}
+
+char** create_board() {
+    char** board = malloc(8* sizeof(char*));
+    for (int i=0; i<8; i++) {
+        board[i] = malloc(8 * sizeof(char));
+        for (int j=0; j<8; j++) board[i][j] = '\0';
+    }
+    return board;
+}
+
+void destroy_board(char** board) {
+    for (int i=0; i<8; i++) free(board[i]);
+    free(board);
+}
+
+void destroy_abalone(PAbalone abalone) {
+    for (int i=0; i<8; i++) free(abalone->board[i]);
+    free(abalone->board);
+    free(abalone);
+}
+
+char** copy_board(char** board) {
+    char** copy = malloc(8*sizeof(char*));
+    for (int i=0; i<8; i++) {
+        copy[i] = malloc(8* sizeof(char));
+        for (int j=0; j<8; j++) copy[i][j] = board[i][j];
+    }
+    return copy;
 }
 
 /**
@@ -179,19 +208,13 @@ void print_error(int error){
 	return;
 }
 
-/**
- * \fn etat(PAbalone r)
- * \brief Determiner l'état du jeu
- * \param r Le jeu
- * \return L'état du jeu actualisé
-*/
-char etat(PAbalone r){
-    int w=0;
+char has_player_won(char** board){
+	int w=0;
     int b=0;
     for (int i=0; i<8;i++){
         for (int j=0; j<8;j++){
-            if (r->board[i][j]==COULEUR_BLANC){w++;} ; 
-            if (r->board[i][j]==COULEUR_NOIR){b++;} ; 
+            if (board[i][j]==COULEUR_BLANC){w++;} ; 
+            if (board[i][j]==COULEUR_NOIR){b++;} ; 
         }
     }
 	if (w<14){
@@ -200,6 +223,18 @@ char etat(PAbalone r){
     if (b<14){
        return STATE_WON_BLANC;
     }
+
+	return STATE_RUNNING;
+}
+
+/**
+ * \fn etat(PAbalone r)
+ * \brief Determiner l'état du jeu
+ * \param r Le jeu
+ * \return L'état du jeu actualisé
+*/
+char etat(PAbalone r){
+
 	/*un fonction timer qui vas changer le timer de PAbalone 
 si le timer n as pas encore commencer ==> r.timer prend 0
 si le timer est entre 1 et 900 ==> r.timer prend 1
@@ -209,7 +244,7 @@ si le timer a depasser 900 ==> r.timer prend 2*/
     }else if (r->timer == 0){
 		return STATE_INITIALIZED;
 	}else{
-		return STATE_RUNNING;
+		return has_player_won(r->board);
 	}
 }
 	
@@ -220,7 +255,6 @@ si le timer a depasser 900 ==> r.timer prend 2*/
 void play_game(){
 	PAbalone game = new_abalone();
 	display_board(game->board);
-    Coord c[2];
 	Mouvement mvt;
 	char* a1=malloc(6*sizeof(char));
 	int error;
@@ -233,12 +267,12 @@ void play_game(){
 				printf("lettres entre A-H , et les nembre entre 1-8\n");
 	    		printf("inserer votre mouvement, ex : \"B1:C3\"\n");
 				scanf("%5s",a1);
+				while(getchar() != '\n'); //vide le buffer d'entrée
 			}while(strlen(a1) != 5);
-			error = string_to_coord(a1,c);
-			if(!error) error = coord_to_mouvement(game,(&mvt),c); 
-			else if(error == ERROR_OUT_OF_BOUNDS) printf("erreur de conversion de la chaine en coordonnées : coordonnée en dehors de la grille \n");
-			else printf("erreur de conversion de la chaine en coordonnées : erreur inconnue\n");
-			if(!error) error = finalise_mvt(game,mvt); else printf("erreur de conversion des coordonées en mouvement\n");
+			error = string_to_mouvement(a1,(&mvt));
+			if(error == ERROR_OUT_OF_BOUNDS) printf("erreur de conversion de la chaine en coordonnées : coordonnée en dehors de la grille \n");
+			else if(error)printf("erreur de conversion de la chaine en coordonnées : erreur inconnue\n");
+			else error = finalise_mvt(game->board,game->player,mvt);
 			if(error)print_error(error);
 		}while(error);
 		if(game->state == STATE_INITIALIZED){
@@ -300,10 +334,9 @@ char choose_color() {
 void play_game_random_ia() {
     PAbalone game = new_abalone();
     display_board(game->board);
-    Coord c[2];
     Mouvement mvt;
     char* a1=malloc(6*sizeof(char));
-    int error;
+    int error = 0;
     time_t start;
 
     char gameplayer = choose_color();
@@ -313,14 +346,79 @@ void play_game_random_ia() {
         do {
             if (game->player == gameplayer) {
                 do{
-                    printf("lettres entre A-H , et les nembre entre 1-8\n");
-                    printf("inserer votre mouvement, ex : \"B1:C3\"\n");
+                    printf("lettres entre A-H , et les nombre entre 1-8\n");
+                    printf("insérer votre mouvement, ex : \"B1:C3\"\n");
                     scanf("%5s",a1);
+					while(getchar() != '\n'); //vide le buffer d'entrée
+                    error = string_to_mouvement(a1,&mvt);
+					if(error == ERROR_OUT_OF_BOUNDS) printf("erreur de conversion de la chaine en coordonnées : coordonnée en dehors de la grille \n");
+					else if(error)printf("erreur de conversion de la chaine en coordonnées : erreur inconnue\n");
+					else error = finalise_mvt(game->board,game->player,mvt);
                 }while(strlen(a1) != 5);
-            } else play_random_move(game);
-            string_to_coord(a1,c);
-            coord_to_mouvement(game,(&mvt),c);
-            error = finalise_mvt(game,mvt);
+            } else play_random_move(game->board,game->player);
+            if(error)print_error(error);
+        }while(error);
+        if(game->state == STATE_INITIALIZED){
+            game->timer += 1;
+        }else{
+            int time_elapsed = difftime(time(NULL),start);
+            game->timer += time_elapsed;
+        }
+        game->state = etat(game);
+        //debug("Game state : %c\n",game->state);
+        if (game->player == COULEUR_NOIR){
+            game->player = COULEUR_BLANC;
+            printf("tour des Blancs :\n");
+        }else{
+            game->player = COULEUR_NOIR;
+            printf("tour des Noirs :\n");
+        }
+
+
+        display_board(game->board);//verifier si le mouvement en ligne de trois pion n'est pas bloqué par un autre pion
+    }
+
+    switch(game->state){
+        case STATE_INITIALIZED:
+            printf("la partie est initialisé\n");
+            break;
+        case STATE_WON_BLANC:
+            printf("les blancs ont gagné !!!\n");
+            break;
+        case STATE_WON_NOIR:
+            printf("les noirs ont gagné !!!\n");
+            break;
+        case STATE_TIMEOUT:
+            printf("la partie s'est fini en égalité\n");
+            break;
+    }
+}
+
+void play_terminator(int depth) {
+    PAbalone game = new_abalone();
+    display_board(game->board);
+    Mouvement mvt;
+    char* a1=malloc(6*sizeof(char));
+    int error = 0;
+    time_t start;
+
+    char gameplayer = choose_color();
+
+    while (game->state == STATE_RUNNING || game->state == STATE_INITIALIZED){
+        start = time(NULL);
+        do {
+            if (game->player == gameplayer) {
+                do{
+                    printf("lettres entre A-H , et les nombre entre 1-8\n");
+                    printf("insérer votre mouvement, ex : \"B1:C3\"\n");
+                    scanf("%5s",a1);
+                    while(getchar() != '\n'); //vide le buffer d'entrée
+                    error = string_to_mouvement(a1,&mvt);
+                    if(error == ERROR_OUT_OF_BOUNDS) printf("erreur de conversion de la chaine en coordonnées : coordonnée en dehors de la grille \n");
+                    else if(error)printf("erreur de conversion de la chaine en coordonnées : erreur inconnue\n");
+                    else error = finalise_mvt(game->board,game->player,mvt);
+                }while(strlen(a1) != 5);
+            } else terminator_move(game->board, depth, game->player);
             if(error)print_error(error);
         }while(error);
         if(game->state == STATE_INITIALIZED){
@@ -357,4 +455,132 @@ void play_game_random_ia() {
             printf("la partie s'est fini en égalité\n");
             break;
     }
+}
+
+void play_game_server(char* port){
+	PAbalone game = new_abalone();
+	display_board(game->board);
+	game->player = COULEUR_BLANC;
+	Mouvement mvt;
+	char* a1=malloc(6*sizeof(char));
+	int error;
+	time_t start;
+	SOCKET master = TCP_Create_Server(6969);
+    SOCKET slave = accept(master,NULL,0);
+	while (game->state == STATE_RUNNING || game->state == STATE_INITIALIZED){
+		start = time(NULL);
+		char *move = malloc(sizeof(char)*6);
+		int a=recv(slave,move,sizeof(move),0);
+		//int a= TCP_String_Reader(slave, move);
+		read(slave,move,sizeof(char)*6);
+		printf("%s",move);
+		string_to_mouvement(move,(&mvt));
+		finalise_mvt(game->board,game->player,mvt);
+		display_board(game->board);
+		do {
+			do{
+				printf("lettres entre A-H , et les nembre entre 1-8\n");
+	    		printf("inserer votre mouvement, ex : \"B1:C3\"\n");
+				scanf("%5s",a1);
+				while(getchar() != '\n'); //vide le buffer d'entrée
+			}while(strlen(a1) != 5);
+			error = string_to_mouvement(a1,(&mvt));
+			if(error == ERROR_OUT_OF_BOUNDS) printf("erreur de conversion de la chaine en coordonnées : coordonnée en dehors de la grille \n");
+			else if(error)printf("erreur de conversion de la chaine en coordonnées : erreur inconnue\n");
+			else error = finalise_mvt(game->board,game->player,mvt);
+			if(error)print_error(error);
+		}while(error);
+		write(slave,a1,sizeof(char)*6);
+		//TCP_Long_Writer(slave,);
+		if(game->state == STATE_INITIALIZED){
+			game->timer += 1;
+		}else{
+			int time_elapsed = difftime(time(NULL),start);
+			game->timer += time_elapsed;
+		}
+		game->state = etat(game);
+		//debug("Game state : %c\n",game->state);
+
+		display_board(game->board);
+	}
+	
+	switch(game->state){
+		case STATE_INITIALIZED:
+		    printf("la partie est initialisé\n");
+			break;
+		case STATE_WON_BLANC:
+		    printf("les blancs ont gagné !!!\n");
+			break;
+		case STATE_WON_NOIR:
+		    printf("les noirs ont gagné !!!\n");
+			break;
+		case STATE_TIMEOUT:
+		    printf("la partie s'est fini en égalité\n");
+			break;
+	}
+}
+
+void play_game_client(char* server){  //server doit avoir comme format= 127.0.0.1:6969
+	PAbalone game = new_abalone();
+	display_board(game->board);
+	game->player = COULEUR_NOIR;
+	Mouvement mvt;
+	char* a1=malloc(6*sizeof(char));
+	char *move = malloc(sizeof(char)*6);
+	int error;
+	time_t start;
+    char* server2 = strtok(server,":");
+    char* port = strtok(NULL," ");
+	SOCKET s = TCP_Create_Client("127.0.0.1",6969);
+	while (game->state == STATE_RUNNING || game->state == STATE_INITIALIZED){
+		start = time(NULL);
+		char *move = malloc(sizeof(char)*6);
+		do {
+			do{
+				printf("lettres entre A-H , et les nembre entre 1-8\n");
+	    		printf("inserer votre mouvement, ex : \"B1:C3\"\n");
+				scanf("%5s",a1);
+				while(getchar() != '\n'); //vide le buffer d'entrée
+			}while(strlen(a1) != 5);
+			error = string_to_mouvement(a1,(&mvt));
+			if(error == ERROR_OUT_OF_BOUNDS) printf("erreur de conversion de la chaine en coordonnées : coordonnée en dehors de la grille \n");
+			else if(error)printf("erreur de conversion de la chaine en coordonnées : erreur inconnue\n");
+			else error = finalise_mvt(game->board,game->player,mvt);
+			if(error)print_error(error);
+		}while(error);
+		write(s,a1,sizeof(char)*6);
+		display_board(game->board);
+		recv(s, move,sizeof(move),0 );
+		read(s,move,sizeof(char)*6);
+
+		//pread(s,move,sizeof(move),7);
+		string_to_mouvement(move,(&mvt));
+		finalise_mvt(game->board,game->player,mvt);
+		display_board(game->board);
+		if(game->state == STATE_INITIALIZED){
+			game->timer += 1;
+		}else{
+			int time_elapsed = difftime(time(NULL),start);
+			game->timer += time_elapsed;
+		}
+		game->state = etat(game);
+		//debug("Game state : %c\n",game->state);	
+
+	}
+	
+	switch(game->state){
+		case STATE_INITIALIZED:
+		    printf("la partie est initialisé\n");
+			break;
+		case STATE_WON_BLANC:
+		    printf("les blancs ont gagné !!!\n");
+			break;
+		case STATE_WON_NOIR:
+		    printf("les noirs ont gagné !!!\n");
+			break;
+		case STATE_TIMEOUT:
+		    printf("la partie s'est fini en égalité\n");
+			break;
+	}
+
 }

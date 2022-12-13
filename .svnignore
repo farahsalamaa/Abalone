@@ -3,6 +3,7 @@
 .idea
 test
 abalone
+test_perso.c
 *.o
 *.o_t
 *.gcno
