@@ -34,7 +34,7 @@ void display_board(char** board);
 
 void play_game();
 void play_game_random_ia();
-void play_terminator(int depth);
+void play_terminator();
 void play_game_server(char* port);
 void play_game_client(char* server);
 void print_error(int error);

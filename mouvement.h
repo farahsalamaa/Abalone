@@ -23,5 +23,5 @@ int finalise_mvt(char** board, char player,Mouvement mvt);
 
 // Convert_Coord()
 int string_to_mouvement(char* string, PMouvement mvt);
-
+int mouvement_to_string(Mouvement mvt, char* buffer);
 #endif //IMM2223_GR6_MOUVEMENT_H

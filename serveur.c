@@ -24,12 +24,13 @@ SOCKET TCP_Create_Server(short service){
     if (listen (fdsocket,5) == SOCKET_ERROR) exit(1);
     return fdsocket;
 }
+
 int TCP_String_Reader(SOCKET s,char *input){
-    char buffer[1500];
+    char buffer[5];
     char *tmp=buffer;
     int bufferlen = sizeof(buffer);
     int len;
-    
+    printf("len de buffer est: %i", len);
     do{
         len =recv(s,tmp,bufferlen,0);
         tmp+=len;
@@ -43,35 +44,10 @@ int TCP_String_Reader(SOCKET s,char *input){
    
     return tmp-buffer;
 }
+
 int TCP_Long_Writer(SOCKET s,long value){
     long output= htonl(value);
     int bytes_sent = send(s,(const char *)& output,sizeof(output),0);
     if (bytes_sent==SOCKET_ERROR)exit(1);
     return bytes_sent;
 }
-
-/*
-int main_server(){
-    SOCKET master = TCP_Create_Server(1234);
-    char *move = "A1:B1";
-    char *move2 = malloc(sizeof(char)*13);
-    while(1){
-        SOCKET slave = accept(master,NULL,0);
-        write(slave,move,6);
-        recv(slave,move2,sizeof(move2),0);
-        printf("%s\n",move2);
-        shutdown(slave,2);}
-    shutdown(master,2);
-    return 0;
-}
-
-int main(int argc, char *argv){
-    SOCKET master = TCP_Create_Server(6969);
-    while(1){
-        SOCKET slave = accept(master,NULL,0);
-        exchange(slave);
-        shutdown(slave,2);
-    }
-    shutdown(master,2);
-}
-*/

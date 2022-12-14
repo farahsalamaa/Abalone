@@ -85,7 +85,7 @@
     \brief Tentative de déplacement d'un doublet/triplet vers un espace obstrué
 */
 /*! \def TIME_LIMIT 
-    \brief Le temps limite du jeu, defini à 900 secondes ou 15 minutes
+    \brief Le temps limite du jeu, défini à 900 secondes ou 15 minutes
 */
 /*! \def STATE_RUNNING
     \brief L'état du jeu est en route
@@ -159,28 +159,36 @@
 #define GAMMA 1
 #define THETA 1
 
-#define DEPTH 5
+#define DEPTH 4
 
 //Défintion des structures utilisées par l'ensemble du projet (temporaire!)
 
 /**
- * \struct Abalone, *PAbalone abalone_terminal.h abalone_terminal.c
+ * \struct Abalone
  * \brief Contient les informations du jeu: board, state, player, timer
 */
+/**
+ * \typedef PAbalone
+ * \brief Pointeur vers  un Abalone
+*/
 typedef struct {
-    /*!La grille du jeu*/
+    /*!Le plateau du jeu*/
     char** board;
     /*!L'état du jeu*/
     char state;
-    /*!L'identité du joueur, noir ou blanc*/
+    /*!L'identité du joueur actif (qui doit jouer), noir ou blanc*/
     char player;
     /*!Le temps écoulé, en secondes*/
     int timer;
 } Abalone, *PAbalone;
 
 /**
- * \struct Coord, *PCoord abalone_terminal.h abalone_terminal.c
+ * \struct Coord abalone_terminal.h abalone_terminal.c
  * \brief Les coordonnées en 2D de la grille board
+*/
+/**
+ * \typedef PCoord
+ * \brief Pointeur vers un Coord
 */
 typedef struct {
     /*!ordonnée*/
@@ -191,7 +199,11 @@ typedef struct {
 
 /**
  * \struct Mouvement mouvement.h mouvement.c
- * \brief Le structure d'un mouvement contenant ses characteristiques
+ * \brief Le structure d'un mouvement contenant ses caractéristiques
+*/
+/**
+ * \typedef PMouvement
+ * \brief Pointeur vers un mouvement 
 */
 typedef struct {
     /*! Coordonnées du depart*/
@@ -199,15 +211,5 @@ typedef struct {
     /*! Coordonnées d'arrivé*/
     Coord end;
 } Mouvement, *PMouvement;
-
-
-typedef struct Node {
-    struct Node** children;
-    int nb_children;
-    char** board;
-    Mouvement mouvement;
-    int depth;
-    int value;
-} Node, *PNode;
 
 #endif //IMM2223_GR6_CONST_H

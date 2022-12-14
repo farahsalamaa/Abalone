@@ -6,9 +6,9 @@
 */
 
 /**
- * \fn init_board(Pablone game)
- * \brief Fonction qui genère un board
- * \param game Structure qui contient: board, state, player, timer du jeu
+ * \fn init_board(PAbalone game)
+ * \brief Fonction qui remplace le plateau de game par la plateau de départ
+ * \param game Pointeur vers une structure Abalone qui représente la partie.
 */
 void init_board(PAbalone game){
 	char init_board[8][8] = 
@@ -45,7 +45,7 @@ void init_board(PAbalone game){
 /**
  * \fn new_abalone()
  * \brief Une fonction qui genère un nouveau jeu abalone
- * \return Structure contenant: le state, timer, player et board du jeu
+ * \return Pointeur vers une structure contenant l'état, le temps écoule, le joueur actif et la plateau du jeu
 */
 PAbalone new_abalone(){
     PAbalone r = malloc(sizeof(Abalone));
@@ -62,9 +62,9 @@ PAbalone new_abalone(){
 
 /**
  * \fn new_abalone_board(char** tab)
- * \brief Actualiser l'etat du jeu
- * \param tab La grille de board
- * \return Le jeu avec un board actualisé
+ * \brief Une fonction qui génère un nouveau jeu abalone à partir d'un plateau défini
+ * \param tab Le plateau de départ
+ * \return Pointeur vers une structure contenant l'état, le temps écoule, le joueur actif et la plateau du jeu
 */
 PAbalone new_abalone_board(char** tab){
     PAbalone r = malloc(sizeof(Abalone));
@@ -81,6 +81,11 @@ PAbalone new_abalone_board(char** tab){
     return r;
 }
 
+/**
+ * \fn char** create_board()
+ * \brief créé un plateau vide.
+ * \return le plateau vide
+*/
 char** create_board() {
     char** board = malloc(8* sizeof(char*));
     for (int i=0; i<8; i++) {
@@ -90,17 +95,33 @@ char** create_board() {
     return board;
 }
 
+/**
+ * \fn void destroy_board(char** board)
+ * \brief détruit un plateau et libère l'espace
+ * \param board l'adresse du plateau de caractères à libérer
+*/
 void destroy_board(char** board) {
     for (int i=0; i<8; i++) free(board[i]);
     free(board);
 }
 
+/**
+ * \fn void destroy_abalone(PAbalone abalone)
+ * \brief détruit une partie
+ * \param abalone l'adresse de la partie à libérer
+*/
 void destroy_abalone(PAbalone abalone) {
     for (int i=0; i<8; i++) free(abalone->board[i]);
     free(abalone->board);
     free(abalone);
 }
 
+/**
+ * \fn char** copy_board(char** board)
+ * \brief créé une copie d'un plateau
+ * \param board le plateau à dupliquer
+ * \return le plateau dupliqué à une nouvelle adresse
+*/
 char** copy_board(char** board) {
     char** copy = malloc(8*sizeof(char*));
     for (int i=0; i<8; i++) {
@@ -113,7 +134,7 @@ char** copy_board(char** board) {
 /**
  * \fn display_board(char** board)
  * \brief Affiche la grille
- * \param board La grille board
+ * \param board La grille
 */
 void display_board(char** board){
 
@@ -208,6 +229,12 @@ void print_error(int error){
 	return;
 }
 
+/**
+ * \fn has_player_won(char** board)
+ * \brief fonction pour determiner si un joueur a gagné
+ * \param board le plateau dont on souhaite determiner le vainqueur
+ * \return B pour victoire des blancs, N pour victoire des noirs, R pour un jeu qui continue
+*/
 char has_player_won(char** board){
 	int w=0;
     int b=0;
@@ -329,7 +356,7 @@ char choose_color() {
 
 /**
  * \fn play_game_random_ia()
- * \brief Lancement du jeu contre l'Intelligence Articficielle
+ * \brief Lancement du jeu contre l'Intelligence Artificielle
 */
 void play_game_random_ia() {
     PAbalone game = new_abalone();
@@ -418,7 +445,7 @@ void play_terminator(int depth) {
                     else if(error)printf("erreur de conversion de la chaine en coordonnées : erreur inconnue\n");
                     else error = finalise_mvt(game->board,game->player,mvt);
                 }while(strlen(a1) != 5);
-            } else terminator_move(game->board, depth, game->player);
+            } else terminator_move(game->board, game->player);
             if(error)print_error(error);
         }while(error);
         if(game->state == STATE_INITIALIZED){
@@ -456,7 +483,11 @@ void play_terminator(int depth) {
             break;
     }
 }
-
+/**
+ * \fn play_game_server(char* port)
+ * \brief lance le jeu en mode serveur 
+ * \param port le port ou la partie sera lancer
+*/
 void play_game_server(char* port){
 	PAbalone game = new_abalone();
 	display_board(game->board);
@@ -465,17 +496,17 @@ void play_game_server(char* port){
 	char* a1=malloc(6*sizeof(char));
 	int error;
 	time_t start;
-	SOCKET master = TCP_Create_Server(6969);
+	SOCKET master = TCP_Create_Server(atoi(port));
     SOCKET slave = accept(master,NULL,0);
 	while (game->state == STATE_RUNNING || game->state == STATE_INITIALIZED){
 		start = time(NULL);
 		char *move = malloc(sizeof(char)*6);
 		int a=recv(slave,move,sizeof(move),0);
 		//int a= TCP_String_Reader(slave, move);
-		read(slave,move,sizeof(char)*6);
+		//read(slave,move,sizeof(char)*6);
 		printf("%s",move);
 		string_to_mouvement(move,(&mvt));
-		finalise_mvt(game->board,game->player,mvt);
+		finalise_mvt(game->board,COULEUR_NOIR,mvt);
 		display_board(game->board);
 		do {
 			do{
@@ -519,6 +550,11 @@ void play_game_server(char* port){
 			break;
 	}
 }
+/**
+ * \fn play_game_client(char* server)
+ * \brief lance le jeu en mode client 
+ * \param server contient l adress ip et le port necessaire pour la connection
+*/
 
 void play_game_client(char* server){  //server doit avoir comme format= 127.0.0.1:6969
 	PAbalone game = new_abalone();
@@ -531,7 +567,7 @@ void play_game_client(char* server){  //server doit avoir comme format= 127.0.0.
 	time_t start;
     char* server2 = strtok(server,":");
     char* port = strtok(NULL," ");
-	SOCKET s = TCP_Create_Client("127.0.0.1",6969);
+	SOCKET s = TCP_Create_Client(server2,atoi(port));
 	while (game->state == STATE_RUNNING || game->state == STATE_INITIALIZED){
 		start = time(NULL);
 		char *move = malloc(sizeof(char)*6);
@@ -551,11 +587,10 @@ void play_game_client(char* server){  //server doit avoir comme format= 127.0.0.
 		write(s,a1,sizeof(char)*6);
 		display_board(game->board);
 		recv(s, move,sizeof(move),0 );
-		read(s,move,sizeof(char)*6);
-
+		//read(s,move,sizeof(char)*6);
 		//pread(s,move,sizeof(move),7);
 		string_to_mouvement(move,(&mvt));
-		finalise_mvt(game->board,game->player,mvt);
+		finalise_mvt(game->board,COULEUR_BLANC,mvt);
 		display_board(game->board);
 		if(game->state == STATE_INITIALIZED){
 			game->timer += 1;

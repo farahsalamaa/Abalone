@@ -155,7 +155,7 @@ void voisin_carre_test(){
     assert(v.x == 1);
     assert(v.y == 2);
 }
-void direction_mvt_test(){ 
+void direction_mvt_right_test(){ 
     Mouvement m;
     Coord c1;
     c1.x = 0;
@@ -168,7 +168,33 @@ void direction_mvt_test(){
     PAbalone a = new_abalone();
     assert(direction_mvt(a->board,m)==DIR_RIGHT);
 }
-void validate_mvt_test(){
+void direction_mvt_left_test(){ 
+    Mouvement m;
+    Coord c1;
+    c1.x = 6;
+    c1.y = 1;
+    m.start = c1;
+    Coord c2;
+    c2.x = 6;
+    c2.y = 0;
+    m.end = c2;
+    PAbalone a = new_abalone();
+    assert(direction_mvt(a->board,m)==DIR_LEFT);
+}
+void direction_mvt_up_test(){ 
+    Mouvement m;
+    Coord c1;
+    c1.x = 7;
+    c1.y = 0;
+    m.start = c1;
+    Coord c2;
+    c2.x = 6;
+    c2.y = 0;
+    m.end = c2;
+    PAbalone a = new_abalone();
+    assert(direction_mvt(a->board,m)==DIR_UP);
+}
+void validate_mvt_test1(){
     Mouvement m;
     Coord c1;
     c1.x = 6;
@@ -181,6 +207,19 @@ void validate_mvt_test(){
     PAbalone a=new_abalone();
     //assert(validate_mvt_ligne_2(m)==VALIDATION_OK);
     assert(validate_mvt(a->board,a->player,m)==VALIDATION_OK);
+}
+void validate_mvt_test2(){
+    Mouvement m;
+    Coord c1;
+    c1.x = 6;
+    c1.y = 1;
+    m.start = c1;
+    Coord c2;
+    c2.x = 5;
+    c2.y = 2;
+    m.end = c2;
+    PAbalone a=new_abalone();
+    assert(validate_mvt(a->board,a->player,m)==ERROR_NOT_A_MOVEMENT);
 }
 void exec_mvt_test(){
     Mouvement m;
@@ -278,8 +317,11 @@ void test_mouvement() {
     length_mvt_ligne_l2_test();
     length_mvt_ligne_l3_test();
     voisin_carre_test();
-    direction_mvt_test();
-    validate_mvt_test();
+    direction_mvt_right_test();
+    direction_mvt_left_test();
+    direction_mvt_up_test();
+    validate_mvt_test1();
+    validate_mvt_test2();
     exec_mvt_test();
     finalise_mvt_test();
     string_to_mouvement_test();

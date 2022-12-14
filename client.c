@@ -32,17 +32,3 @@ int TCP_Long_Reader(SOCKET s,long *value){
     *value=input;
     return bytes_received; 
 }
-
-
-/*int main(int argc, char** argv){
-    SOCKET s = TCP_Create_Client("127.0.0.1",1234);
-    char* input;
-    recv(s, input,sizeof(input),0 );
-    printf("%s\n",input);
-    char *input2 = "loljaimebien";
-    write(s,input2,sizeof(input2));
-
-    shutdown(s,2);
-}
-*/
-

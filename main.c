@@ -48,7 +48,7 @@ int main(int argc, char **argv){
         	return EXIT_SUCCESS;
     	}
         else if(strcmp("--terminator", argv[1]) == 0) {
-            play_terminator(DEPTH);
+            play_terminator();
         }
     	 else if(strcmp("--pvp", argv[1]) == 0){ // on lance le mode joueur contre joueur
     	 	play_game();

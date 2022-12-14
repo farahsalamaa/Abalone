@@ -1,6 +1,14 @@
 #include "ia.h"
 
 //Vecteurs permettant de générer tous les mouvements possibles
+/**
+ * \var op
+ * \brief vecteurs utilisés pour générer les mouvements
+*/
+/**
+ * \var op_reversed
+ * \brief vecteurs utilisés pour générer les mouvements (opposés à certains)
+*/
 Coord op[15] = {{0,1},{1,0},{0,-1},{-1,0},{0,2},{1,1},{-1,1},{2,0},{1,-1},{0,3},{1,2},{-1,2},{3,0},{2,1},{2,-1}};
 Coord op_reversed[4] = {{0,-2},{-2,0},{0,-3},{-3,0}};
 
@@ -22,22 +30,13 @@ int random_number(int min, int max) {
     random = (rand() % (max + 1 - min)) + min;
     return random;
 }
-
 /**
- * \fn void random_move(char** board, char player, PMouvement list_mvt)
- * \brief Permet de choisir un coup aléatoire dans la liste de mouvement et le jouer
- * Cette fonction execute le coup aléatoire et retourne rien.
- * \param board La grille du jeu
- * \param player Le joueur
- * \param list_mvt Une liste des mouvements possibles
- * \param count L'index du dernier mouvement de la liste des mouvements possibles
+ * \fn PCoord add_coord(Coord start, Coord end)
+ * \brief additionne deux coordonnées
+ * \param start la première coordonnée
+ * \param end la deuxième coordonnée
+ * \return les coordonées additionnées
 */
-void random_move(char** board, char player, PMouvement list_mvt,int count) {
-    int random = random_number(0, count);
-    exec_mvt(board,player,*(list_mvt+random));
-}
-
-//Fonction permettant de sommer deux vecteurs
 PCoord add_coord(Coord start, Coord end) {
     PCoord out = malloc(sizeof(PCoord));
     out->x = start.x + end.x;
@@ -46,11 +45,11 @@ PCoord add_coord(Coord start, Coord end) {
 }
 
 /**
- * \fn PMouvement ensemble_mouvement_possible(char** board,char color)
+ * \fn PMouvement ensemble_mouvement_possible(char** board,char color, int* nb_coup)
  * \brief Déterminer tous les mouvements possible pour une couleur
  * \param board Le jeu
- * \param color Une couleur, blanc ou noir
- * \param nbr_coup Pointeur sur l'index du dernier mouvement de la liste
+ * \param player le joueur qui va devoir effectuer le mouvement
+ * \param nb_coup Pointeur sur l'index du dernier mouvement de la liste
  * \return Renvoit une liste de tous les mouvements possibles
 */
 PMouvement ensemble_mouvement_possible(char** board, char player, int* nb_coup) {
@@ -70,13 +69,13 @@ PMouvement ensemble_mouvement_possible(char** board, char player, int* nb_coup) 
 }
 
 /**
- * \fn void generation_mouvement(char** board, char player,Coord start,Mouvement *liste)
+ * \fn void gen_mouvement(char** board, char player,Coord start,PMouvement liste_coup, int* nb_coup)
  * \brief Permet de remplir la liste des coups possibles qui sera retournée dans ensemble_mouvement_possible
  * \param board Le jeu
  * \param player Le joueur choisi
  * \param start Les coordonnées de pion de départ
- * \param liste La liste des mouvements possibles
- * \param count Pointeur sur l'index du dernier mouvement de la liste
+ * \param liste_coup La liste des mouvements possibles
+ * \param nb_coup Pointeur sur l'index du dernier mouvement de la liste
 */
 void gen_mouvement(char** board, char player, Coord start, PMouvement liste_coup, int* nb_coup) {
     for (int i=0; i<15; i++) {
@@ -116,15 +115,33 @@ void gen_mouvement(char** board, char player, Coord start, PMouvement liste_coup
 }
 
 /**
+ * \fn void random_move(char** board, char player, PMouvement list_mvt, int count)
+ * \brief Permet de choisir un coup aléatoire dans la liste de mouvement et le jouer
+ * Cette fonction execute le coup aléatoire et le mouvement joué.
+ * \param board La grille du jeu
+ * \param player Le joueur
+ * \param list_mvt Une liste des mouvements possibles
+ * \param count L'index du dernier mouvement de la liste des mouvements possibles
+*/
+Mouvement random_move(char** board, char player, PMouvement list_mvt,int count) {
+    int random = random_number(0, count);
+    exec_mvt(board,player,list_mvt[random]);
+    return list_mvt[random];
+}
+
+/**
  * \fn void play_random_move(char** board, char player)
- * \brief Executer ou jouer un coup aléatoire
+ * \brief Executer ou jouer un coup aléatoire et le retourne sous forme de coordonnées en string
  * \param board Le jeu
  * \param player Le joueur choisi
 */
-void play_random_move(char** board, char player) {
+char* play_random_move(char** board, char player) {
     int count;
     PMouvement mvts_possibles = ensemble_mouvement_possible(board, player, &count);
-    random_move(board, player, mvts_possibles,count);
+    Mouvement mouvement = random_move(board, player, mvts_possibles,count);
+    char* buffer = malloc(5*sizeof(char));
+    mouvement_to_string(mouvement, buffer);
+    return buffer;
 }
 
 /** \defgroup g1 Fonctions d'évaluation
@@ -162,6 +179,13 @@ int count_padding(char** board, char player) {
     return 14 - count_center(board,player);
 }
 
+/**
+ * \fn PT_min(char** board, char player)
+ * \brief donne le point en haut à gauche par rapport à tous les pions du joueur
+ * \param board le plateau
+ * \param player le joueur
+ * \return les coordonnees du point extreme
+*/
 PCoord PT_min(char** board, char player){
     int x_min=7;
     int y_min=7;
@@ -179,6 +203,13 @@ PCoord PT_min(char** board, char player){
     return(pt_min);
 }
 
+/**
+ * \fn PT_max(char** board, char player)
+ * \brief donne le point en bas à droite par rapport à tous les pions du joueur
+ * \param board le plateau
+ * \param player le joueur
+ * \return les coordonnees du point extreme
+*/
 PCoord PT_max(char** board, char player){
     int x_max=0;
     int y_max=0;
@@ -196,6 +227,14 @@ PCoord PT_max(char** board, char player){
     return(pt_max);
 }
 
+/**
+ * \fn int score_density(char** board, char player)
+ * \ingroup g1
+ * \brief calcule la densité (à quel point les pièces du joueur sont rassemblées sur le plateau)
+ * \param board le plateau
+ * \param player le joueur
+ * \return le score de densité du joueur sur le plateau
+*/
 int score_density(char** board, char player){
     
     PCoord pt_min = PT_min(board, player);
@@ -210,8 +249,7 @@ int score_density(char** board, char player){
     else if(c<1.0 && c>=0.75){return 5;}
 }
 
- /* 
-    
+ /** 
  * \fn int possible_attacks(char** board, char player)
  * \ingroup g1
  * \brief Calculer le nombre de coups d'attaque possibles
@@ -278,70 +316,62 @@ int max(int a, int b) {
     return a;
 }
 
-PNode init_node(char** board, int nb_coup, int depth) {
-    PNode node = malloc(sizeof(Node));
-    node->children = malloc(MAX_CHILDREN*sizeof(PNode));
-    node->nb_children = nb_coup;
-    node->board = board;
-    node->mouvement = (Mouvement){{0,0},{0,0}};
-    node->depth = depth;
-    node->value = 0;
-    return node;
-}
+int minimax(char** board, int depth, int alpha, int beta, bool max_player, char active_player) {
+    int nb_coup = 0;
+    PMouvement liste_coup = ensemble_mouvement_possible(board, active_player, &nb_coup);
 
-int minimax(PNode father, int alpha, int beta, bool max_player, char active_player) {
-    father->nb_children = 0;
-    PMouvement liste_coup = ensemble_mouvement_possible(father->board, active_player, &father->nb_children);
+    char state = has_player_won(board);
 
-    char state = has_player_won(father->board);
-    if (father->depth == 0 || (state == STATE_WON_NOIR || state == STATE_WON_BLANC)) {
-        return score_utility(father->board, active_player);
+    if (depth == 0) return score_utility(board, active_player);
+    else if (state == COULEUR_NOIR || state == COULEUR_BLANC) {
+        if (state == active_player) return INT_MAX;
+        else return INT_MIN;
     }
-
-    for (int i=0; i<father->nb_children; i++) {
-        char** copy = copy_board(father->board);
-        exec_mvt(copy, active_player, liste_coup[i]);
-        PNode child = init_node(copy, 0, father->depth-1);
-        child->mouvement = liste_coup[i];
-        father->children[i] = child;
-    }
-    free(liste_coup);
 
     if (max_player) {
         int max_eval = INT_MIN;
-        for (int i=0; i<father->nb_children; i++) {
-            father->value = minimax(father->children[i], alpha, beta, false, other_player(active_player));
-            max_eval = max(max_eval, father->value);
-            alpha = max(alpha, father->value);
+        for (int i=0; i<nb_coup; i++) {
+            char** copy = copy_board(board);
+            exec_mvt(copy, active_player, liste_coup[i]);
+            int eval = minimax(copy, depth - 1, alpha, beta, false, other_player(active_player));
+            destroy_board(copy);
+            max_eval = max(max_eval, eval);
+            alpha = max(alpha, eval);
             if (beta <= alpha) break;
         }
+        free(liste_coup);
         return max_eval;
-    } else {
+    }
+    else {
         int min_eval = INT_MAX;
-        for (int i=0; i<father->nb_children; i++) {
-            father->value = minimax(father->children[i], alpha, beta, true, other_player(max_player));
-            min_eval = min(min_eval, father->value);
-            beta = min(beta, father->value);
-            if (beta <= alpha) {
-                break;
-            }
+        for (int i=0; i<nb_coup; i++) {
+            char** copy = copy_board(board);
+            exec_mvt(copy, active_player, liste_coup[i]);
+            int eval = minimax(copy, depth - 1, alpha, beta, true, other_player(active_player));
+            destroy_board(copy);
+            min_eval = min(min_eval, eval);
+            beta = min(beta, eval);
+            if (beta <= alpha) break;
         }
+        free(liste_coup);
         return min_eval;
     }
 }
 
-Mouvement terminator(char** board, int depth, char active_player) {
-    PNode root = init_node(board, 0, depth);
-    int score = minimax(root, INT_MIN, INT_MAX, true, active_player);
-
-    for (int i=0; i<root->nb_children; i++) {
-        if (root->children[i]->value == score) {
-            return root->children[i]->mouvement;
+void terminator_move(char** board, char player) {
+    int initial_score = minimax(board, DEPTH, INT_MIN, INT_MAX, true, player);
+    int nb_coup;
+    PMouvement liste_coup = ensemble_mouvement_possible(board, player, &nb_coup);
+    for (int i=0; i<nb_coup; i++) {
+        char** copy = copy_board(board);
+        exec_mvt(copy, player, liste_coup[i]);
+        int score = minimax(copy, DEPTH-1, INT_MIN, INT_MAX, false, other_player(player));
+        destroy_board(copy);
+        if (initial_score == score) {
+            exec_mvt(board, player, liste_coup[i]);
+            free(liste_coup);
+            return;
         }
+        free(liste_coup);
     }
-    return (Mouvement){{0,0},{0,0}};
-}
-
-void terminator_move(char** board, int depth, char active_player) {
-    exec_mvt(board, active_player, terminator(board, depth, active_player));
 }

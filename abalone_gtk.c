@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include <gtk/gtk.h>
+#include <stdio.h>
 #include <math.h>
 #include <ctype.h>
 #include <string.h>
@@ -19,18 +20,20 @@ struct Board{
 	GtkWidget* label_error;
 	GtkWidget* label_error2;
 	GtkWidget* message;
+	GtkWidget* message3;
 	PAbalone game;
 	//gpointer data;
 };
 typedef struct Board* PBoard;
 
-PBoard new_board(GtkWidget* drawing_area, GtkWidget* label,GtkWidget* label_error,GtkWidget* label_error2,GtkWidget* message,PAbalone game){
+PBoard new_board(GtkWidget* drawing_area, GtkWidget* label,GtkWidget* label_error,GtkWidget* label_error2,GtkWidget* message,GtkWidget* message3,PAbalone game){
 	PBoard board= malloc(sizeof(struct Board));
 	board->label = label;
 	board->label_error = label_error;
 	board->label_error2 = label_error2;
 	board->drawing_area = drawing_area;
 	board->message = message;
+	board->message3 = message3;
 	board->game= game;
 	//board->data;
 	return board;
@@ -49,7 +52,7 @@ void button_cb3(GtkWidget *widget, gpointer data,int argc, char **argv);
 gboolean draw_cb(GtkWidget *widget, cairo_t *cr, gpointer data);
 void onActivateEntry(GtkEntry *entry, gpointer data);
  void draw_black_ball(cairo_t *cr,int i,int j);
-  void draw_white_ball(cairo_t *cr,int i,int j);
+  void draw_white_ball(cairo_t *cr,int i,int j,PAbalone game);
 void msg(PAbalone game,GtkWidget* message );
 void game_gtk_random_ia(PBoard board, gchar* text);
 void game_gtk(PBoard board, gchar* text);
@@ -57,10 +60,16 @@ void game_gtk(PBoard board, gchar* text);
  void game_gtk_random_ia2(PBoard board, gchar* text);
  void game_gtk_random_ia_v_ia(PBoard board, gchar* text);
  void onActivateEntry3(GtkEntry *entry, gpointer data);
+ void msg3(PAbalone game,GtkWidget* message,gchar* histomove);
  
 int button_clicked;
 int compteur_tour;
 int game_mode;
+
+char* board_historique[5];
+int cpt_board=0;
+
+ 
 void play_game_gtk(int argc, char **argv){
 
  GtkWidget *window;    
@@ -68,6 +77,7 @@ void play_game_gtk(int argc, char **argv){
  GtkWidget *button;    
  GtkWidget *drawing_area; 
  GtkWidget* message;
+ GtkWidget* message3;
  GtkWidget* label;
  GtkWidget* label_error;
   GtkWidget* label_error2;
@@ -84,7 +94,7 @@ void play_game_gtk(int argc, char **argv){
  
  /* Initialisation of GTK+ */    
  gtk_init(&argc, &argv);  
- 
+ compteur_tour=1;
 
 	
 start = time(NULL);  
@@ -122,7 +132,7 @@ monimage = gtk_image_new_from_file("./win.gif");
 	 gtk_widget_set_size_request(drawing_area, 420, 420);    
  /* Insertion of the drawing area in the box */    
  gtk_box_pack_start(GTK_BOX(vBox), drawing_area, TRUE, TRUE, 10);    
-  PBoard board = new_board(drawing_area,label,label_error,label_error2,message,game);	
+  PBoard board = new_board(drawing_area,label,label_error,label_error2,message,message3,game);	
   
   //game->player = COULEUR_BLANC;
   
@@ -138,7 +148,9 @@ monimage = gtk_image_new_from_file("./win.gif");
   gtk_box_pack_start(GTK_BOX(vBox), label_error2, FALSE, FALSE, 0);
    label_msg(board->game, board->label_error);
       label_msg2(board->game, board->label_error2);
-      msg(board->game, board->message);
+      gchar* start="start";
+       msg3(board->game, board->message,start);
+     // msg(board->game, board->message);
  /* Creation of a button */    
  button = gtk_button_new_with_label("Rejouer");    
  /* Connection of signal named "clicked" */    
@@ -186,6 +198,7 @@ void play_game_gtk2(int argc, char **argv){
  GtkWidget *button;    
  GtkWidget *drawing_area; 
  GtkWidget* message;
+ GtkWidget* message3;
  GtkWidget* label;
  GtkWidget* label_error;
   GtkWidget* label_error2;
@@ -240,7 +253,7 @@ monimage = gtk_image_new_from_file("./win.gif");
 	 gtk_widget_set_size_request(drawing_area, 420, 420);    
  /* Insertion of the drawing area in the box */    
  gtk_box_pack_start(GTK_BOX(vBox), drawing_area, TRUE, TRUE, 10);    
-  PBoard board = new_board(drawing_area,label,label_error,label_error2,message,game);	
+  PBoard board = new_board(drawing_area,label,label_error,label_error2,message,message3,game);	
 
   if(strcmp("blanc", argv[2]) == 0 || game_mode==5){ //Le game_mode pour lorsqu'on fait rejouer que l'ia noir commence son coup car on a plus argv en mémoire
   	game_mode=5;
@@ -309,6 +322,7 @@ monimage = gtk_image_new_from_file("./win.gif");
  GtkWidget *button;    
  GtkWidget *drawing_area; 
  GtkWidget* message;
+  GtkWidget* message3;
  GtkWidget* label;
  GtkWidget* label_error;
   GtkWidget* label_error2;
@@ -327,7 +341,6 @@ monimage = gtk_image_new_from_file("./win.gif");
  /* Initialisation of GTK+ */    
  gtk_init(&argc, &argv);  
  
-
 	
 start = time(NULL);  
  /* Creation of main window */    
@@ -365,7 +378,7 @@ monimage = gtk_image_new_from_file("./win.gif");
 	 gtk_widget_set_size_request(drawing_area, 420, 420);    
  /* Insertion of the drawing area in the box */    
  gtk_box_pack_start(GTK_BOX(vBox), drawing_area, TRUE, TRUE, 10);    
-  PBoard board = new_board(drawing_area,label,label_error,label_error2,message,game);	
+  PBoard board = new_board(drawing_area,label,label_error,label_error2,message,message3,game);	
   
   //game->player = COULEUR_BLANC;
   
@@ -445,14 +458,15 @@ monimage = gtk_image_new_from_file("./win.gif");
   	cairo_arc(cr, 0, 0, 17, 0, M_PI * 2);
   	cairo_fill(cr);
   	cairo_pattern_destroy(r1);*/
-  	
+  	/*cairo_set_line_width(cr,4);
+  	cairo_set_source_rgb(cr,0.69,0.19,0);*/
   	cairo_arc(cr, 70+40*i, 70+40*j , 15, 0, 2 * M_PI);
-	
-	cairo_set_source_rgb(cr,0,0,0);
+	//cairo_stroke_preserve(cr);
+	cairo_set_source_rgba(cr,0,0,0,1);
 	cairo_fill (cr);
  }
  
-  void draw_white_ball(cairo_t *cr,int i,int j){
+  void draw_white_ball(cairo_t *cr,int i,int j,PAbalone game){
  
  	/*cairo_pattern_t *r2; 
   	cairo_translate(cr, 70+40*j, 70+40*i);
@@ -464,11 +478,18 @@ monimage = gtk_image_new_from_file("./win.gif");
   	cairo_arc(cr, 0, 0, 17, 0, M_PI * 2);
   	cairo_fill(cr);  
   	cairo_pattern_destroy(r2);*/
-  	
-  	cairo_arc(cr, 70+40*i, 70+40*j , 15, 0, 2 * M_PI);
-	
-	cairo_set_source_rgb(cr,255,255,255);
+  	/*cairo_set_line_width(cr,4);
+  	cairo_set_source_rgb(cr,0.69,0.19,0);
+  	cairo_arc(cr, 70+40*i, 70+40*j , 17, 0, 2 * M_PI);*/
+  	cairo_arc(cr, 70+40*i, 70+40*j , 17, 0, 2 * M_PI);
+  	//cairo_set_source_rgba(cr,255,255,255,0.33);
+  	//cairo_stroke_preserve(cr);
+	cairo_set_source_rgba(cr,255,255,255,1);
 	cairo_fill (cr);
+	
+
+	
+	
  }
 
 
@@ -586,12 +607,13 @@ void draw(cairo_t *cr,PAbalone game){
 	for (int i=0; i<8; i++){
 		for (int j=0; j<8; j++){
 			
+			
 			switch (game->board[j][i]) {
 				
 				//! affichage pions blancs 
 				case 'B':
 				
-					draw_white_ball(cr,i,j);		
+					draw_white_ball(cr,i,j,game);		
 					break;
 
 				
@@ -602,8 +624,11 @@ void draw(cairo_t *cr,PAbalone game){
 					break;
 
 			}
+			
 		}
 	}
+	
+	
 
 	if (game->state==STATE_WON_BLANC) do_drawing(cr);
 	else if (game->state==STATE_WON_NOIR) do_drawing2(cr);
@@ -625,9 +650,35 @@ void msg(PAbalone game,GtkWidget* message ){
 	}
 	else {
 	 str=  g_locale_to_utf8("<span foreground=\"#FFFFFF\">Inserez votre mouvement, ex : \"B1:C3\"</span>", -1, NULL, NULL, NULL);  
+	  
 	 }
 	gtk_label_set_markup(GTK_LABEL(message), str);
+	
 	g_free(str);
+	
+}
+
+void msg3(PAbalone game,GtkWidget* message3,gchar* histomove){
+	gchar* str;
+	
+	/*gchar* msg="<span foreground=\"#FFFFFF\">		Inserez votre mouvement, ex : \"B1:C3\"</span>\n1 : <span foreground=\"#FF0000\"><b>A1:B2</b></span> 2 : <span foreground=\"#00FF00\"><b>E1:E2</b></span> 2 : <span foreground=\"#00FF00\"><b>E1:E2</b></span> 2 : <span foreground=\"#00FF00\"><b>E1:E2</b></span> 2 : <span foreground=\"#00FF00\"><b>E1:E2</b></span> 2 : <span foreground=\"#00FF00\"><b>E1:E2</b></span>";
+	//gchar* msg2="\n2 : <span foreground=\"#00FF00\"><b>E1:E2</b></span>";
+	*/
+	
+	GtkWidget* vBox;
+	vBox = gtk_box_new(GTK_ORIENTATION_VERTICAL, 10);
+	if (histomove=="start"){
+		str=  g_locale_to_utf8("<span foreground=\"#FFFFFF\">Inserez votre mouvement, ex : \"B1:C3\"</span>", -1, NULL, NULL, NULL); 
+	}
+	else {
+	 //str=  g_locale_to_utf8("<span foreground=\"#FFFFFF\">Inserez votre mouvement, ex : \"B1:C3\"</span>", -1, NULL, NULL, NULL);  
+	  str=  g_locale_to_utf8(histomove, -1, NULL, NULL, NULL);  
+	  
+	 }
+	gtk_label_set_markup(GTK_LABEL(message3), str);
+	
+	g_free(str);
+	
 }
 
 void label_joueur(PAbalone game,GtkWidget* label ){
@@ -1043,8 +1094,13 @@ void game_gtk_random_ia2(PBoard board, gchar* text){
 	}
 
  }
-
-
+ 
+ 
+gchar* msg_final;
+gchar* msg_coup;
+gchar* msg_coup2;
+gchar* msg_coup3;
+char* move_board[1000];
  
 void game_gtk(PBoard board, gchar* text){
  	
@@ -1059,10 +1115,112 @@ void game_gtk(PBoard board, gchar* text){
 	Mouvement mvt;
 	//char* a1=malloc(6*sizeof(char));
 	int error;
-	
+	char* string=text;
+	char dest2[1000];
+	char dest3[1500];
+	gchar* msg_coup;
 	string_to_mouvement(text,&mvt);
-	
 	error = finalise_mvt(board->game->board,board->game->player,mvt);
+	if(error) print_error(error);
+	if (cpt_board==2) cpt_board=0;
+	
+	board_historique[cpt_board]=string;
+	char string2[20];
+	sprintf(string2,"%d",compteur_tour);
+	//printf("LA valeur est %s",string2);
+
+	char final[]="</b></span>";
+	char med[]=" : <span foreground=\"#FF0000\"><b>";
+	char med2[]=" : <span foreground=\"#00FF00\"><b>";
+	char dest[500]="<span foreground=\"#FFFFFF\">	Inserez votre mouvement, ex : \"B1:C3\"</span>\n Le dernier coup joué est le numéro ";
+	strcat(dest,string2);
+	if (board->game->player==COULEUR_NOIR){
+	strcat(dest,med);
+	}
+	else {
+	strcat(dest,med2);
+	}
+	strcat(dest,board_historique[cpt_board]);
+	strcat(dest,final);
+	 msg_final=dest;
+/*	if (compteur_tour==1){
+	strcat(dest,string2);
+	strcat(dest,med);
+	strcat(dest,board_historique[cpt_board]);
+	strcat(dest,final);
+
+	move_board[compteur_tour-1]=dest;
+	printf("%s",move_board[compteur_tour-1]);
+	}
+	
+	if (compteur_tour==2){
+	
+	//char final2[]="</b></span>";
+	char med2[]=" : <span foreground=\"#00FF00\"><b>";
+	strcpy(dest2,move_board[compteur_tour-2]);
+	
+	strcat(dest2,string2);
+	strcat(dest2,med2);
+	strcat(dest2,board_historique[cpt_board]);
+	
+	strcat(dest2,final);
+	
+	move_board[compteur_tour-1]=dest2;
+		
+	}
+	if (compteur_tour>2){
+	//char final3[]="</b></span>";
+	
+	strcpy(dest3,move_board[compteur_tour-2]);
+	printf("\n %s",move_board[compteur_tour-2]);
+	strcat(dest3,string2);
+	strcat(dest3,med);
+	strcat(dest3,board_historique[cpt_board]);
+	strcat(dest3,final);
+	
+	move_board[compteur_tour-1]=dest3;
+	}
+	
+	switch(compteur_tour){
+		case 1:
+		   msg_final=move_board[0];
+			break;
+		case 2:
+		msg_final=move_board[1];
+		
+		   
+			break;
+		case 3:
+			msg_final=move_board[2];
+		//msg="<span foreground=\"#FFFFFF\">		Inserez votre mouvement, ex : \"B1:C3\"</span>\n1 : <span foreground=\"#FF0000\"><b>A1:B2</b></span> 2 : <span foreground=\"#00FF00\"><b>E1:E2</b></span> 3 : <span foreground=\"#FF0000\"><b>E1:E2</b></span>";
+			
+		 
+		  
+			break;
+		case 4:
+		//msg="<span foreground=\"#FFFFFF\">		Inserez votre mouvement, ex : \"B1:C3\"</span>\n1 : <span foreground=\"#FF0000\"><b>A1:B2</b></span> 2 : <span foreground=\"#00FF00\"><b>E1:E2</b></span> 3 : <span foreground=\"#FF0000\"><b>E1:E2</b></span>4 : <span foreground=\"#00FF00\"><b>E1:E2</b></span>";
+	
+			break;
+		case 5:
+			//msg="<span foreground=\"#FFFFFF\">		Inserez votre mouvement, ex : \"B1:C3\"</span>\n1 : <span foreground=\"#FF0000\"><b>A1:B2</b></span> 2 : <span foreground=\"#00FF00\"><b>E1:E2</b></span> 3 : <span foreground=\"#FF0000\"><b>E1:E2</b></span> 4 : <span foreground=\"#00FF00\"><b>E1:E2</b></span> 5 : <span foreground=\"#FF0000\"><b>E1:E2</b></span> 2 : <span foreground=\"#00FF00\"><b>E1:E2</b></span>";
+			break;
+	
+		//default:
+			
+	
+	}
+	/*gchar* msg="<span foreground=\"#FFFFFF\">		Inserez votre mouvement, ex : \"B1:C3\"</span>\n1 : <span foreground=\"#FF0000\"><b>A1:B2</b></span> 2 : <span foreground=\"#00FF00\"><b>E1:E2</b></span> 2 : <span foreground=\"#00FF00\"><b>E1:E2</b></span> 2 : <span foreground=\"#00FF00\"><b>E1:E2</b></span> 2 : <span foreground=\"#00FF00\"><b>E1:E2</b></span> 2 : <span foreground=\"#00FF00\"><b>E1:E2</b></span>";
+*/
+	
+	
+	
+	
+	cpt_board+=1;
+	/*printf("%i : ",compteur_tour);
+	//printf(text);
+	printf("%s",board_historique[0]);
+	printf("\n");*/
+	
 	
 	if(error) print_error(error);
 	 
@@ -1075,6 +1233,16 @@ void game_gtk(PBoard board, gchar* text){
 	}
 	board->game->state = etat(board->game);
 	if (!error){
+		compteur_tour+=1;
+		 
+		 
+		 
+		msg3(board->game, board->message,msg_final);
+		
+		
+		
+		
+		
 		gtk_widget_hide(board->label_error2);   
 		gtk_widget_show(board->label_error);   
 		if (board->game->player == COULEUR_NOIR){
@@ -1199,3 +1367,4 @@ void game_gtk(PBoard board, gchar* text){
  	//draw(cr);   
  	return FALSE;
  }
+ 

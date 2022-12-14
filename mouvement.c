@@ -18,7 +18,7 @@ int area_mvt(Mouvement mvt) {
  * \fn type_mvt(Mouvement mvt)
  * \brief determiner le type du mouvement, ligne ou largeur
  * \param mvt le mouvement donné
- * \return le mouvemnt en ligne ou en largeur
+ * \return MVT_LIGNE ou MVT_LARGEUR, explicatifs
 */
 char type_mvt(Mouvement mvt) {
 
@@ -35,8 +35,8 @@ char type_mvt(Mouvement mvt) {
 /**
  * \fn orientation_grp(Mouvement mvt)
  * \brief determiner si le mouvement d'un groupe de pions est horizontal ou vertical ou non
- * \param mvt Le mouvement avec les coordonnées de début et fin
- * \return l'orientation horizontal ou vertical ou non
+ * \param mvt Le mouvement
+ * \return HORIZONTAL ou VERTICAL
 */
 char orientation_grp(Mouvement mvt){
     if (mvt.start.x == mvt.end.x) return HORIZONTAL;
@@ -48,7 +48,7 @@ char orientation_grp(Mouvement mvt){
  * \fn length_mvt(Mouvement mvt)
  * \brief calculer la longueur d'un groupe de pion en mouvement
  * \param mvt le mouvement donné
- * \return la longueur d'un groupe de pion en mouvement
+ * \return L_0, L_1, L_2, ou L_3 en fonction de la longueur
 */
 char length_mvt(Mouvement mvt){
     int length = 0;
@@ -120,7 +120,7 @@ Coord voisin_carre(char** board, Mouvement mvt){
  * \brief determiner la direction du mouvement
  * \param board le tableau représentant le plateau
  * \param mvt le mouvement donné
- * \return la direction mouvement
+ * \return DIR_UP, DIR_RIGHT, DIR_DOWN ou DIR_LEFT
 */
 char direction_mvt(char** board, Mouvement mvt){
     char len = length_mvt(mvt);
@@ -186,7 +186,7 @@ char direction_mvt(char** board, Mouvement mvt){
  * \fn validate_mvt_piece(char** board,char player, Mouvement mvt)
  * \brief verifier si le mouvement donné contient le pion appartenant au joueur
  * \param board Le jeu
- * \param player Le joueur
+ * \param player Le joueur qui effectue le mouvement
  * \param mvt Le mouvement donné
  * \return ERROR_MISSING_PIECE s'il n'ya pas de pion, ERROR_WRONG_COLOR si pion n'appartient pas au joueur et VALIDATION_OK sinon
 */
@@ -242,9 +242,9 @@ int validate_mvt_ligne_1(char** board, Mouvement mvt){
  * \fn validate_mvt_ligne_2(char** board, char player, Mouvement mvt)
  * \brief Vérifier si le mouvement en ligne de deux pion n'est pas bloqué par un autre pion
  * \param board Le jeu
- * \param player Le joueur
+ * \param player Le joueur qui effectue le mouvement
  * \param mvt Le mouvement donné
- * \return VALIDATION_OK s'il n'est pas bloqué, sinon un message d'erreur correspondant 
+ * \return VALIDATION_OK s'il n'est pas bloqué, sinon un code d'erreur correspondant 
 */
 int validate_mvt_ligne_2(char** board, char player, Mouvement mvt){
     int modX = 0;
@@ -304,8 +304,8 @@ int validate_mvt_ligne_2(char** board, char player, Mouvement mvt){
  * \brief verifier si le mouvement en ligne de trois pion n'est pas bloqué par un autre pion
  * \param mvt le mouvement donné
  * \param board le tableau de la partie
- * \param player le joueur actif
- * \return VALIDATION_OK s'il n'est pas bloqué, sinon un message d'erreur correspondant
+ * \param player Le joueur qui effectue le mouvement
+ * \return VALIDATION_OK s'il n'est pas bloqué, sinon un code d'erreur correspondant
 */
 int validate_mvt_ligne_3(char** board, char player, Mouvement mvt){
     int modX = 0;
@@ -380,7 +380,7 @@ int validate_mvt_ligne_3(char** board, char player, Mouvement mvt){
 }
 
 /**
- * \fn validate_mvt_largeur_1(PAbalone abalone, Mouvement mvt)
+ * \fn validate_mvt_largeur_1(char** board, Mouvement mvt)
  * \brief verifier si le mouvement d'un pion n'est pas bloqué par un autre pion
  * \param mvt le mouvement donné
  * \param board le tableau représentant le plateau
@@ -394,12 +394,12 @@ int validate_mvt_largeur_1(char** board, Mouvement mvt){
 }
 
 /**
- * \fn validate_mvt_largeur_2(PAbalone abalone, Mouvement mvt)
+ * \fn validate_mvt_largeur_2(char** board, char player, Mouvement mvt)
  * \brief verifier si le mouvement en largeur de deux pion n'est pas bloqué par un autre pion
  * \param mvt le mouvement donné
  * \param board le tableau de la partie
- * \param player le joueur actif
- * \return VALIDATION_OK s'il n'est pas bloqué, sinon un message d'erreur correspondant 
+ * \param player Le joueur qui effectue le mouvement
+ * \return VALIDATION_OK s'il n'est pas bloqué, sinon un code d'erreur correspondant 
 */
 int validate_mvt_largeur_2(char** board, char player, Mouvement mvt){
     int modX = 0;
@@ -456,12 +456,12 @@ int validate_mvt_largeur_2(char** board, char player, Mouvement mvt){
 }
 
 /**
- * \fn validate_mvt_largeur_3(PAbalone abalone, Mouvement mvt)
+ * \fn validate_mvt_largeur_3(char** board, char player, Mouvement mvt)
  * \brief verifier si le mouvement en largeur de trois pion n'est pas bloqué par un autre pion
  * \param mvt le mouvement donné
  * \param board le tableau de la partie
- * \param player le joueur actif
- * \return VALIDATION_OK s'il n'est pas bloqué, sinon un message d'erreur correspondant 
+ * \param player Le joueur qui effectue le mouvement
+ * \return VALIDATION_OK s'il n'est pas bloqué, sinon un code d'erreur correspondant 
 */
 int validate_mvt_largeur_3(char** board, char player, Mouvement mvt){
     int modX = 0;
@@ -530,12 +530,12 @@ int validate_mvt_largeur_3(char** board, char player, Mouvement mvt){
 }
 
 /**
- * \fn validate_mvt(PAbalone abalone, Mouvement mvt)
+ * \fn validate_mvt(char** board, char player, Mouvement mvt)
  * \brief verifier si le mouvement est valide
  * \param mvt le mouvement donné
  * \param board le tableau de la partie
- * \param player le joueur actif
- * \return VALIDATION_OK si valide, sinon un message d'erreur correspondant 
+ * \param player Le joueur qui effectue le mouvement
+ * \return VALIDATION_OK si valide, sinon un code d'erreur correspondant 
 */
 int validate_mvt(char** board, char player, Mouvement mvt){
     /*Erreurs générales*/
@@ -618,6 +618,26 @@ int string_to_mouvement(char* string, PMouvement mvt){
     }
 }
 
+/**
+ * \fn int mouvement_to_string(Mouvement mvt, char* buffer)
+ * \brief Changement des coordonnées 2D en une chaine 
+ * \param buffer La chaine de caractère qui va recevoir la conversion
+ * \param mvt Le mouvement à convertir
+ * \return 0 si le buffer peut acceuillir la chaine, 1 sinon
+*/
+int mouvement_to_string(Mouvement mvt, char* buffer){
+    if(strlen(buffer)<5){
+        return 1;
+    }else{
+        buffer[0] = mvt.start.x+65;
+        buffer[1] = mvt.start.y+49;
+        buffer[2] = ':';
+        buffer[3] = mvt.end.x+65;
+        buffer[4] = mvt.end.y+49;
+        return 0;
+    }
+}
+
 
 
 //fonction du dernier deplacement
@@ -638,11 +658,11 @@ tposition dernier_deplacement(){
 /*une fonction qui prend un mouvement et si la fctVALIDATE return 0 il l applique 
 et le stock en d sinon il affiche un erreur qui depend du retour de validate */
 /**
- * \fn finalise_mvt(PAbalone G,Mouvement mvt)
+ * \fn finalise_mvt(char** board, char player,Mouvement mvt)
  * \brief finaliser un mouvement et l'executer
  * \param mvt le mouvement donné
  * \param board le tableau de la partie
- * \param player le joueur actif
+ * \param player le joueur qui effectue le mouvement
  * \return VALIDATION_OK si mouvement validé, error sinon
 */
 int finalise_mvt(char** board, char player ,Mouvement mvt){
@@ -663,7 +683,7 @@ int finalise_mvt(char** board, char player ,Mouvement mvt){
  * \param p le mouvement donné
  * \param board le tableau de la partie
  * \param player le joueur actif
- * \param out
+ * \param out est-ce que le premier pion poussé sort
 */
 void push_mvt(char** board, char player,Mouvement p,int out){
     //on ne pousse pas le premier pion en dehors
