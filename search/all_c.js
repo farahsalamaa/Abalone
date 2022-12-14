@@ -1,11 +1,7 @@
 var searchData=
 [
-  ['play_5fgame_59',['play_game',['../abalone__terminal_8c.html#a08128a09e97c1b63afc765c96e1e4c8f',1,'play_game():&#160;abalone_terminal.c'],['../abalone__terminal_8h.html#a17471c537659747b95c3c2aa8b22790b',1,'play_game():&#160;abalone_terminal.c']]],
-  ['play_5fgame_5fgtk_60',['play_game_gtk',['../abalone__gtk_8h.html#a0031700b260573ddc1e77170f75688de',1,'abalone_gtk.c']]],
-  ['play_5fgame_5fgtk2_61',['play_game_gtk2',['../abalone__gtk_8h.html#a8d05febc94208a50e3a845064d51cb35',1,'abalone_gtk.c']]],
-  ['play_5fgame_5fgtk3_62',['play_game_gtk3',['../abalone__gtk_8h.html#aab3db9ee7334c5539d62afb1f4c43d16',1,'abalone_gtk.c']]],
-  ['play_5fgame_5frandom_5fia_63',['play_game_random_ia',['../abalone__terminal_8c.html#add79cf404349c65f3af31d0676ad7921',1,'play_game_random_ia():&#160;abalone_terminal.c'],['../abalone__terminal_8h.html#a98d6c51f1a260c998e7e5b61c5d7c645',1,'play_game_random_ia():&#160;abalone_terminal.c']]],
-  ['play_5frandom_5fmove_64',['play_random_move',['../ia_8c.html#a23670cfb445dbb4bd0109cd79f12afd9',1,'play_random_move(char **board, char player):&#160;ia.c'],['../ia_8h.html#a23670cfb445dbb4bd0109cd79f12afd9',1,'play_random_move(char **board, char player):&#160;ia.c']]],
-  ['player_65',['player',['../structAbalone.html#ac99759da7d87a6cade34b7e3287c7238',1,'Abalone']]],
-  ['print_5ferror_66',['print_error',['../abalone__terminal_8c.html#ae24f1785fdfe4fecb9ebd7ee76c6717c',1,'print_error(int error):&#160;abalone_terminal.c'],['../abalone__terminal_8h.html#a968801b6df4daa98b46851157bfbacab',1,'print_error(int error):&#160;abalone_terminal.c']]]
+  ['op_67',['op',['../ia_8c.html#a2a4cbd197f79e75e52093847c668773f',1,'ia.c']]],
+  ['op_5freversed_68',['op_reversed',['../ia_8c.html#a96244b0393ffea38eccf22141876ed4d',1,'ia.c']]],
+  ['orientation_5fgrp_69',['orientation_grp',['../mouvement_8c.html#adb03529eabb509c826d099284c3563d4',1,'orientation_grp(Mouvement mvt):&#160;mouvement.c'],['../mouvement_8h.html#a36ed7e6eb8a9afd7b79870c16384dee7',1,'orientation_grp(Mouvement mvt):&#160;mouvement.c']]],
+  ['other_5fplayer_70',['other_player',['../group__g1.html#ga0031c73af03663d357653d7f263353a5',1,'other_player(char player):&#160;ia.c'],['../group__g1.html#ga0031c73af03663d357653d7f263353a5',1,'other_player(char player):&#160;ia.c']]]
 ];

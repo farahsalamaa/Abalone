@@ -77,6 +77,12 @@ Functions</h2></td></tr>
 <tr class="memitem:ga9c50e02ab920d5ea0c88907af2e4e9cc"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__g1.html#ga9c50e02ab920d5ea0c88907af2e4e9cc">count_padding</a> (char **board, char player)</td></tr>
 <tr class="memdesc:ga9c50e02ab920d5ea0c88907af2e4e9cc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Permet de compter le nombre de pions présents au niveau des bordures.  <a href="group__g1.html#ga9c50e02ab920d5ea0c88907af2e4e9cc">More...</a><br /></td></tr>
 <tr class="separator:ga9c50e02ab920d5ea0c88907af2e4e9cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gabc6830ccca5794ac831fea153283b06a"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__g1.html#gabc6830ccca5794ac831fea153283b06a">score_density</a> (char **board, char player)</td></tr>
+<tr class="memdesc:gabc6830ccca5794ac831fea153283b06a"><td class="mdescLeft">&#160;</td><td class="mdescRight">calcule la densité (à quel point les pièces du joueur sont rassemblées sur le plateau)  <a href="group__g1.html#gabc6830ccca5794ac831fea153283b06a">More...</a><br /></td></tr>
+<tr class="separator:gabc6830ccca5794ac831fea153283b06a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga5ce809b4976be43c85bffc5cffbc04a0"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__g1.html#ga5ce809b4976be43c85bffc5cffbc04a0">possible_attacks</a> (char **board, char player)</td></tr>
+<tr class="memdesc:ga5ce809b4976be43c85bffc5cffbc04a0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculer le nombre de coups d'attaque possibles.  <a href="group__g1.html#ga5ce809b4976be43c85bffc5cffbc04a0">More...</a><br /></td></tr>
+<tr class="separator:ga5ce809b4976be43c85bffc5cffbc04a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga0031c73af03663d357653d7f263353a5"><td class="memItemLeft" align="right" valign="top">char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__g1.html#ga0031c73af03663d357653d7f263353a5">other_player</a> (char player)</td></tr>
 <tr class="memdesc:ga0031c73af03663d357653d7f263353a5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Déterminer la couleur du joueur opposé  <a href="group__g1.html#ga0031c73af03663d357653d7f263353a5">More...</a><br /></td></tr>
 <tr class="separator:ga0031c73af03663d357653d7f263353a5"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -187,6 +193,83 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>La couleur du joueur opposé </dd></dl>
+
+</div>
+</div>
+<a id="ga5ce809b4976be43c85bffc5cffbc04a0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga5ce809b4976be43c85bffc5cffbc04a0">&#9670;&nbsp;</a></span>possible_attacks()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int possible_attacks </td>
+          <td>(</td>
+          <td class="paramtype">char **&#160;</td>
+          <td class="paramname"><em>board</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char&#160;</td>
+          <td class="paramname"><em>player</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Calculer le nombre de coups d'attaque possibles. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">board</td><td>Le jeu </td></tr>
+    <tr><td class="paramname">player</td><td>Le joueur </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Le nombre de coups d'attaque possibles </dd></dl>
+
+</div>
+</div>
+<a id="gabc6830ccca5794ac831fea153283b06a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gabc6830ccca5794ac831fea153283b06a">&#9670;&nbsp;</a></span>score_density()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int score_density </td>
+          <td>(</td>
+          <td class="paramtype">char **&#160;</td>
+          <td class="paramname"><em>board</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char&#160;</td>
+          <td class="paramname"><em>player</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>calcule la densité (à quel point les pièces du joueur sont rassemblées sur le plateau) </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">board</td><td>le plateau </td></tr>
+    <tr><td class="paramname">player</td><td>le joueur </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>le score de densité du joueur sur le plateau </dd></dl>
+<p>la Largeur de la surface (Width)</p>
 
 </div>
 </div>

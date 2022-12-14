@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['start_140',['start',['../structMouvement.html#a2fba4c20bc0122e55bc45affb4b82784',1,'Mouvement']]],
-  ['state_141',['state',['../structAbalone.html#afc09df66e4e1131bad27f84d29bd8726',1,'Abalone']]]
+  ['player_186',['player',['../structAbalone.html#ac99759da7d87a6cade34b7e3287c7238',1,'Abalone']]]
 ];

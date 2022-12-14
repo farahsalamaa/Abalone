@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['orientation_5fgrp_118',['orientation_grp',['../mouvement_8c.html#adb03529eabb509c826d099284c3563d4',1,'orientation_grp(Mouvement mvt):&#160;mouvement.c'],['../mouvement_8h.html#a36ed7e6eb8a9afd7b79870c16384dee7',1,'orientation_grp(Mouvement mvt):&#160;mouvement.c']]],
-  ['other_5fplayer_119',['other_player',['../group__g1.html#ga0031c73af03663d357653d7f263353a5',1,'other_player(char player):&#160;ia.c'],['../group__g1.html#ga0031c73af03663d357653d7f263353a5',1,'other_player(char player):&#160;ia.c']]]
+  ['init_5fboard_147',['init_board',['../abalone__terminal_8c.html#a5fd14b537d67e3b6780f8cd549226ed4',1,'init_board(PAbalone game):&#160;abalone_terminal.c'],['../abalone__terminal_8h.html#aee74829ecd7bdf17010ccaa0ee3dc5b4',1,'init_board(PAbalone game):&#160;abalone_terminal.c']]]
 ];
