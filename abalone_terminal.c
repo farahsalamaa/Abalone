@@ -421,7 +421,6 @@ void play_game_random_ia() {
     }
 }
 
-
 /**
  * \fn void play_terminator()
  * \brief joue contre l'ia minmax, la pronfondeur est un variable globale
@@ -630,6 +629,11 @@ void play_game_client(char* server){  //server doit avoir comme format= 127.0.0.
 
 }
 
+/**
+ * \fn play_game_server_ia(char* port)
+ * \brief Lance le jeu en mode server ia 
+ * \param port Le port nécessaire pour la connection
+*/
 void play_game_server_ia(char* port){
 	PAbalone game = new_abalone();
 	display_board(game->board);
@@ -682,6 +686,11 @@ void play_game_server_ia(char* port){
 	}
 }
 
+/**
+ * \fn play_game_client_ia(char* server)
+ * \brief Lance le jeu en mode server ia 
+ * \param server Contient l'adresse ip et le port nécessaire pour la connection sous format adresse:port
+*/
 void play_game_client_ia(char* server){  //server doit avoir comme format= 127.0.0.1:6969
 	PAbalone game = new_abalone();
 	display_board(game->board);

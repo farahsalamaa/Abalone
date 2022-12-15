@@ -24,6 +24,18 @@ void test_type_mvt_largeur(){
     m.end = c2;
     assert(type_mvt(m) == MVT_LARGEUR);
 }
+void test_type_notmvt(){
+    Mouvement m;
+    Coord c1;
+    c1.x = 1;
+    c1.y = 1;
+    m.start = c1;
+    Coord c2;
+    c2.x = 2;
+    c2.y = 4;
+    m.end = c2;
+    assert(type_mvt(m) == ERROR_NOT_A_MOVEMENT);
+}
 void test_area_mvt(){
     Mouvement m;
     Coord c1;
@@ -61,6 +73,30 @@ void orientation_grp_test_verti(){
     c2.y = 0;
     m.end = c2;
     assert(orientation_grp(m)==VERTICAL);
+}
+void orientation_grp_test_not_align(){
+    Mouvement m;
+    Coord c1;
+    c1.x = 0;
+    c1.y = 0;
+    m.start = c1;
+    Coord c2;
+    c2.x = 1;
+    c2.y = 2;
+    m.end = c2;
+    assert(orientation_grp(m)==ERROR_NOT_ALIGNED);
+}
+void length_mvt_l0_test(){ 
+    Mouvement m;
+    Coord c1;
+    c1.x = 0;
+    c1.y = 0;
+    m.start = c1;
+    Coord c2;
+    c2.x = 0;
+    c2.y = 0;
+    m.end = c2;
+    assert(length_mvt(m)==L_0);
 }
 void length_mvt_largeur_l2_test(){ 
     Mouvement m;
@@ -192,6 +228,45 @@ void direction_mvt_up_test(){
     PAbalone a = new_abalone();
     assert(direction_mvt(a->board,m)==DIR_UP);
 }
+void direction_mvt_down_test(){ 
+    Mouvement m;
+    Coord c1;
+    c1.x = 0;
+    c1.y = 0;
+    m.start = c1;
+    Coord c2;
+    c2.x = 1;
+    c2.y = 0;
+    m.end = c2;
+    PAbalone a = new_abalone();
+    assert(direction_mvt(a->board,m)==DIR_DOWN);
+}
+void direction_mvt_downl2_test(){ 
+    Mouvement m;
+    Coord c1;
+    c1.x = 1;
+    c1.y = 1;
+    m.start = c1;
+    Coord c2;
+    c2.x = 2;
+    c2.y = 2;
+    m.end = c2;
+    PAbalone a = new_abalone();
+    assert(direction_mvt(a->board,m)==DIR_DOWN);
+}
+void direction_mvt_downl3_test(){ 
+    Mouvement m;
+    Coord c1;
+    c1.x = 1;
+    c1.y = 1;
+    m.start = c1;
+    Coord c2;
+    c2.x = 2;
+    c2.y = 3;
+    m.end = c2;
+    PAbalone a = new_abalone();
+    assert(direction_mvt(a->board,m)==DIR_DOWN);
+}
 void validate_mvt_test1(){
     Mouvement m;
     Coord c1;
@@ -203,7 +278,6 @@ void validate_mvt_test1(){
     c2.y = 1;
     m.end = c2;
     PAbalone a=new_abalone();
-    //assert(validate_mvt_ligne_2(m)==VALIDATION_OK);
     assert(validate_mvt(a->board,a->player,m)==VALIDATION_OK);
 }
 void validate_mvt_test2(){
@@ -277,7 +351,8 @@ void mouvement_to_string_test(){
     c2.x = 1;
     c2.y = 0;
     m.end = c2;
-    assert(mouvement_to_string(m,"A1:B1")==0);
+    char buffer[] = "A1:B1";
+    assert(mouvement_to_string(m,buffer)==0);
 }
 /* Ces fonctions ne sont pas à tester comme ca. il faut les tester avec validate mvt, car ce sont des fonctions filles.
 void validate_mvt_piece_test(){
@@ -334,9 +409,12 @@ void validate_mvt_ligne_3_test(){
 void test_mouvement() {
     test_type_mvt_ligne();
     test_type_mvt_largeur();
+    test_type_notmvt();
     test_area_mvt();
     orientation_grp_test_horiz();
     orientation_grp_test_verti();
+    orientation_grp_test_not_align();
+    length_mvt_l0_test();
     length_mvt_largeur_l1_test();
     length_mvt_largeur_l2_test();
     length_mvt_largeur_l3_test();
@@ -347,6 +425,9 @@ void test_mouvement() {
     direction_mvt_right_test();
     direction_mvt_left_test();
     direction_mvt_up_test();
+    direction_mvt_down_test();
+    direction_mvt_downl2_test();
+    direction_mvt_downl3_test();
     validate_mvt_test1();
     validate_mvt_test2();
     validate_mvt_test3();

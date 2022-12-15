@@ -461,10 +461,10 @@ int minimax(char** board, int depth, int alpha, int beta, bool max_player, char 
 
     char state = has_player_won(board);
     if (depth == 0) return score_utility(board, active_player);
-    else if (state == STATE_WON_BLANC && active_player == COULEUR_BLANC) return INT_MAX;
-    else if (state == STATE_WON_BLANC && active_player == COULEUR_NOIR) return INT_MIN;
-    else if (state == STATE_WON_NOIR && active_player == COULEUR_NOIR) return INT_MAX;
-    else if (state == STATE_WON_NOIR && active_player == COULEUR_BLANC) return INT_MIN;
+    if (max_player && state == STATE_WON_BLANC && active_player == COULEUR_BLANC) return INT_MAX;
+    else if (max_player && state == STATE_WON_NOIR && active_player == COULEUR_NOIR) return INT_MAX;
+    else if (!max_player && state == STATE_WON_BLANC && active_player == COULEUR_BLANC) return INT_MIN;
+    else if (!max_player && state == STATE_WON_NOIR && active_player == COULEUR_NOIR) return INT_MIN;
 
     if (max_player) {
         int max_eval = INT_MIN;

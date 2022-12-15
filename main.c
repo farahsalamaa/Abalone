@@ -27,8 +27,8 @@ void afficheOptions(){
     printf("\t-ia => ia contre ia sous gtk\n");
     printf("\t--r_ia => joueur contre ia aléatoire\n");
 	
-	printf("\t--s XXXX => créer un serveur ia (ex:2000)\n");
-	printf("\t--c XXX.XXX.XXX.XXX:YYYY (ex:127.0.0.1:2000)=> se connecter au serveur ia\n");
+	printf("\t-s XXXX => créer un serveur ia (ex:2000)\n");
+	printf("\t-c XXX.XXX.XXX.XXX:YYYY (ex:127.0.0.1:2000)=> se connecter au serveur ia\n");
     printf("\t--port XXXX => créer un serveur (ex:2000)\n");
     printf("\t--connect XXX.XXX.XXX.XXX:YYYY (ex:127.0.0.1:2000)=> se connecter au serveur\n");
 

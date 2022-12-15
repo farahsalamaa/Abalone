@@ -12,7 +12,7 @@
 #include "debug.h"
 #include "abalone_terminal.h"
 #include "mouvement.h"
-#include"ia.h"
+#include "ia.h"
 #include "const.h"
 
 

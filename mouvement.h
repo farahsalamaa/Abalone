@@ -8,6 +8,11 @@
 #include "debug.h"
 
 /**
+ * \file mouvement.h
+ * \brief Bibliothèque des fonctions du mouvement, validation et l'execution du mouvements
+*/
+
+/**
  * \struct Coord abalone_terminal.h abalone_terminal.c
  * \brief Les coordonnées en 2D de la grille board
 */
@@ -36,13 +41,6 @@ typedef struct {
     /*! Coordonnées d'arrivé*/
     Coord end;
 } Mouvement, *PMouvement;
-
-
-
-/**
- * \file mouvement.h
- * \brief Bibliothèque des fonctions du mouvement, validation et l'execution du mouvements
-*/
 
 int area_mvt(Mouvement mvt);
 char type_mvt(Mouvement mvt);

@@ -13,9 +13,6 @@
 
 #endif //IMM2223_GR6_SERVEUR_H
 
-
-
-
 typedef int SOCKET;
 typedef struct sockaddr_in SOCKADDR_IN;
 typedef struct sockaddr SOCKADDR;
@@ -24,9 +21,12 @@ typedef struct in_addr IN_ADDR;
 #define INVALID_SOCKET -1
 #define SOCKET_ERROR -1
 
+/**
+ * \fn TCP_Create_Server(short service)
+ * \brief cree une socket TCP pour le serveur 
+ * \param mvt le mouvement donné
+ * \param board le tableau de la partie
+ * \param player le joueur actif
+ * \return VALIDATION_OK s'il n'est pas bloqué, sinon un message d'erreur correspondant
+*/
 SOCKET TCP_Create_Server(short service);
-
-static void exchange();
-SOCKET TCP_Create_Server(short service);
-int TCP_String_Reader(SOCKET s,char *input);
-int TCP_Long_Writer(SOCKET s,long value);
