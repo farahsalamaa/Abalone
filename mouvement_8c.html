@@ -120,8 +120,8 @@ Functions</h2></td></tr>
 <tr class="memitem:a131f00c7dc4538300bc3cac9b9a435a0"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mouvement_8c.html#a131f00c7dc4538300bc3cac9b9a435a0">validate_mvt</a> (char **board, char player, <a class="el" href="structMouvement.html">Mouvement</a> mvt)</td></tr>
 <tr class="memdesc:a131f00c7dc4538300bc3cac9b9a435a0"><td class="mdescLeft">&#160;</td><td class="mdescRight">verifier si le mouvement est valide  <a href="mouvement_8c.html#a131f00c7dc4538300bc3cac9b9a435a0">More...</a><br /></td></tr>
 <tr class="separator:a131f00c7dc4538300bc3cac9b9a435a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa428d18db84431ec520ef8e4743b176d"><td class="memItemLeft" align="right" valign="top"><a id="aa428d18db84431ec520ef8e4743b176d"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>string_to_mouvement</b> (char *string, <a class="el" href="const_8h.html#a1529045b8d16c016dcd76c7495ec4c56">PMouvement</a> mvt)</td></tr>
+<tr class="memitem:aa428d18db84431ec520ef8e4743b176d"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mouvement_8c.html#aa428d18db84431ec520ef8e4743b176d">string_to_mouvement</a> (char *string, <a class="el" href="mouvement_8h.html#a1529045b8d16c016dcd76c7495ec4c56">PMouvement</a> mvt)</td></tr>
+<tr class="memdesc:aa428d18db84431ec520ef8e4743b176d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Changement de la chaine donnée par utilisateur en mouvement.  <a href="mouvement_8c.html#aa428d18db84431ec520ef8e4743b176d">More...</a><br /></td></tr>
 <tr class="separator:aa428d18db84431ec520ef8e4743b176d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a36d23f9f1ef7610b026bd71a02a0917e"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mouvement_8c.html#a36d23f9f1ef7610b026bd71a02a0917e">mouvement_to_string</a> (<a class="el" href="structMouvement.html">Mouvement</a> mvt, char *buffer)</td></tr>
 <tr class="memdesc:a36d23f9f1ef7610b026bd71a02a0917e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Changement des coordonnées 2D en une chaine.  <a href="mouvement_8c.html#a36d23f9f1ef7610b026bd71a02a0917e">More...</a><br /></td></tr>
@@ -129,9 +129,9 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>string_to_mouvement</b
 <tr class="memitem:a17edf773835fb887697aae6ea192b4cb"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mouvement_8c.html#a17edf773835fb887697aae6ea192b4cb">finalise_mvt</a> (char **board, char player, <a class="el" href="structMouvement.html">Mouvement</a> mvt)</td></tr>
 <tr class="memdesc:a17edf773835fb887697aae6ea192b4cb"><td class="mdescLeft">&#160;</td><td class="mdescRight">finaliser un mouvement et l'executer  <a href="mouvement_8c.html#a17edf773835fb887697aae6ea192b4cb">More...</a><br /></td></tr>
 <tr class="separator:a17edf773835fb887697aae6ea192b4cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab6754ff6aaf2e49b857663b058479434"><td class="memItemLeft" align="right" valign="top"><a id="ab6754ff6aaf2e49b857663b058479434"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>push_mvt</b> (char **board, char player, <a class="el" href="structMouvement.html">Mouvement</a> p, int out)</td></tr>
-<tr class="separator:ab6754ff6aaf2e49b857663b058479434"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0238d1207de79602b1fc1756e3076722"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mouvement_8c.html#a0238d1207de79602b1fc1756e3076722">push_mvt</a> (char **board, char player, <a class="el" href="structMouvement.html">Mouvement</a> p, int out)</td></tr>
+<tr class="memdesc:a0238d1207de79602b1fc1756e3076722"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction qui effectue la poussée des pions ADVERSES.  <a href="mouvement_8c.html#a0238d1207de79602b1fc1756e3076722">More...</a><br /></td></tr>
+<tr class="separator:a0238d1207de79602b1fc1756e3076722"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a07f54f71127213e73f647ab03b4be705"><td class="memItemLeft" align="right" valign="top">char **&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mouvement_8c.html#a07f54f71127213e73f647ab03b4be705">exec_mvt</a> (char **board, char player, <a class="el" href="structMouvement.html">Mouvement</a> p)</td></tr>
 <tr class="memdesc:a07f54f71127213e73f647ab03b4be705"><td class="mdescLeft">&#160;</td><td class="mdescRight">fonction qui effectue le mouvement  <a href="mouvement_8c.html#a07f54f71127213e73f647ab03b4be705">More...</a><br /></td></tr>
 <tr class="separator:a07f54f71127213e73f647ab03b4be705"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -226,7 +226,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>push_mvt</b> (char **
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype"><a class="el" href="structMouvement.html">Mouvement</a>&#160;</td>
-          <td class="paramname"><em>mvt</em>&#160;</td>
+          <td class="paramname"><em>p</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -383,6 +383,95 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>push_mvt</b> (char **
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>HORIZONTAL ou VERTICAL </dd></dl>
+
+</div>
+</div>
+<a id="a0238d1207de79602b1fc1756e3076722"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0238d1207de79602b1fc1756e3076722">&#9670;&nbsp;</a></span>push_mvt()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">push_mvt </td>
+          <td>(</td>
+          <td class="paramtype">char **&#160;</td>
+          <td class="paramname"><em>board</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char&#160;</td>
+          <td class="paramname"><em>player</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structMouvement.html">Mouvement</a>&#160;</td>
+          <td class="paramname"><em>p</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>out</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Fonction qui effectue la poussée des pions ADVERSES. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">p</td><td>le mouvement donné </td></tr>
+    <tr><td class="paramname">board</td><td>le tableau de la partie </td></tr>
+    <tr><td class="paramname">player</td><td>le joueur actif </td></tr>
+    <tr><td class="paramname">out</td><td>est-ce que le premier pion poussé sort </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="aa428d18db84431ec520ef8e4743b176d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa428d18db84431ec520ef8e4743b176d">&#9670;&nbsp;</a></span>string_to_mouvement()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int string_to_mouvement </td>
+          <td>(</td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>string</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="mouvement_8h.html#a1529045b8d16c016dcd76c7495ec4c56">PMouvement</a>&#160;</td>
+          <td class="paramname"><em>mvt</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Changement de la chaine donnée par utilisateur en mouvement. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">string</td><td>La chaine de caractère à convertir </td></tr>
+    <tr><td class="paramname">mvt</td><td>Le mouvement qui devient le mouvement converti. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>0 si les coordonnées existe dans la grille, 1 sinon </dd></dl>
 
 </div>
 </div>

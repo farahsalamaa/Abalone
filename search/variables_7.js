@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['y_191',['y',['../structCoord.html#a0a2f84ed7838f07779ae24c5a9086d33',1,'Coord']]]
+  ['nb_5fchildren_238',['nb_children',['../structNode.html#a788863798fbcd2453a719fc0e70a1ce1',1,'Node']]]
 ];

@@ -1,9 +1,6 @@
 var searchData=
 [
-  ['state_5ffinished_222',['STATE_FINISHED',['../const_8h.html#a6c67f1d584b1176e47ffd0671a59cafb',1,'const.h']]],
-  ['state_5finitialized_223',['STATE_INITIALIZED',['../const_8h.html#addd3d5203ab5cae01b52a4564950eed3',1,'const.h']]],
-  ['state_5frunning_224',['STATE_RUNNING',['../const_8h.html#ac4c0304c569818c811515e24523c3150',1,'const.h']]],
-  ['state_5ftimeout_225',['STATE_TIMEOUT',['../const_8h.html#ab8be08a601a78e641537fc0b35e0b9f3',1,'const.h']]],
-  ['state_5fwon_5fblanc_226',['STATE_WON_BLANC',['../const_8h.html#a9c9924c810500307bd31e182c3165704',1,'const.h']]],
-  ['state_5fwon_5fnoir_227',['STATE_WON_NOIR',['../const_8h.html#a444e91a7de57a5ebbb393436e9ff3bce',1,'const.h']]]
+  ['max_5fchildren_282',['MAX_CHILDREN',['../const_8h.html#ac760eaf4b19dd6359a2b1e52091ae919',1,'const.h']]],
+  ['mvt_5flargeur_283',['MVT_LARGEUR',['../const_8h.html#a2e0a5edc414e7576542c39ef642a367f',1,'const.h']]],
+  ['mvt_5fligne_284',['MVT_LIGNE',['../const_8h.html#ac4b7138d1ac7efcc9a7ddb9bfc38d4e2',1,'const.h']]]
 ];

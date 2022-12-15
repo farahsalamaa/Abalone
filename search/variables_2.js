@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['op_184',['op',['../ia_8c.html#a2a4cbd197f79e75e52093847c668773f',1,'ia.c']]],
-  ['op_5freversed_185',['op_reversed',['../ia_8c.html#a96244b0393ffea38eccf22141876ed4d',1,'ia.c']]]
+  ['depth_228',['depth',['../structNode.html#acb5ba97551079e0b072c62c21d784ac5',1,'Node']]],
+  ['drawing_5farea_229',['drawing_area',['../structBoard.html#a5337bcb6c7a52207b2bda0863cbf911c',1,'Board']]]
 ];

@@ -63,6 +63,8 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="summary">
+<a href="#nested-classes">Data Structures</a> &#124;
+<a href="#typedef-members">Typedefs</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">mouvement.h File Reference</div>  </div>
@@ -71,12 +73,33 @@ $(function() {
 
 <p>Bibliothèque des fonctions du mouvement, validation et l'execution du mouvements.  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &quot;<a class="el" href="const_8h_source.html">const.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="abalone__terminal_8h_source.html">abalone_terminal.h</a>&quot;</code><br />
+<div class="textblock"><code>#include &lt;stdlib.h&gt;</code><br />
+<code>#include &lt;string.h&gt;</code><br />
+<code>#include &quot;<a class="el" href="const_8h_source.html">const.h</a>&quot;</code><br />
 <code>#include &quot;debug.h&quot;</code><br />
 </div>
 <p><a href="mouvement_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
+Data Structures</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structCoord.html">Coord</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les coordonnées en 2D de la grille board.  <a href="structCoord.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structMouvement.html">Mouvement</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le structure d'un mouvement contenant ses caractéristiques.  <a href="structMouvement.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
+Typedefs</h2></td></tr>
+<tr class="memitem:aeaaea0f942e978fe6208de934e588405"><td class="memItemLeft" align="right" valign="top"><a id="aeaaea0f942e978fe6208de934e588405"></a>
+typedef struct <a class="el" href="structCoord.html">Coord</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mouvement_8h.html#aeaaea0f942e978fe6208de934e588405">PCoord</a></td></tr>
+<tr class="memdesc:aeaaea0f942e978fe6208de934e588405"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pointeur vers un <a class="el" href="structCoord.html" title="Les coordonnées en 2D de la grille board.">Coord</a>. <br /></td></tr>
+<tr class="separator:aeaaea0f942e978fe6208de934e588405"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1529045b8d16c016dcd76c7495ec4c56"><td class="memItemLeft" align="right" valign="top"><a id="a1529045b8d16c016dcd76c7495ec4c56"></a>
+typedef struct <a class="el" href="structMouvement.html">Mouvement</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mouvement_8h.html#a1529045b8d16c016dcd76c7495ec4c56">PMouvement</a></td></tr>
+<tr class="memdesc:a1529045b8d16c016dcd76c7495ec4c56"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pointeur vers un mouvement. <br /></td></tr>
+<tr class="separator:a1529045b8d16c016dcd76c7495ec4c56"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:ae19a38c1b2b38b36996dc63f9578e438"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mouvement_8h.html#ae19a38c1b2b38b36996dc63f9578e438">area_mvt</a> (<a class="el" href="structMouvement.html">Mouvement</a> mvt)</td></tr>
@@ -106,8 +129,8 @@ Functions</h2></td></tr>
 <tr class="memitem:af56ad150ea96651ece52c34232e7f095"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mouvement_8h.html#af56ad150ea96651ece52c34232e7f095">finalise_mvt</a> (char **board, char player, <a class="el" href="structMouvement.html">Mouvement</a> mvt)</td></tr>
 <tr class="memdesc:af56ad150ea96651ece52c34232e7f095"><td class="mdescLeft">&#160;</td><td class="mdescRight">finaliser un mouvement et l'executer  <a href="mouvement_8h.html#af56ad150ea96651ece52c34232e7f095">More...</a><br /></td></tr>
 <tr class="separator:af56ad150ea96651ece52c34232e7f095"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa428d18db84431ec520ef8e4743b176d"><td class="memItemLeft" align="right" valign="top"><a id="aa428d18db84431ec520ef8e4743b176d"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>string_to_mouvement</b> (char *string, <a class="el" href="const_8h.html#a1529045b8d16c016dcd76c7495ec4c56">PMouvement</a> mvt)</td></tr>
+<tr class="memitem:aa428d18db84431ec520ef8e4743b176d"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mouvement_8h.html#aa428d18db84431ec520ef8e4743b176d">string_to_mouvement</a> (char *string, <a class="el" href="mouvement_8h.html#a1529045b8d16c016dcd76c7495ec4c56">PMouvement</a> mvt)</td></tr>
+<tr class="memdesc:aa428d18db84431ec520ef8e4743b176d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Changement de la chaine donnée par utilisateur en mouvement.  <a href="mouvement_8h.html#aa428d18db84431ec520ef8e4743b176d">More...</a><br /></td></tr>
 <tr class="separator:aa428d18db84431ec520ef8e4743b176d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a36d23f9f1ef7610b026bd71a02a0917e"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mouvement_8h.html#a36d23f9f1ef7610b026bd71a02a0917e">mouvement_to_string</a> (<a class="el" href="structMouvement.html">Mouvement</a> mvt, char *buffer)</td></tr>
 <tr class="memdesc:a36d23f9f1ef7610b026bd71a02a0917e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Changement des coordonnées 2D en une chaine.  <a href="mouvement_8h.html#a36d23f9f1ef7610b026bd71a02a0917e">More...</a><br /></td></tr>
@@ -360,6 +383,44 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>string_to_mouvement</b
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>HORIZONTAL ou VERTICAL </dd></dl>
+
+</div>
+</div>
+<a id="aa428d18db84431ec520ef8e4743b176d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa428d18db84431ec520ef8e4743b176d">&#9670;&nbsp;</a></span>string_to_mouvement()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int string_to_mouvement </td>
+          <td>(</td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>string</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="mouvement_8h.html#a1529045b8d16c016dcd76c7495ec4c56">PMouvement</a>&#160;</td>
+          <td class="paramname"><em>mvt</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Changement de la chaine donnée par utilisateur en mouvement. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">string</td><td>La chaine de caractère à convertir </td></tr>
+    <tr><td class="paramname">mvt</td><td>Le mouvement qui devient le mouvement converti. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>0 si les coordonnées existe dans la grille, 1 sinon </dd></dl>
 
 </div>
 </div>

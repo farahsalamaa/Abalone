@@ -63,9 +63,7 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Data Structures</a> &#124;
-<a href="#define-members">Macros</a> &#124;
-<a href="#typedef-members">Typedefs</a>  </div>
+<a href="#define-members">Macros</a>  </div>
   <div class="headertitle">
 <div class="title">const.h File Reference</div>  </div>
 </div><!--header-->
@@ -73,21 +71,10 @@ $(function() {
 
 <p>Bibliothèque de toutes les definitions.  
 <a href="#details">More...</a></p>
-
+<div class="textblock"><code>#include &quot;<a class="el" href="mouvement_8h_source.html">mouvement.h</a>&quot;</code><br />
+</div>
 <p><a href="const_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
-Data Structures</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structAbalone.html">Abalone</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Contient les informations du jeu: board, state, player, timer.  <a href="structAbalone.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structCoord.html">Coord</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les coordonnées en 2D de la grille board.  <a href="structCoord.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structMouvement.html">Mouvement</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le structure d'un mouvement contenant ses caractéristiques.  <a href="structMouvement.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>
 <tr class="memitem:ac4b7138d1ac7efcc9a7ddb9bfc38d4e2"><td class="memItemLeft" align="right" valign="top"><a id="ac4b7138d1ac7efcc9a7ddb9bfc38d4e2"></a>
@@ -228,45 +215,47 @@ Macros</h2></td></tr>
 <tr class="separator:aef19058387785bf02b1ec5ea01e964aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab2d9d0a3c63bdf21928ca681642b5832"><td class="memItemLeft" align="right" valign="top"><a id="ab2d9d0a3c63bdf21928ca681642b5832"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="const_8h.html#ab2d9d0a3c63bdf21928ca681642b5832">COULEUR_BLANC</a>&#160;&#160;&#160;'B'</td></tr>
-<tr class="memdesc:ab2d9d0a3c63bdf21928ca681642b5832"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un pion blanc. <br /></td></tr>
+<tr class="memdesc:ab2d9d0a3c63bdf21928ca681642b5832"><td class="mdescLeft">&#160;</td><td class="mdescRight">la couleur de joueur ou de pion blanche <br /></td></tr>
 <tr class="separator:ab2d9d0a3c63bdf21928ca681642b5832"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adfddf3ba70d6c73bec60fe40de948600"><td class="memItemLeft" align="right" valign="top"><a id="adfddf3ba70d6c73bec60fe40de948600"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="const_8h.html#adfddf3ba70d6c73bec60fe40de948600">COULEUR_NOIR</a>&#160;&#160;&#160;'N'</td></tr>
-<tr class="memdesc:adfddf3ba70d6c73bec60fe40de948600"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un pion noir. <br /></td></tr>
+<tr class="memdesc:adfddf3ba70d6c73bec60fe40de948600"><td class="mdescLeft">&#160;</td><td class="mdescRight">la couleur de joueur ou de pion noire <br /></td></tr>
 <tr class="separator:adfddf3ba70d6c73bec60fe40de948600"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac760eaf4b19dd6359a2b1e52091ae919"><td class="memItemLeft" align="right" valign="top"><a id="ac760eaf4b19dd6359a2b1e52091ae919"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>MAX_CHILDREN</b>&#160;&#160;&#160;100</td></tr>
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="const_8h.html#ac760eaf4b19dd6359a2b1e52091ae919">MAX_CHILDREN</a>&#160;&#160;&#160;300</td></tr>
+<tr class="memdesc:ac760eaf4b19dd6359a2b1e52091ae919"><td class="mdescLeft">&#160;</td><td class="mdescRight">le nombre d'enfants max <br /></td></tr>
 <tr class="separator:ac760eaf4b19dd6359a2b1e52091ae919"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af5abd28c44c29b7397c84f1fec4b1d84"><td class="memItemLeft" align="right" valign="top"><a id="af5abd28c44c29b7397c84f1fec4b1d84"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>ALPHA</b>&#160;&#160;&#160;1</td></tr>
-<tr class="separator:af5abd28c44c29b7397c84f1fec4b1d84"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1b996515309fc3c03449912bb33046e3"><td class="memItemLeft" align="right" valign="top"><a id="a1b996515309fc3c03449912bb33046e3"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>BETA</b>&#160;&#160;&#160;1</td></tr>
-<tr class="separator:a1b996515309fc3c03449912bb33046e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8659b9de3e544ff142b153b076f30fd5"><td class="memItemLeft" align="right" valign="top"><a id="a8659b9de3e544ff142b153b076f30fd5"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>GAMMA</b>&#160;&#160;&#160;1</td></tr>
-<tr class="separator:a8659b9de3e544ff142b153b076f30fd5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aaa169fd8b9a843d1bd57fe1eae032115"><td class="memItemLeft" align="right" valign="top"><a id="aaa169fd8b9a843d1bd57fe1eae032115"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>THETA</b>&#160;&#160;&#160;1</td></tr>
-<tr class="separator:aaa169fd8b9a843d1bd57fe1eae032115"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a44779f18d87e71c78fc9fbf9dc88537d"><td class="memItemLeft" align="right" valign="top"><a id="a44779f18d87e71c78fc9fbf9dc88537d"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="const_8h.html#a44779f18d87e71c78fc9fbf9dc88537d">C1</a>&#160;&#160;&#160;1</td></tr>
+<tr class="memdesc:a44779f18d87e71c78fc9fbf9dc88537d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Coefficient alpha dans le calcul de la fonction d'utilité <br /></td></tr>
+<tr class="separator:a44779f18d87e71c78fc9fbf9dc88537d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad6fc13322a4f1c314332ff34aa8b3fa0"><td class="memItemLeft" align="right" valign="top"><a id="ad6fc13322a4f1c314332ff34aa8b3fa0"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>C2</b>&#160;&#160;&#160;1</td></tr>
+<tr class="separator:ad6fc13322a4f1c314332ff34aa8b3fa0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a58aba30d6a33889c81827a54620dd5d9"><td class="memItemLeft" align="right" valign="top"><a id="a58aba30d6a33889c81827a54620dd5d9"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>C3</b>&#160;&#160;&#160;1</td></tr>
+<tr class="separator:a58aba30d6a33889c81827a54620dd5d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acc39015f57b2efb8810b603f188bdf15"><td class="memItemLeft" align="right" valign="top"><a id="acc39015f57b2efb8810b603f188bdf15"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>C4</b>&#160;&#160;&#160;1</td></tr>
+<tr class="separator:acc39015f57b2efb8810b603f188bdf15"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3b69b61d9deb37b13911faf2cf5cf1d5"><td class="memItemLeft" align="right" valign="top"><a id="a3b69b61d9deb37b13911faf2cf5cf1d5"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>C5</b>&#160;&#160;&#160;1</td></tr>
+<tr class="separator:a3b69b61d9deb37b13911faf2cf5cf1d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3cc680a71aa57979316e647352cb4e35"><td class="memItemLeft" align="right" valign="top"><a id="a3cc680a71aa57979316e647352cb4e35"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>C6</b>&#160;&#160;&#160;100</td></tr>
+<tr class="separator:a3cc680a71aa57979316e647352cb4e35"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a49963da2ab33615236858d6614f81853"><td class="memItemLeft" align="right" valign="top"><a id="a49963da2ab33615236858d6614f81853"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="const_8h.html#a49963da2ab33615236858d6614f81853">GROUP_2</a>&#160;&#160;&#160;6</td></tr>
+<tr class="memdesc:a49963da2ab33615236858d6614f81853"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nombre de points accordé à un joueur dans la focntion d'utilité lors d'un groupe de 2 pions. <br /></td></tr>
+<tr class="separator:a49963da2ab33615236858d6614f81853"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a70c864597db2d423ecd5fdb34cc27ea8"><td class="memItemLeft" align="right" valign="top"><a id="a70c864597db2d423ecd5fdb34cc27ea8"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="const_8h.html#a70c864597db2d423ecd5fdb34cc27ea8">GROUP_3</a>&#160;&#160;&#160;14</td></tr>
+<tr class="memdesc:a70c864597db2d423ecd5fdb34cc27ea8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nombre de points accordé à un joueur dans la focntion d'utilité lors d'un groupe de 3 pions. <br /></td></tr>
+<tr class="separator:a70c864597db2d423ecd5fdb34cc27ea8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a50267d552ca6f788254032e40046b770"><td class="memItemLeft" align="right" valign="top"><a id="a50267d552ca6f788254032e40046b770"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>DEPTH</b>&#160;&#160;&#160;4</td></tr>
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="const_8h.html#a50267d552ca6f788254032e40046b770">DEPTH</a>&#160;&#160;&#160;4</td></tr>
+<tr class="memdesc:a50267d552ca6f788254032e40046b770"><td class="mdescLeft">&#160;</td><td class="mdescRight">Profondeur de l'arbre minimax. <br /></td></tr>
 <tr class="separator:a50267d552ca6f788254032e40046b770"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
-Typedefs</h2></td></tr>
-<tr class="memitem:a5bdfc19ba49fd7acf71f0380a5981e60"><td class="memItemLeft" align="right" valign="top"><a id="a5bdfc19ba49fd7acf71f0380a5981e60"></a>
-typedef struct <a class="el" href="structAbalone.html">Abalone</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="const_8h.html#a5bdfc19ba49fd7acf71f0380a5981e60">PAbalone</a></td></tr>
-<tr class="memdesc:a5bdfc19ba49fd7acf71f0380a5981e60"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pointeur vers un <a class="el" href="structAbalone.html" title="Contient les informations du jeu: board, state, player, timer.">Abalone</a>. <br /></td></tr>
-<tr class="separator:a5bdfc19ba49fd7acf71f0380a5981e60"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aeaaea0f942e978fe6208de934e588405"><td class="memItemLeft" align="right" valign="top"><a id="aeaaea0f942e978fe6208de934e588405"></a>
-typedef struct <a class="el" href="structCoord.html">Coord</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="const_8h.html#aeaaea0f942e978fe6208de934e588405">PCoord</a></td></tr>
-<tr class="memdesc:aeaaea0f942e978fe6208de934e588405"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pointeur vers un <a class="el" href="structCoord.html" title="Les coordonnées en 2D de la grille board.">Coord</a>. <br /></td></tr>
-<tr class="separator:aeaaea0f942e978fe6208de934e588405"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1529045b8d16c016dcd76c7495ec4c56"><td class="memItemLeft" align="right" valign="top"><a id="a1529045b8d16c016dcd76c7495ec4c56"></a>
-typedef struct <a class="el" href="structMouvement.html">Mouvement</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="const_8h.html#a1529045b8d16c016dcd76c7495ec4c56">PMouvement</a></td></tr>
-<tr class="memdesc:a1529045b8d16c016dcd76c7495ec4c56"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pointeur vers un mouvement. <br /></td></tr>
-<tr class="separator:a1529045b8d16c016dcd76c7495ec4c56"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Bibliothèque de toutes les definitions. </p>

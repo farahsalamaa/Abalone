@@ -63,6 +63,8 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="summary">
+<a href="#nested-classes">Data Structures</a> &#124;
+<a href="#typedef-members">Typedefs</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">abalone_terminal.h File Reference</div>  </div>
@@ -72,26 +74,47 @@ $(function() {
 <p>Bibliothèque des fonctions de creation du jeu et lancement du jeu.  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;stdio.h&gt;</code><br />
-<code>#include &lt;stdlib.h&gt;</code><br />
-<code>#include &lt;string.h&gt;</code><br />
 <code>#include &lt;ctype.h&gt;</code><br />
 <code>#include &lt;time.h&gt;</code><br />
+<code>#include &lt;sys/types.h&gt;</code><br />
+<code>#include &lt;sys/socket.h&gt;</code><br />
+<code>#include &lt;netdb.h&gt;</code><br />
+<code>#include &lt;netinet/in.h&gt;</code><br />
+<code>#include &lt;arpa/inet.h&gt;</code><br />
+<code>#include &lt;unistd.h&gt;</code><br />
+<code>#include &lt;stdlib.h&gt;</code><br />
+<code>#include &lt;string.h&gt;</code><br />
 <code>#include &quot;<a class="el" href="const_8h_source.html">const.h</a>&quot;</code><br />
 <code>#include &quot;debug.h&quot;</code><br />
 <code>#include &quot;<a class="el" href="mouvement_8h_source.html">mouvement.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="ia_8h_source.html">ia.h</a>&quot;</code><br />
+<code>#include &quot;client.h&quot;</code><br />
+<code>#include &quot;serveur.h&quot;</code><br />
 </div>
 <p><a href="abalone__terminal_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
+Data Structures</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structAbalone.html">Abalone</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Contient les informations du jeu: board, state, player, timer.  <a href="structAbalone.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
+Typedefs</h2></td></tr>
+<tr class="memitem:a5bdfc19ba49fd7acf71f0380a5981e60"><td class="memItemLeft" align="right" valign="top"><a id="a5bdfc19ba49fd7acf71f0380a5981e60"></a>
+typedef struct <a class="el" href="structAbalone.html">Abalone</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="abalone__terminal_8h.html#a5bdfc19ba49fd7acf71f0380a5981e60">PAbalone</a></td></tr>
+<tr class="memdesc:a5bdfc19ba49fd7acf71f0380a5981e60"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pointeur vers un <a class="el" href="structAbalone.html" title="Contient les informations du jeu: board, state, player, timer.">Abalone</a>. <br /></td></tr>
+<tr class="separator:a5bdfc19ba49fd7acf71f0380a5981e60"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:aee74829ecd7bdf17010ccaa0ee3dc5b4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="abalone__terminal_8h.html#aee74829ecd7bdf17010ccaa0ee3dc5b4">init_board</a> (<a class="el" href="const_8h.html#a5bdfc19ba49fd7acf71f0380a5981e60">PAbalone</a> game)</td></tr>
+<tr class="memitem:aee74829ecd7bdf17010ccaa0ee3dc5b4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="abalone__terminal_8h.html#aee74829ecd7bdf17010ccaa0ee3dc5b4">init_board</a> (<a class="el" href="abalone__terminal_8h.html#a5bdfc19ba49fd7acf71f0380a5981e60">PAbalone</a> game)</td></tr>
 <tr class="memdesc:aee74829ecd7bdf17010ccaa0ee3dc5b4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction qui remplace le plateau de game par la plateau de départ.  <a href="abalone__terminal_8h.html#aee74829ecd7bdf17010ccaa0ee3dc5b4">More...</a><br /></td></tr>
 <tr class="separator:aee74829ecd7bdf17010ccaa0ee3dc5b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1b6eab2d4ac0207fe36badef70d9aa33"><td class="memItemLeft" align="right" valign="top"><a class="el" href="const_8h.html#a5bdfc19ba49fd7acf71f0380a5981e60">PAbalone</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="abalone__terminal_8h.html#a1b6eab2d4ac0207fe36badef70d9aa33">new_abalone</a> ()</td></tr>
+<tr class="memitem:a1b6eab2d4ac0207fe36badef70d9aa33"><td class="memItemLeft" align="right" valign="top"><a class="el" href="abalone__terminal_8h.html#a5bdfc19ba49fd7acf71f0380a5981e60">PAbalone</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="abalone__terminal_8h.html#a1b6eab2d4ac0207fe36badef70d9aa33">new_abalone</a> ()</td></tr>
 <tr class="memdesc:a1b6eab2d4ac0207fe36badef70d9aa33"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une fonction qui genère un nouveau jeu abalone.  <a href="abalone__terminal_8h.html#a1b6eab2d4ac0207fe36badef70d9aa33">More...</a><br /></td></tr>
 <tr class="separator:a1b6eab2d4ac0207fe36badef70d9aa33"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa3e66b0628aff534034672565264d7d3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="const_8h.html#a5bdfc19ba49fd7acf71f0380a5981e60">PAbalone</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="abalone__terminal_8h.html#aa3e66b0628aff534034672565264d7d3">new_abalone_board</a> (char **tab)</td></tr>
+<tr class="memitem:aa3e66b0628aff534034672565264d7d3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="abalone__terminal_8h.html#a5bdfc19ba49fd7acf71f0380a5981e60">PAbalone</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="abalone__terminal_8h.html#aa3e66b0628aff534034672565264d7d3">new_abalone_board</a> (char **tab)</td></tr>
 <tr class="memdesc:aa3e66b0628aff534034672565264d7d3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une fonction qui génère un nouveau jeu abalone à partir d'un plateau défini.  <a href="abalone__terminal_8h.html#aa3e66b0628aff534034672565264d7d3">More...</a><br /></td></tr>
 <tr class="separator:aa3e66b0628aff534034672565264d7d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abfdf88babcac89227c2131237c3eec3a"><td class="memItemLeft" align="right" valign="top">char **&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="abalone__terminal_8h.html#abfdf88babcac89227c2131237c3eec3a">create_board</a> ()</td></tr>
@@ -100,7 +123,7 @@ Functions</h2></td></tr>
 <tr class="memitem:a8a9b250de76225cb7c2fbac8065c4030"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="abalone__terminal_8h.html#a8a9b250de76225cb7c2fbac8065c4030">destroy_board</a> (char **board)</td></tr>
 <tr class="memdesc:a8a9b250de76225cb7c2fbac8065c4030"><td class="mdescLeft">&#160;</td><td class="mdescRight">détruit un plateau et libère l'espace  <a href="abalone__terminal_8h.html#a8a9b250de76225cb7c2fbac8065c4030">More...</a><br /></td></tr>
 <tr class="separator:a8a9b250de76225cb7c2fbac8065c4030"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7ca05146122c2a833d3a8dcfb782bd5a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="abalone__terminal_8h.html#a7ca05146122c2a833d3a8dcfb782bd5a">destroy_abalone</a> (<a class="el" href="const_8h.html#a5bdfc19ba49fd7acf71f0380a5981e60">PAbalone</a> abalone)</td></tr>
+<tr class="memitem:a7ca05146122c2a833d3a8dcfb782bd5a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="abalone__terminal_8h.html#a7ca05146122c2a833d3a8dcfb782bd5a">destroy_abalone</a> (<a class="el" href="abalone__terminal_8h.html#a5bdfc19ba49fd7acf71f0380a5981e60">PAbalone</a> abalone)</td></tr>
 <tr class="memdesc:a7ca05146122c2a833d3a8dcfb782bd5a"><td class="mdescLeft">&#160;</td><td class="mdescRight">détruit une partie  <a href="abalone__terminal_8h.html#a7ca05146122c2a833d3a8dcfb782bd5a">More...</a><br /></td></tr>
 <tr class="separator:a7ca05146122c2a833d3a8dcfb782bd5a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a82ae3045cc4c61aba142d5e02850cce2"><td class="memItemLeft" align="right" valign="top">char **&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="abalone__terminal_8h.html#a82ae3045cc4c61aba142d5e02850cce2">copy_board</a> (char **board)</td></tr>
@@ -118,21 +141,28 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="abal
 <tr class="memdesc:a98d6c51f1a260c998e7e5b61c5d7c645"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lancement du jeu contre l'Intelligence Artificielle. <br /></td></tr>
 <tr class="separator:a98d6c51f1a260c998e7e5b61c5d7c645"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae1d75606bb6690196da89dee0996b1a7"><td class="memItemLeft" align="right" valign="top"><a id="ae1d75606bb6690196da89dee0996b1a7"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>play_terminator</b> ()</td></tr>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="abalone__terminal_8h.html#ae1d75606bb6690196da89dee0996b1a7">play_terminator</a> ()</td></tr>
+<tr class="memdesc:ae1d75606bb6690196da89dee0996b1a7"><td class="mdescLeft">&#160;</td><td class="mdescRight">joue contre l'ia minmax, la pronfondeur est un variable globale <br /></td></tr>
 <tr class="separator:ae1d75606bb6690196da89dee0996b1a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0defbd185e9ccce258a195a86cade039"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="abalone__terminal_8h.html#a0defbd185e9ccce258a195a86cade039">play_game_server</a> (char *port)</td></tr>
-<tr class="memdesc:a0defbd185e9ccce258a195a86cade039"><td class="mdescLeft">&#160;</td><td class="mdescRight">lance le jeu en mode serveur  <a href="abalone__terminal_8h.html#a0defbd185e9ccce258a195a86cade039">More...</a><br /></td></tr>
+<tr class="memdesc:a0defbd185e9ccce258a195a86cade039"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lance le jeu en mode serveur.  <a href="abalone__terminal_8h.html#a0defbd185e9ccce258a195a86cade039">More...</a><br /></td></tr>
 <tr class="separator:a0defbd185e9ccce258a195a86cade039"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a15e19eb4fe013d050c70dda583a4eac3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="abalone__terminal_8h.html#a15e19eb4fe013d050c70dda583a4eac3">play_game_client</a> (char *server)</td></tr>
-<tr class="memdesc:a15e19eb4fe013d050c70dda583a4eac3"><td class="mdescLeft">&#160;</td><td class="mdescRight">lance le jeu en mode client  <a href="abalone__terminal_8h.html#a15e19eb4fe013d050c70dda583a4eac3">More...</a><br /></td></tr>
+<tr class="memdesc:a15e19eb4fe013d050c70dda583a4eac3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lance le jeu en mode client.  <a href="abalone__terminal_8h.html#a15e19eb4fe013d050c70dda583a4eac3">More...</a><br /></td></tr>
 <tr class="separator:a15e19eb4fe013d050c70dda583a4eac3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5f1bcd7370877d6f6ca7b259ecdb3bd7"><td class="memItemLeft" align="right" valign="top"><a id="a5f1bcd7370877d6f6ca7b259ecdb3bd7"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>play_game_server_ia</b> (char *port)</td></tr>
+<tr class="separator:a5f1bcd7370877d6f6ca7b259ecdb3bd7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae4cc9be0373ffa3160ecbc1f8fa780ef"><td class="memItemLeft" align="right" valign="top"><a id="ae4cc9be0373ffa3160ecbc1f8fa780ef"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>play_game_client_ia</b> (char *server)</td></tr>
+<tr class="separator:ae4cc9be0373ffa3160ecbc1f8fa780ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a968801b6df4daa98b46851157bfbacab"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="abalone__terminal_8h.html#a968801b6df4daa98b46851157bfbacab">print_error</a> (int error)</td></tr>
 <tr class="memdesc:a968801b6df4daa98b46851157bfbacab"><td class="mdescLeft">&#160;</td><td class="mdescRight">Affichage de l'erreur lisible à l'humain.  <a href="abalone__terminal_8h.html#a968801b6df4daa98b46851157bfbacab">More...</a><br /></td></tr>
 <tr class="separator:a968801b6df4daa98b46851157bfbacab"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aeba702d10f6aabb4c5036ba7c2e6da3f"><td class="memItemLeft" align="right" valign="top">char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="abalone__terminal_8h.html#aeba702d10f6aabb4c5036ba7c2e6da3f">has_player_won</a> (char **board)</td></tr>
 <tr class="memdesc:aeba702d10f6aabb4c5036ba7c2e6da3f"><td class="mdescLeft">&#160;</td><td class="mdescRight">fonction pour determiner si un joueur a gagné  <a href="abalone__terminal_8h.html#aeba702d10f6aabb4c5036ba7c2e6da3f">More...</a><br /></td></tr>
 <tr class="separator:aeba702d10f6aabb4c5036ba7c2e6da3f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a84b84a9d5567e276a35a5e821207bfbd"><td class="memItemLeft" align="right" valign="top">char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="abalone__terminal_8h.html#a84b84a9d5567e276a35a5e821207bfbd">etat</a> (<a class="el" href="const_8h.html#a5bdfc19ba49fd7acf71f0380a5981e60">PAbalone</a> r)</td></tr>
+<tr class="memitem:a84b84a9d5567e276a35a5e821207bfbd"><td class="memItemLeft" align="right" valign="top">char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="abalone__terminal_8h.html#a84b84a9d5567e276a35a5e821207bfbd">etat</a> (<a class="el" href="abalone__terminal_8h.html#a5bdfc19ba49fd7acf71f0380a5981e60">PAbalone</a> r)</td></tr>
 <tr class="memdesc:a84b84a9d5567e276a35a5e821207bfbd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determiner l'état du jeu.  <a href="abalone__terminal_8h.html#a84b84a9d5567e276a35a5e821207bfbd">More...</a><br /></td></tr>
 <tr class="separator:a84b84a9d5567e276a35a5e821207bfbd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
@@ -195,7 +225,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>play_terminator</b> (
         <tr>
           <td class="memname">void destroy_abalone </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="const_8h.html#a5bdfc19ba49fd7acf71f0380a5981e60">PAbalone</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="abalone__terminal_8h.html#a5bdfc19ba49fd7acf71f0380a5981e60">PAbalone</a>&#160;</td>
           <td class="paramname"><em>abalone</em></td><td>)</td>
           <td></td>
         </tr>
@@ -273,7 +303,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>play_terminator</b> (
         <tr>
           <td class="memname">char etat </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="const_8h.html#a5bdfc19ba49fd7acf71f0380a5981e60">PAbalone</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="abalone__terminal_8h.html#a5bdfc19ba49fd7acf71f0380a5981e60">PAbalone</a>&#160;</td>
           <td class="paramname"><em>r</em></td><td>)</td>
           <td></td>
         </tr>
@@ -327,7 +357,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>play_terminator</b> (
         <tr>
           <td class="memname">void init_board </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="const_8h.html#a5bdfc19ba49fd7acf71f0380a5981e60">PAbalone</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="abalone__terminal_8h.html#a5bdfc19ba49fd7acf71f0380a5981e60">PAbalone</a>&#160;</td>
           <td class="paramname"><em>game</em></td><td>)</td>
           <td></td>
         </tr>
@@ -351,7 +381,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>play_terminator</b> (
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="const_8h.html#a5bdfc19ba49fd7acf71f0380a5981e60">PAbalone</a> new_abalone </td>
+          <td class="memname"><a class="el" href="abalone__terminal_8h.html#a5bdfc19ba49fd7acf71f0380a5981e60">PAbalone</a> new_abalone </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -371,7 +401,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>play_terminator</b> (
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="const_8h.html#a5bdfc19ba49fd7acf71f0380a5981e60">PAbalone</a> new_abalone_board </td>
+          <td class="memname"><a class="el" href="abalone__terminal_8h.html#a5bdfc19ba49fd7acf71f0380a5981e60">PAbalone</a> new_abalone_board </td>
           <td>(</td>
           <td class="paramtype">char **&#160;</td>
           <td class="paramname"><em>tab</em></td><td>)</td>
@@ -407,10 +437,10 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>play_terminator</b> (
       </table>
 </div><div class="memdoc">
 
-<p>lance le jeu en mode client </p>
+<p>Lance le jeu en mode client. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">server</td><td>contient l adress ip et le port necessaire pour la connection </td></tr>
+    <tr><td class="paramname">server</td><td>Contient l'adresse ip et le port nécessaire pour la connection </td></tr>
   </table>
   </dd>
 </dl>
@@ -433,10 +463,10 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>play_terminator</b> (
       </table>
 </div><div class="memdoc">
 
-<p>lance le jeu en mode serveur </p>
+<p>Lance le jeu en mode serveur. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">port</td><td>le port ou la partie sera lancer </td></tr>
+    <tr><td class="paramname">port</td><td>Le port où la partie sera lancé </td></tr>
   </table>
   </dd>
 </dl>

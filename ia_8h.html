@@ -63,6 +63,8 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="summary">
+<a href="#nested-classes">Data Structures</a> &#124;
+<a href="#typedef-members">Typedefs</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">ia.h File Reference</div>  </div>
@@ -71,31 +73,54 @@ $(function() {
 
 <p>Bibliothèque des fonctions utiles pour l'Intelligence Artificielle.  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &lt;limits.h&gt;</code><br />
-<code>#include &lt;stdbool.h&gt;</code><br />
+<div class="textblock"><code>#include &lt;stdbool.h&gt;</code><br />
+<code>#include &lt;stdlib.h&gt;</code><br />
+<code>#include &lt;time.h&gt;</code><br />
+<code>#include &lt;limits.h&gt;</code><br />
 <code>#include &quot;<a class="el" href="const_8h_source.html">const.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="abalone__terminal_8h_source.html">abalone_terminal.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="mouvement_8h_source.html">mouvement.h</a>&quot;</code><br />
+<code>#include &quot;debug.h&quot;</code><br />
+<code>#include &quot;<a class="el" href="abalone__terminal_8h_source.html">abalone_terminal.h</a>&quot;</code><br />
 </div>
 <p><a href="ia_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
+Data Structures</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structNode.html">Node</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le structure d'un noeud de l'abre minimax.  <a href="structNode.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
+Typedefs</h2></td></tr>
+<tr class="memitem:aed91756449328e2c454e53e9c5e53936"><td class="memItemLeft" align="right" valign="top"><a id="aed91756449328e2c454e53e9c5e53936"></a>
+typedef struct <a class="el" href="structNode.html">Node</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ia_8h.html#aed91756449328e2c454e53e9c5e53936">Node</a></td></tr>
+<tr class="memdesc:aed91756449328e2c454e53e9c5e53936"><td class="mdescLeft">&#160;</td><td class="mdescRight">Raccourci pour <a class="el" href="structNode.html" title="Le structure d&#39;un noeud de l&#39;abre minimax.">Node</a>. <br /></td></tr>
+<tr class="separator:aed91756449328e2c454e53e9c5e53936"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae38b70bc69615aed64cf3fec3f4ae9b1"><td class="memItemLeft" align="right" valign="top"><a id="ae38b70bc69615aed64cf3fec3f4ae9b1"></a>
+typedef struct <a class="el" href="structNode.html">Node</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ia_8h.html#ae38b70bc69615aed64cf3fec3f4ae9b1">PNode</a></td></tr>
+<tr class="memdesc:ae38b70bc69615aed64cf3fec3f4ae9b1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pointeur vers un <a class="el" href="structNode.html" title="Le structure d&#39;un noeud de l&#39;abre minimax.">Node</a>. <br /></td></tr>
+<tr class="separator:ae38b70bc69615aed64cf3fec3f4ae9b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a032e109c72b2e2754ead2f88bb2e6570"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ia_8h.html#a032e109c72b2e2754ead2f88bb2e6570">random_number</a> (int min, int max)</td></tr>
+<tr class="memitem:a032e109c72b2e2754ead2f88bb2e6570"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ia_8h.html#a032e109c72b2e2754ead2f88bb2e6570">random_number</a> (int <a class="el" href="ia_8c.html#abd8bbcfabb3ddef2ccaafb9928a37b95">min</a>, int <a class="el" href="ia_8c.html#af082905f7eac6d03e92015146bbc1925">max</a>)</td></tr>
 <tr class="memdesc:a032e109c72b2e2754ead2f88bb2e6570"><td class="mdescLeft">&#160;</td><td class="mdescRight">Genère un nombre aléatoire entre deux entiers.  <a href="ia_8h.html#a032e109c72b2e2754ead2f88bb2e6570">More...</a><br /></td></tr>
 <tr class="separator:a032e109c72b2e2754ead2f88bb2e6570"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9707941f3e1b6cf282422cf21362547d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structMouvement.html">Mouvement</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ia_8h.html#a9707941f3e1b6cf282422cf21362547d">random_move</a> (char **board, char player, <a class="el" href="const_8h.html#a1529045b8d16c016dcd76c7495ec4c56">PMouvement</a> list_mvt, int count)</td></tr>
-<tr class="memdesc:a9707941f3e1b6cf282422cf21362547d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Permet de choisir un coup aléatoire dans la liste de mouvement et le jouer Cette fonction execute le coup aléatoire et le mouvement joué.  <a href="ia_8h.html#a9707941f3e1b6cf282422cf21362547d">More...</a><br /></td></tr>
-<tr class="separator:a9707941f3e1b6cf282422cf21362547d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5b4d66bcac04527fdede27b7bc9b334d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="const_8h.html#a1529045b8d16c016dcd76c7495ec4c56">PMouvement</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ia_8h.html#a5b4d66bcac04527fdede27b7bc9b334d">ensemble_mouvement_possible</a> (char **board, char player, int *nbr_coup)</td></tr>
-<tr class="memdesc:a5b4d66bcac04527fdede27b7bc9b334d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Déterminer tous les mouvements possible pour une couleur.  <a href="ia_8h.html#a5b4d66bcac04527fdede27b7bc9b334d">More...</a><br /></td></tr>
-<tr class="separator:a5b4d66bcac04527fdede27b7bc9b334d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a91bb4f663777393cdf195f3e45eb9cf0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ia_8h.html#a91bb4f663777393cdf195f3e45eb9cf0">gen_mouvement</a> (char **board, char player, <a class="el" href="structCoord.html">Coord</a> start, <a class="el" href="const_8h.html#a1529045b8d16c016dcd76c7495ec4c56">PMouvement</a> liste_coup, int *nb_coup)</td></tr>
-<tr class="memdesc:a91bb4f663777393cdf195f3e45eb9cf0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Permet de remplir la liste des coups possibles qui sera retournée dans ensemble_mouvement_possible.  <a href="ia_8h.html#a91bb4f663777393cdf195f3e45eb9cf0">More...</a><br /></td></tr>
-<tr class="separator:a91bb4f663777393cdf195f3e45eb9cf0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab9872b3333d27220f37ff1abd849817a"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ia_8h.html#ab9872b3333d27220f37ff1abd849817a">play_random_move</a> (char **board, char player)</td></tr>
-<tr class="memdesc:ab9872b3333d27220f37ff1abd849817a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Executer ou jouer un coup aléatoire et le retourne sous forme de coordonnées en string.  <a href="ia_8h.html#ab9872b3333d27220f37ff1abd849817a">More...</a><br /></td></tr>
-<tr class="separator:ab9872b3333d27220f37ff1abd849817a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aec11f93955606f843eb16003549dbcf7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structMouvement.html">Mouvement</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ia_8h.html#aec11f93955606f843eb16003549dbcf7">random_move</a> (char **board, char player, <a class="el" href="structMouvement.html">Mouvement</a> list_mvt[<a class="el" href="const_8h.html#ac760eaf4b19dd6359a2b1e52091ae919">MAX_CHILDREN</a>], int count)</td></tr>
+<tr class="memdesc:aec11f93955606f843eb16003549dbcf7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Permet de choisir un coup aléatoire dans la liste de mouvement et le jouer Cette fonction execute le coup aléatoire et le mouvement joué.  <a href="ia_8h.html#aec11f93955606f843eb16003549dbcf7">More...</a><br /></td></tr>
+<tr class="separator:aec11f93955606f843eb16003549dbcf7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a409a80dcb325580519f96966caafdee5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ia_8h.html#a409a80dcb325580519f96966caafdee5">add_coord</a> (<a class="el" href="structCoord.html">Coord</a> start, <a class="el" href="structCoord.html">Coord</a> end, <a class="el" href="mouvement_8h.html#aeaaea0f942e978fe6208de934e588405">PCoord</a> out)</td></tr>
+<tr class="memdesc:a409a80dcb325580519f96966caafdee5"><td class="mdescLeft">&#160;</td><td class="mdescRight">additionne deux coordonnées  <a href="ia_8h.html#a409a80dcb325580519f96966caafdee5">More...</a><br /></td></tr>
+<tr class="separator:a409a80dcb325580519f96966caafdee5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a19cceed77d3e2ba4e294f0aa3357d057"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ia_8h.html#a19cceed77d3e2ba4e294f0aa3357d057">ensemble_mouvement_possible</a> (char **board, char player, <a class="el" href="structMouvement.html">Mouvement</a> liste_coup[<a class="el" href="const_8h.html#ac760eaf4b19dd6359a2b1e52091ae919">MAX_CHILDREN</a>], int *nbr_coup)</td></tr>
+<tr class="memdesc:a19cceed77d3e2ba4e294f0aa3357d057"><td class="mdescLeft">&#160;</td><td class="mdescRight">Déterminer tous les mouvements possible pour une couleur.  <a href="ia_8h.html#a19cceed77d3e2ba4e294f0aa3357d057">More...</a><br /></td></tr>
+<tr class="separator:a19cceed77d3e2ba4e294f0aa3357d057"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2ee8dfd82efa443131e9289a8440e573"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ia_8h.html#a2ee8dfd82efa443131e9289a8440e573">gen_mouvement</a> (char **board, char player, <a class="el" href="structCoord.html">Coord</a> start, <a class="el" href="structMouvement.html">Mouvement</a> liste_coup[<a class="el" href="const_8h.html#ac760eaf4b19dd6359a2b1e52091ae919">MAX_CHILDREN</a>], int *nb_coup)</td></tr>
+<tr class="memdesc:a2ee8dfd82efa443131e9289a8440e573"><td class="mdescLeft">&#160;</td><td class="mdescRight">Permet de remplir la liste des coups possibles qui sera retournée dans ensemble_mouvement_possible.  <a href="ia_8h.html#a2ee8dfd82efa443131e9289a8440e573">More...</a><br /></td></tr>
+<tr class="separator:a2ee8dfd82efa443131e9289a8440e573"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3bf4416f622ff509e2d1b708224248fe"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structMouvement.html">Mouvement</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ia_8h.html#a3bf4416f622ff509e2d1b708224248fe">play_random_move</a> (char **board, char player)</td></tr>
+<tr class="memdesc:a3bf4416f622ff509e2d1b708224248fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Executer ou jouer un coup aléatoire et le retourne sous forme de mouvement.  <a href="ia_8h.html#a3bf4416f622ff509e2d1b708224248fe">More...</a><br /></td></tr>
+<tr class="separator:a3bf4416f622ff509e2d1b708224248fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga0060b5619d4549314ab4ed4eb60434fb"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__g1.html#ga0060b5619d4549314ab4ed4eb60434fb">count_center</a> (char **board, char player)</td></tr>
 <tr class="memdesc:ga0060b5619d4549314ab4ed4eb60434fb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Permet de compter le nombre de pions dans le cadre intérieur (donné par min/max)  <a href="group__g1.html#ga0060b5619d4549314ab4ed4eb60434fb">More...</a><br /></td></tr>
 <tr class="separator:ga0060b5619d4549314ab4ed4eb60434fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -108,36 +133,92 @@ Functions</h2></td></tr>
 <tr class="memitem:gaca5f37fdc0888f15ac6961c2ee660b5e"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__g1.html#gaca5f37fdc0888f15ac6961c2ee660b5e">score_utility</a> (char **board, char player)</td></tr>
 <tr class="memdesc:gaca5f37fdc0888f15ac6961c2ee660b5e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calcul du score de l'utilité  <a href="group__g1.html#gaca5f37fdc0888f15ac6961c2ee660b5e">More...</a><br /></td></tr>
 <tr class="separator:gaca5f37fdc0888f15ac6961c2ee660b5e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a40b8a448fa6146d4d326e29f6a8d1763"><td class="memItemLeft" align="right" valign="top"><a class="el" href="const_8h.html#aeaaea0f942e978fe6208de934e588405">PCoord</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ia_8h.html#a40b8a448fa6146d4d326e29f6a8d1763">PT_min</a> (char **board, char player)</td></tr>
-<tr class="memdesc:a40b8a448fa6146d4d326e29f6a8d1763"><td class="mdescLeft">&#160;</td><td class="mdescRight">donne le point en haut à gauche par rapport à tous les pions du joueur  <a href="ia_8h.html#a40b8a448fa6146d4d326e29f6a8d1763">More...</a><br /></td></tr>
-<tr class="separator:a40b8a448fa6146d4d326e29f6a8d1763"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aaf87c1c49b124450f69c069266b4630b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="const_8h.html#aeaaea0f942e978fe6208de934e588405">PCoord</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ia_8h.html#aaf87c1c49b124450f69c069266b4630b">PT_max</a> (char **board, char player)</td></tr>
-<tr class="memdesc:aaf87c1c49b124450f69c069266b4630b"><td class="mdescLeft">&#160;</td><td class="mdescRight">donne le point en bas à droite par rapport à tous les pions du joueur  <a href="ia_8h.html#aaf87c1c49b124450f69c069266b4630b">More...</a><br /></td></tr>
-<tr class="separator:aaf87c1c49b124450f69c069266b4630b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad592d03d5190b4a5b1ac4762c1bf1149"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ia_8h.html#ad592d03d5190b4a5b1ac4762c1bf1149">score_row</a> (char **board, char player)</td></tr>
+<tr class="memdesc:ad592d03d5190b4a5b1ac4762c1bf1149"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calcule le score des lignes du joueur actif selon la position de chaque pion.  <a href="ia_8h.html#ad592d03d5190b4a5b1ac4762c1bf1149">More...</a><br /></td></tr>
+<tr class="separator:ad592d03d5190b4a5b1ac4762c1bf1149"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afe197d03a90726c3f3c5d09cfb957603"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ia_8h.html#afe197d03a90726c3f3c5d09cfb957603">score_col</a> (char **board, char player)</td></tr>
+<tr class="memdesc:afe197d03a90726c3f3c5d09cfb957603"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calcule le score des colonnes du joueur actif selon la position de chaque pion.  <a href="ia_8h.html#afe197d03a90726c3f3c5d09cfb957603">More...</a><br /></td></tr>
+<tr class="separator:afe197d03a90726c3f3c5d09cfb957603"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a28672c1580756c0df88e409e739d2a1a"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ia_8h.html#a28672c1580756c0df88e409e739d2a1a">score_group_row</a> (char **board, char player)</td></tr>
+<tr class="memdesc:a28672c1580756c0df88e409e739d2a1a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calcule le score des groupements de 2 ou 3 pions dans les lignes du joueur actif.  <a href="ia_8h.html#a28672c1580756c0df88e409e739d2a1a">More...</a><br /></td></tr>
+<tr class="separator:a28672c1580756c0df88e409e739d2a1a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0a044bdb8e9e5433015ef80096e40e82"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ia_8h.html#a0a044bdb8e9e5433015ef80096e40e82">score_group_col</a> (char **board, char player)</td></tr>
+<tr class="memdesc:a0a044bdb8e9e5433015ef80096e40e82"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calcule le score des groupements de 2 ou 3 pions dans les colonnes du joueur actif.  <a href="ia_8h.html#a0a044bdb8e9e5433015ef80096e40e82">More...</a><br /></td></tr>
+<tr class="separator:a0a044bdb8e9e5433015ef80096e40e82"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a68405a6402cd0103a66bc74a065f68b3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structCoord.html">Coord</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ia_8h.html#a68405a6402cd0103a66bc74a065f68b3">PT_min</a> (char **board, char player)</td></tr>
+<tr class="memdesc:a68405a6402cd0103a66bc74a065f68b3"><td class="mdescLeft">&#160;</td><td class="mdescRight">donne le point en haut à gauche par rapport à tous les pions du joueur  <a href="ia_8h.html#a68405a6402cd0103a66bc74a065f68b3">More...</a><br /></td></tr>
+<tr class="separator:a68405a6402cd0103a66bc74a065f68b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a96f3d0ae9a004b2d1e46e2f0f2966652"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structCoord.html">Coord</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ia_8h.html#a96f3d0ae9a004b2d1e46e2f0f2966652">PT_max</a> (char **board, char player)</td></tr>
+<tr class="memdesc:a96f3d0ae9a004b2d1e46e2f0f2966652"><td class="mdescLeft">&#160;</td><td class="mdescRight">donne le point en bas à droite par rapport à tous les pions du joueur  <a href="ia_8h.html#a96f3d0ae9a004b2d1e46e2f0f2966652">More...</a><br /></td></tr>
+<tr class="separator:a96f3d0ae9a004b2d1e46e2f0f2966652"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga5ce809b4976be43c85bffc5cffbc04a0"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__g1.html#ga5ce809b4976be43c85bffc5cffbc04a0">possible_attacks</a> (char **board, char player)</td></tr>
 <tr class="memdesc:ga5ce809b4976be43c85bffc5cffbc04a0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculer le nombre de coups d'attaque possibles.  <a href="group__g1.html#ga5ce809b4976be43c85bffc5cffbc04a0">More...</a><br /></td></tr>
 <tr class="separator:ga5ce809b4976be43c85bffc5cffbc04a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga0031c73af03663d357653d7f263353a5"><td class="memItemLeft" align="right" valign="top">char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__g1.html#ga0031c73af03663d357653d7f263353a5">other_player</a> (char player)</td></tr>
 <tr class="memdesc:ga0031c73af03663d357653d7f263353a5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Déterminer la couleur du joueur opposé  <a href="group__g1.html#ga0031c73af03663d357653d7f263353a5">More...</a><br /></td></tr>
 <tr class="separator:ga0031c73af03663d357653d7f263353a5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae0b382ea057ef196a26a0703edf73888"><td class="memItemLeft" align="right" valign="top"><a id="ae0b382ea057ef196a26a0703edf73888"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>minimax</b> (char **board, int depth, int alpha, int beta, bool max_player, char active_player)</td></tr>
-<tr class="separator:ae0b382ea057ef196a26a0703edf73888"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac5eb763771f4f4a498277f9bf6691a71"><td class="memItemLeft" align="right" valign="top"><a id="ac5eb763771f4f4a498277f9bf6691a71"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>terminator_move</b> (char **board, char active_player)</td></tr>
-<tr class="separator:ac5eb763771f4f4a498277f9bf6691a71"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9a1b846814f1de4685d527832aa7af4f"><td class="memItemLeft" align="right" valign="top"><a id="a9a1b846814f1de4685d527832aa7af4f"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><b>minimax</b> (char **board, int depth, int alpha, int beta, bool max_player, char active_player, <a class="el" href="mouvement_8h.html#a1529045b8d16c016dcd76c7495ec4c56">PMouvement</a> mouvement)</td></tr>
+<tr class="separator:a9a1b846814f1de4685d527832aa7af4f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2afa1dd01646c907953a3274e0144a38"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structMouvement.html">Mouvement</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ia_8h.html#a2afa1dd01646c907953a3274e0144a38">terminator_move</a> (char **board, char active_player)</td></tr>
+<tr class="memdesc:a2afa1dd01646c907953a3274e0144a38"><td class="mdescLeft">&#160;</td><td class="mdescRight">fait jouer un coup à l'algorithme minimax  <a href="ia_8h.html#a2afa1dd01646c907953a3274e0144a38">More...</a><br /></td></tr>
+<tr class="separator:a2afa1dd01646c907953a3274e0144a38"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Bibliothèque des fonctions utiles pour l'Intelligence Artificielle. </p>
 </div><h2 class="groupheader">Function Documentation</h2>
-<a id="a5b4d66bcac04527fdede27b7bc9b334d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5b4d66bcac04527fdede27b7bc9b334d">&#9670;&nbsp;</a></span>ensemble_mouvement_possible()</h2>
+<a id="a409a80dcb325580519f96966caafdee5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a409a80dcb325580519f96966caafdee5">&#9670;&nbsp;</a></span>add_coord()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="const_8h.html#a1529045b8d16c016dcd76c7495ec4c56">PMouvement</a> ensemble_mouvement_possible </td>
+          <td class="memname">void add_coord </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structCoord.html">Coord</a>&#160;</td>
+          <td class="paramname"><em>start</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structCoord.html">Coord</a>&#160;</td>
+          <td class="paramname"><em>end</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="mouvement_8h.html#aeaaea0f942e978fe6208de934e588405">PCoord</a>&#160;</td>
+          <td class="paramname"><em>out</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>additionne deux coordonnées </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">start</td><td>la première coordonnée </td></tr>
+    <tr><td class="paramname">end</td><td>la deuxième coordonnée </td></tr>
+    <tr><td class="paramname">out</td><td>le pointeur dans lequel les coordonnees ajoutes seront stockees </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a19cceed77d3e2ba4e294f0aa3357d057"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a19cceed77d3e2ba4e294f0aa3357d057">&#9670;&nbsp;</a></span>ensemble_mouvement_possible()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ensemble_mouvement_possible </td>
           <td>(</td>
           <td class="paramtype">char **&#160;</td>
           <td class="paramname"><em>board</em>, </td>
@@ -147,6 +228,12 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>terminator_move</b> (
           <td></td>
           <td class="paramtype">char&#160;</td>
           <td class="paramname"><em>player</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structMouvement.html">Mouvement</a>&#160;</td>
+          <td class="paramname"><em>liste_coup</em>[MAX_CHILDREN], </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -167,16 +254,16 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>terminator_move</b> (
   <table class="params">
     <tr><td class="paramname">board</td><td>Le jeu </td></tr>
     <tr><td class="paramname">player</td><td>le joueur qui va devoir effectuer le mouvement </td></tr>
+    <tr><td class="paramname">liste_coup</td><td>la liste des coups dans laquelle le nombre de coups va être stockée, qui doit être de taille MAX_CHILDREN </td></tr>
     <tr><td class="paramname">nb_coup</td><td>Pointeur sur l'index du dernier mouvement de la liste </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>Renvoit une liste de tous les mouvements possibles </dd></dl>
 
 </div>
 </div>
-<a id="a91bb4f663777393cdf195f3e45eb9cf0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a91bb4f663777393cdf195f3e45eb9cf0">&#9670;&nbsp;</a></span>gen_mouvement()</h2>
+<a id="a2ee8dfd82efa443131e9289a8440e573"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2ee8dfd82efa443131e9289a8440e573">&#9670;&nbsp;</a></span>gen_mouvement()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -202,8 +289,8 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>terminator_move</b> (
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="const_8h.html#a1529045b8d16c016dcd76c7495ec4c56">PMouvement</a>&#160;</td>
-          <td class="paramname"><em>liste_coup</em>, </td>
+          <td class="paramtype"><a class="el" href="structMouvement.html">Mouvement</a>&#160;</td>
+          <td class="paramname"><em>liste_coup</em>[MAX_CHILDREN], </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -225,7 +312,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>terminator_move</b> (
     <tr><td class="paramname">board</td><td>Le jeu </td></tr>
     <tr><td class="paramname">player</td><td>Le joueur choisi </td></tr>
     <tr><td class="paramname">start</td><td>Les coordonnées de pion de départ </td></tr>
-    <tr><td class="paramname">liste_coup</td><td>La liste des mouvements possibles </td></tr>
+    <tr><td class="paramname">liste_coup</td><td>La liste des mouvements dans laquelle sera stockée les coups générés, de taille MAX_CHILDREN </td></tr>
     <tr><td class="paramname">nb_coup</td><td>Pointeur sur l'index du dernier mouvement de la liste </td></tr>
   </table>
   </dd>
@@ -233,14 +320,14 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>terminator_move</b> (
 
 </div>
 </div>
-<a id="ab9872b3333d27220f37ff1abd849817a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab9872b3333d27220f37ff1abd849817a">&#9670;&nbsp;</a></span>play_random_move()</h2>
+<a id="a3bf4416f622ff509e2d1b708224248fe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3bf4416f622ff509e2d1b708224248fe">&#9670;&nbsp;</a></span>play_random_move()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">char* play_random_move </td>
+          <td class="memname"><a class="el" href="structMouvement.html">Mouvement</a> play_random_move </td>
           <td>(</td>
           <td class="paramtype">char **&#160;</td>
           <td class="paramname"><em>board</em>, </td>
@@ -259,7 +346,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>terminator_move</b> (
       </table>
 </div><div class="memdoc">
 
-<p>Executer ou jouer un coup aléatoire et le retourne sous forme de coordonnées en string. </p>
+<p>Executer ou jouer un coup aléatoire et le retourne sous forme de mouvement. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">board</td><td>Le jeu </td></tr>
@@ -267,17 +354,18 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>terminator_move</b> (
   </table>
   </dd>
 </dl>
+<dl class="section return"><dt>Returns</dt><dd>le mouvement effectué </dd></dl>
 
 </div>
 </div>
-<a id="aaf87c1c49b124450f69c069266b4630b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aaf87c1c49b124450f69c069266b4630b">&#9670;&nbsp;</a></span>PT_max()</h2>
+<a id="a96f3d0ae9a004b2d1e46e2f0f2966652"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a96f3d0ae9a004b2d1e46e2f0f2966652">&#9670;&nbsp;</a></span>PT_max()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="const_8h.html#aeaaea0f942e978fe6208de934e588405">PCoord</a> PT_max </td>
+          <td class="memname"><a class="el" href="structCoord.html">Coord</a> PT_max </td>
           <td>(</td>
           <td class="paramtype">char **&#160;</td>
           <td class="paramname"><em>board</em>, </td>
@@ -308,14 +396,14 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>terminator_move</b> (
 
 </div>
 </div>
-<a id="a40b8a448fa6146d4d326e29f6a8d1763"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a40b8a448fa6146d4d326e29f6a8d1763">&#9670;&nbsp;</a></span>PT_min()</h2>
+<a id="a68405a6402cd0103a66bc74a065f68b3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a68405a6402cd0103a66bc74a065f68b3">&#9670;&nbsp;</a></span>PT_min()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="const_8h.html#aeaaea0f942e978fe6208de934e588405">PCoord</a> PT_min </td>
+          <td class="memname"><a class="el" href="structCoord.html">Coord</a> PT_min </td>
           <td>(</td>
           <td class="paramtype">char **&#160;</td>
           <td class="paramname"><em>board</em>, </td>
@@ -346,8 +434,8 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>terminator_move</b> (
 
 </div>
 </div>
-<a id="a9707941f3e1b6cf282422cf21362547d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9707941f3e1b6cf282422cf21362547d">&#9670;&nbsp;</a></span>random_move()</h2>
+<a id="aec11f93955606f843eb16003549dbcf7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aec11f93955606f843eb16003549dbcf7">&#9670;&nbsp;</a></span>random_move()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -367,8 +455,8 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>terminator_move</b> (
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="const_8h.html#a1529045b8d16c016dcd76c7495ec4c56">PMouvement</a>&#160;</td>
-          <td class="paramname"><em>list_mvt</em>, </td>
+          <td class="paramtype"><a class="el" href="structMouvement.html">Mouvement</a>&#160;</td>
+          <td class="paramname"><em>list_mvt</em>[MAX_CHILDREN], </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -389,11 +477,12 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>terminator_move</b> (
   <table class="params">
     <tr><td class="paramname">board</td><td>La grille du jeu </td></tr>
     <tr><td class="paramname">player</td><td>Le joueur </td></tr>
-    <tr><td class="paramname">list_mvt</td><td>Une liste des mouvements possibles </td></tr>
+    <tr><td class="paramname">list_mvt</td><td>Une liste des mouvements possibles, de taille MAX_CHILDREN </td></tr>
     <tr><td class="paramname">count</td><td>L'index du dernier mouvement de la liste des mouvements possibles </td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section return"><dt>Returns</dt><dd>le mouvement effectué </dd></dl>
 
 </div>
 </div>
@@ -432,6 +521,196 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>terminator_move</b> (
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Renvoie un entier aléatoire compris entre les bornes inférieure et supérieure, bornes inclus </dd></dl>
+
+</div>
+</div>
+<a id="afe197d03a90726c3f3c5d09cfb957603"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afe197d03a90726c3f3c5d09cfb957603">&#9670;&nbsp;</a></span>score_col()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int score_col </td>
+          <td>(</td>
+          <td class="paramtype">char **&#160;</td>
+          <td class="paramname"><em>board</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char&#160;</td>
+          <td class="paramname"><em>player</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Calcule le score des colonnes du joueur actif selon la position de chaque pion. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">board</td><td>le jeu </td></tr>
+    <tr><td class="paramname">player</td><td>le joueur actif </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>le score des colonnes du joueur actif </dd></dl>
+
+</div>
+</div>
+<a id="a0a044bdb8e9e5433015ef80096e40e82"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0a044bdb8e9e5433015ef80096e40e82">&#9670;&nbsp;</a></span>score_group_col()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int score_group_col </td>
+          <td>(</td>
+          <td class="paramtype">char **&#160;</td>
+          <td class="paramname"><em>board</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char&#160;</td>
+          <td class="paramname"><em>player</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Calcule le score des groupements de 2 ou 3 pions dans les colonnes du joueur actif. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">board</td><td>le jeu </td></tr>
+    <tr><td class="paramname">player</td><td>le joueur actif </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>le score des groupements de 2 ou 3 dans les colonnes du joueur actif </dd></dl>
+
+</div>
+</div>
+<a id="a28672c1580756c0df88e409e739d2a1a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a28672c1580756c0df88e409e739d2a1a">&#9670;&nbsp;</a></span>score_group_row()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int score_group_row </td>
+          <td>(</td>
+          <td class="paramtype">char **&#160;</td>
+          <td class="paramname"><em>board</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char&#160;</td>
+          <td class="paramname"><em>player</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Calcule le score des groupements de 2 ou 3 pions dans les lignes du joueur actif. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">board</td><td>le jeu </td></tr>
+    <tr><td class="paramname">player</td><td>le joueur actif </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>le score des groupements de 2 ou 3 dans les lignes du joueur actif </dd></dl>
+
+</div>
+</div>
+<a id="ad592d03d5190b4a5b1ac4762c1bf1149"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad592d03d5190b4a5b1ac4762c1bf1149">&#9670;&nbsp;</a></span>score_row()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int score_row </td>
+          <td>(</td>
+          <td class="paramtype">char **&#160;</td>
+          <td class="paramname"><em>board</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char&#160;</td>
+          <td class="paramname"><em>player</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Calcule le score des lignes du joueur actif selon la position de chaque pion. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">board</td><td>le jeu </td></tr>
+    <tr><td class="paramname">player</td><td>le joueur actif </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>le score des lignes du joueur actif </dd></dl>
+
+</div>
+</div>
+<a id="a2afa1dd01646c907953a3274e0144a38"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2afa1dd01646c907953a3274e0144a38">&#9670;&nbsp;</a></span>terminator_move()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structMouvement.html">Mouvement</a> terminator_move </td>
+          <td>(</td>
+          <td class="paramtype">char **&#160;</td>
+          <td class="paramname"><em>board</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char&#160;</td>
+          <td class="paramname"><em>player</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>fait jouer un coup à l'algorithme minimax </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">board</td><td>le plateau </td></tr>
+    <tr><td class="paramname">player</td><td>le joueur qui doit jouer </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>le mouvement joué </dd></dl>
 
 </div>
 </div>

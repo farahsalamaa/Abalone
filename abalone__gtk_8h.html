@@ -72,20 +72,25 @@ $(function() {
 <p>Bibliotheque des fonctions lancement du jeu en GTK.  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;stdlib.h&gt;</code><br />
-<code>#include &quot;gtk/gtk.h&quot;</code><br />
+<code>#include &lt;gtk/gtk.h&gt;</code><br />
+<code>#include &lt;stdio.h&gt;</code><br />
 <code>#include &lt;math.h&gt;</code><br />
 <code>#include &lt;ctype.h&gt;</code><br />
 <code>#include &lt;string.h&gt;</code><br />
+<code>#include &lt;time.h&gt;</code><br />
+<code>#include &lt;unistd.h&gt;</code><br />
 <code>#include &quot;debug.h&quot;</code><br />
 <code>#include &quot;<a class="el" href="abalone__terminal_8h_source.html">abalone_terminal.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="mouvement_8h_source.html">mouvement.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="ia_8h_source.html">ia.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="const_8h_source.html">const.h</a>&quot;</code><br />
 </div>
 <p><a href="abalone__gtk_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a0031700b260573ddc1e77170f75688de"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="abalone__gtk_8h.html#a0031700b260573ddc1e77170f75688de">play_game_gtk</a> (int argc, char **argv)</td></tr>
-<tr class="separator:a0031700b260573ddc1e77170f75688de"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afd2d519443c36a5e6c88d07831fe80e2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="abalone__gtk_8h.html#afd2d519443c36a5e6c88d07831fe80e2">play_game_gtk</a> (int argc, char **argv)</td></tr>
+<tr class="separator:afd2d519443c36a5e6c88d07831fe80e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8d05febc94208a50e3a845064d51cb35"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="abalone__gtk_8h.html#a8d05febc94208a50e3a845064d51cb35">play_game_gtk2</a> (int argc, char **argv)</td></tr>
 <tr class="separator:a8d05febc94208a50e3a845064d51cb35"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aab3db9ee7334c5539d62afb1f4c43d16"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="abalone__gtk_8h.html#aab3db9ee7334c5539d62afb1f4c43d16">play_game_gtk3</a> (int argc, char **argv)</td></tr>
@@ -94,14 +99,14 @@ Functions</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Bibliotheque des fonctions lancement du jeu en GTK. </p>
 </div><h2 class="groupheader">Function Documentation</h2>
-<a id="a0031700b260573ddc1e77170f75688de"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0031700b260573ddc1e77170f75688de">&#9670;&nbsp;</a></span>play_game_gtk()</h2>
+<a id="afd2d519443c36a5e6c88d07831fe80e2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afd2d519443c36a5e6c88d07831fe80e2">&#9670;&nbsp;</a></span>play_game_gtk()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">int play_game_gtk </td>
+          <td class="memname">void play_game_gtk </td>
           <td>(</td>
           <td class="paramtype">int&#160;</td>
           <td class="paramname"><em>argc</em>, </td>
