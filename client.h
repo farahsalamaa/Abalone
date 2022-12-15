@@ -1,9 +1,6 @@
 #ifndef IMM2223_GR6_CLIENT_H
 #define IMM2223_GR6_CLIENT_H
 
-#define INVALID_SOCKET -1
-#define SOCKET_ERROR -1
-
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <netdb.h>
@@ -14,6 +11,11 @@
 #include <stdlib.h>
 #include <string.h>
 #include "serveur.h"
+
+#define INVALID_SOCKET -1
+#define SOCKET_ERROR -1
+
+
 
 typedef int SOCKET;
 typedef struct sockaddr_in SOCKADDR_IN;

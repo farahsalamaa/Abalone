@@ -1,4 +1,8 @@
 #ifndef _TD_LIB_H
+#include <errno.h>
+#include <stdlib.h>
+#include <stdio.h>
+#include <stdarg.h>
 #define _TD_LIB_H
 
 /*

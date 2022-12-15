@@ -1,5 +1,4 @@
 #include "ia.h"
-
 //Vecteurs permettant de générer tous les mouvements possibles
 /**
  * \var op
@@ -31,30 +30,26 @@ int random_number(int min, int max) {
     return random;
 }
 /**
- * \fn PCoord add_coord(Coord start, Coord end)
+ * \fn void add_coord(Coord start, Coord end, PCoord out)
  * \brief additionne deux coordonnées
  * \param start la première coordonnée
  * \param end la deuxième coordonnée
- * \return les coordonées additionnées
+ * \param out le pointeur dans lequel les coordonnees ajoutes seront stockees
 */
-PCoord add_coord(Coord start, Coord end) {
-    PCoord out = malloc(sizeof(PCoord));
+void add_coord(Coord start, Coord end, PCoord out) {
     out->x = start.x + end.x;
     out->y = start.y + end.y;
-    return out;
 }
 
 /**
- * \fn PMouvement ensemble_mouvement_possible(char** board,char color, int* nb_coup)
+ * \fn void ensemble_mouvement_possible(char** board,char player, Mouvement liste_coup[MAX_CHILDREN], int* nb_coup)
  * \brief Déterminer tous les mouvements possible pour une couleur
  * \param board Le jeu
  * \param player le joueur qui va devoir effectuer le mouvement
+ * \param liste_coup la liste des coups dans laquelle le nombre de coups va être stockée, qui doit être de taille MAX_CHILDREN
  * \param nb_coup Pointeur sur l'index du dernier mouvement de la liste
- * \return Renvoit une liste de tous les mouvements possibles
 */
-PMouvement ensemble_mouvement_possible(char** board, char player, int* nb_coup) {
-    //Initialise la liste récupérant l'ensemble des coups valides générés
-    PMouvement liste_coup = malloc(MAX_CHILDREN*sizeof(Mouvement));
+void ensemble_mouvement_possible(char** board, char player, Mouvement liste_coup[MAX_CHILDREN], int* nb_coup) {
     *nb_coup = 0;
 
     //Parcourt le tableau à la recherche des pions de la bonne couleur
@@ -65,21 +60,21 @@ PMouvement ensemble_mouvement_possible(char** board, char player, int* nb_coup) 
             }
         }
     }
-    return liste_coup;
 }
 
 /**
- * \fn void gen_mouvement(char** board, char player,Coord start,PMouvement liste_coup, int* nb_coup)
+ * \fn void gen_mouvement(char** board, char player,Coord start, Mouvement liste_coup[MAX_CHILDREN], int* nb_coup)
  * \brief Permet de remplir la liste des coups possibles qui sera retournée dans ensemble_mouvement_possible
  * \param board Le jeu
  * \param player Le joueur choisi
  * \param start Les coordonnées de pion de départ
- * \param liste_coup La liste des mouvements possibles
+ * \param liste_coup La liste des mouvements dans laquelle sera stockée les coups générés, de taille MAX_CHILDREN
  * \param nb_coup Pointeur sur l'index du dernier mouvement de la liste
 */
-void gen_mouvement(char** board, char player, Coord start, PMouvement liste_coup, int* nb_coup) {
+void gen_mouvement(char** board, char player, Coord start, Mouvement liste_coup[MAX_CHILDREN], int* nb_coup) {
     for (int i=0; i<15; i++) {
-        Coord end = *add_coord(start,op[i]);
+        Coord end;
+        add_coord(start,op[i],&end);
         Mouvement mouvement;
         mouvement.start = start; mouvement.end = end;
         if (!validate_mvt(board, player, mouvement)) {
@@ -103,7 +98,8 @@ void gen_mouvement(char** board, char player, Coord start, PMouvement liste_coup
                 copy_start.x+=2;
                 break;
         }
-        Coord end = *add_coord(copy_start,op_reversed[i]);
+        Coord end;
+        add_coord(copy_start,op_reversed[i],&end);
         Mouvement mouvement;
         mouvement.start = copy_start; mouvement.end = end;
         if (!validate_mvt(board, player, mouvement)) {
@@ -115,33 +111,34 @@ void gen_mouvement(char** board, char player, Coord start, PMouvement liste_coup
 }
 
 /**
- * \fn void random_move(char** board, char player, PMouvement list_mvt, int count)
+ * \fn Mouvement random_move(char** board, char player, Mouvement list_mvt[MAX_CHILDREN], int count)
  * \brief Permet de choisir un coup aléatoire dans la liste de mouvement et le jouer
  * Cette fonction execute le coup aléatoire et le mouvement joué.
  * \param board La grille du jeu
  * \param player Le joueur
- * \param list_mvt Une liste des mouvements possibles
+ * \param list_mvt Une liste des mouvements possibles, de taille MAX_CHILDREN
  * \param count L'index du dernier mouvement de la liste des mouvements possibles
+ * \return le mouvement effectué
 */
-Mouvement random_move(char** board, char player, PMouvement list_mvt,int count) {
+Mouvement random_move(char** board, char player, Mouvement list_mvt[MAX_CHILDREN], int count) {
     int random = random_number(0, count);
     exec_mvt(board,player,list_mvt[random]);
     return list_mvt[random];
 }
 
 /**
- * \fn void play_random_move(char** board, char player)
- * \brief Executer ou jouer un coup aléatoire et le retourne sous forme de coordonnées en string
+ * \fn Mouvement play_random_move(char** board, char player)
+ * \brief Executer ou jouer un coup aléatoire et le retourne sous forme de mouvement
  * \param board Le jeu
  * \param player Le joueur choisi
+ * \return le mouvement effectué
 */
-char* play_random_move(char** board, char player) {
+Mouvement play_random_move(char** board, char player) {
     int count;
-    PMouvement mvts_possibles = ensemble_mouvement_possible(board, player, &count);
+    Mouvement mvts_possibles[MAX_CHILDREN];
+    ensemble_mouvement_possible(board, player, mvts_possibles, &count);
     Mouvement mouvement = random_move(board, player, mvts_possibles,count);
-    char* buffer = malloc(5*sizeof(char));
-    mouvement_to_string(mouvement, buffer);
-    return buffer;
+    return mouvement;
 }
 
 /** \defgroup g1 Fonctions d'évaluation
@@ -186,10 +183,10 @@ int count_padding(char** board, char player) {
  * \param player le joueur
  * \return les coordonnees du point extreme
 */
-PCoord PT_min(char** board, char player){
+Coord PT_min(char** board, char player){
     int x_min=7;
     int y_min=7;
-    PCoord pt_min = malloc(sizeof(PCoord));
+    Coord pt_min;
     for (int i = 0; i<=7; i++) {
         for (int j = 0; j<=7; j++) {
             if (board[i][j] == player) {
@@ -198,8 +195,8 @@ PCoord PT_min(char** board, char player){
             }
         }
     }
-    pt_min->x=x_min;
-    pt_min->y=y_min;
+    pt_min.x=x_min;
+    pt_min.y=y_min;
     return(pt_min);
 }
 
@@ -210,10 +207,10 @@ PCoord PT_min(char** board, char player){
  * \param player le joueur
  * \return les coordonnees du point extreme
 */
-PCoord PT_max(char** board, char player){
+Coord PT_max(char** board, char player){
     int x_max=0;
     int y_max=0;
-    PCoord pt_max = malloc(sizeof(PCoord));
+    Coord pt_max;
     for (int i = 0; i<=7; i++) {
         for (int j = 0; j<=7; j++) {
             if (board[i][j] == player) {
@@ -222,8 +219,8 @@ PCoord PT_max(char** board, char player){
             }
         }
     }
-    pt_max->x=x_max;
-    pt_max->y=y_max;
+    pt_max.x=x_max;
+    pt_max.y=y_max;
     return(pt_max);
 }
 
@@ -237,10 +234,10 @@ PCoord PT_max(char** board, char player){
 */
 int score_density(char** board, char player){
     
-    PCoord pt_min = PT_min(board, player);
-    PCoord pt_max = PT_max(board, player);
-    int W =(pt_max->x - pt_min->x);/*!la Largeur de la surface (Width)*/
-    int H =(pt_max->y - pt_min->y);// la longeur de la surface (height)
+    Coord pt_min = PT_min(board, player);
+    Coord pt_max = PT_max(board, player);
+    int W =(pt_max.x - pt_min.x);/*!la Largeur de la surface (Width)*/
+    int H =(pt_max.y - pt_min.y);// la longeur de la surface (height)
     int S = W*H ;
     double c = 14/S;
     if(c<0.25){return 0;}
@@ -258,10 +255,11 @@ int score_density(char** board, char player){
  * \return Le nombre de coups d'attaque possibles
 */
 int possible_attacks(char** board, char player){
-    int a;
+    int a = 0;
     char opp = other_player(player);
     int m;
-    PMouvement l=ensemble_mouvement_possible(board,player,&m);
+    Mouvement l[MAX_CHILDREN];
+    ensemble_mouvement_possible(board,player,l,&m);
     int i= m+1;
     for (int j=0;j<i; j++ ){
         int x=l[j].end.x;
@@ -270,6 +268,107 @@ int possible_attacks(char** board, char player){
     }
     return a;
 }
+/*! \fn score_row(char** board,char player)
+    \brief Calcule le score des lignes du joueur actif selon la position de chaque pion
+    \param board le jeu
+    \param player le joueur actif
+    \return le score des lignes du joueur actif
+*/
+int score_row(char** board, char player){
+    int valeur[8]={-8,-4,-2,-1,-1,-2,-4,-8};
+    int score=0;
+    for (int i=0; i<8;i++){
+        for (int j=0; j<8;j++){
+            if (board[i][j]==player){
+                score+=valeur[i];
+            }
+        } 
+    }
+    return score;
+}
+/*! \fn score_col(char** board,char player)
+    \brief Calcule le score des colonnes du joueur actif selon la position de chaque pion
+    \param board le jeu
+    \param player le joueur actif
+    \return le score des colonnes du joueur actif
+*/
+int score_col(char** board, char player){
+    int valeur[8]={-8,-4,-2,-1,-1,-2,-4,-8};
+    int score=0;
+    for (int i=0; i<8;i++){
+        for (int j=0; j<8;j++){
+            if (board[i][j]==player){
+                score+=valeur[j];
+            }
+        } 
+    }
+    return score;
+}
+/*! \fn score_group_row(char** board,char player)
+    \brief Calcule le score des groupements de 2 ou 3 pions dans les lignes du joueur actif 
+    \param board le jeu
+    \param player le joueur actif
+    \return le score des groupements de 2 ou 3 dans les lignes du joueur actif
+*/
+int score_group_row(char** board, char player){
+    int score=0;
+    for (int i=0; i<8;i++){
+        int group_2=0;
+        for (int j=0; j<8;j++){
+            if (board[i][j]==player){
+                if (board[i][j+1]==player){
+                    score +=GROUP_2;
+                    j++;
+                    if(board[i][j+1]==player){
+                        if(group_2==0){
+                            score +=GROUP_3-GROUP_2;
+                        }
+                        else{
+                            score=score-2*GROUP_2+GROUP_3;
+                        }
+                        j=7;
+                    }
+                    group_2++;
+                }
+            }
+        }
+    }
+    return score;
+}
+/*! \fn score_group_col(char** board,char player)
+    \brief Calcule le score des groupements de 2 ou 3 pions dans les colonnes du joueur actif
+    \param board le jeu
+    \param player le joueur actif
+    \return le score des groupements de 2 ou 3 dans les colonnes du joueur actif
+*/
+int score_group_col(char** board, char player){
+    int score=0;
+    for (int j=0; j<8;j++){
+        int group_2=0;
+        for (int i=0; i<8;i++){
+            if (board[i][j]==player){
+                if (i==7){break;}
+                if (board[i+1][j]==player){
+                    score +=GROUP_2;
+                    i++;
+                    if (i==7){break;}
+                    if(board[i+1][j]==player){
+                        if(group_2==0){
+                            score +=GROUP_3-GROUP_2;
+                        }
+                        else{
+                            score=score-2*GROUP_2+GROUP_3;
+                        }
+                        i=7;
+                    }
+                    group_2++;
+                }
+            }
+        }
+    }
+    return score;
+}
+
 
 /**
  * \fn char other_player(char player)
@@ -293,53 +392,92 @@ char other_player(char player){
  * \return Une valeur d'utilité
 */
 int score_utility(char** board, char player){
-    int p1 = ALPHA*count_center(board, player)
-            +BETA*count_padding(board, player)
-            +GAMMA*score_density(board, player);
-            +THETA*possible_attacks(board, player);
+    char player_2= other_player(player);
 
-    int p2 = ALPHA*count_center(board,other_player(player))
-            +BETA*count_padding(board,other_player(player))
-            +GAMMA*score_density(board,other_player(player));
-            +THETA*possible_attacks(board,other_player(player));
+    int p1 = C1*score_row(board, player)
+            +C2*score_col(board, player)
+            +C3*score_group_row(board, player)
+            +C4*score_group_col(board, player)
+            +C5*score_density(board, player)
+            +C6*possible_attacks(board,player);
+
+    int p2 = C1*score_row(board, player_2)
+            +C2*score_col(board, player_2)
+            +C3*score_group_row(board, player_2)
+            +C4*score_group_col(board, player_2)
+            +C5*score_density(board, player_2)
+            +C6*possible_attacks(board,player_2);
 
     return p1-p2;
 }
 
+/**
+ * \fn int min(int a, int b)
+ * \brief retourne la plus petite valeur entre a et b
+ * \param a la première valeur
+ * \param b la deuxième valeur
+ * \return la plus petite valeur
+*/
 int min(int a, int b) {
     if (a > b) return b;
     return a;
 }
 
+/**
+ * \fn int max(int a, int b)
+ * \brief retourne la plus grande valeur entre a et b
+ * \param a la première valeur
+ * \param b la deuxième valeur
+ * \return la plus grande valeur
+*/
 int max(int a, int b) {
     if (a < b) return b;
     return a;
 }
 
-int minimax(char** board, int depth, int alpha, int beta, bool max_player, char active_player) {
+int max_mouv(int a, int b, PMouvement mouvement, Mouvement mvt_to_copy) {
+    if (a < b) {
+        *mouvement = mvt_to_copy;
+        return b;
+    }
+    return a;
+}
+
+/**
+ * \fn int minimax(char** board, int depth, int alpha, int beta, bool max_player, char active_player)
+ * \brief renvoie le score du meilleur plateau à la profondeur donnée
+ * \param board le plateau
+ * \param depth la profondeur de l'arbre minimax
+ * \param alpha le alpha de l'élaguage alpha-beta
+ * \param beta le beta de l'élaguage alpha-beta
+ * \param max_player le plateau est à générer pour l'ia
+ * \param active_player le joueur actif
+ * \return le score du meilleur plateau trouvé
+*/
+int minimax(char** board, int depth, int alpha, int beta, bool max_player, char active_player, PMouvement mouvement) {
     int nb_coup = 0;
-    PMouvement liste_coup = ensemble_mouvement_possible(board, active_player, &nb_coup);
+    Mouvement liste_coup[MAX_CHILDREN];
+    ensemble_mouvement_possible(board, active_player, liste_coup, &nb_coup);
 
     char state = has_player_won(board);
-
     if (depth == 0) return score_utility(board, active_player);
-    else if (state == COULEUR_NOIR || state == COULEUR_BLANC) {
-        if (state == active_player) return INT_MAX;
-        else return INT_MIN;
-    }
+    else if (state == STATE_WON_BLANC && active_player == COULEUR_BLANC) return INT_MAX;
+    else if (state == STATE_WON_BLANC && active_player == COULEUR_NOIR) return INT_MIN;
+    else if (state == STATE_WON_NOIR && active_player == COULEUR_NOIR) return INT_MAX;
+    else if (state == STATE_WON_NOIR && active_player == COULEUR_BLANC) return INT_MIN;
 
     if (max_player) {
         int max_eval = INT_MIN;
         for (int i=0; i<nb_coup; i++) {
             char** copy = copy_board(board);
             exec_mvt(copy, active_player, liste_coup[i]);
-            int eval = minimax(copy, depth - 1, alpha, beta, false, other_player(active_player));
+            int eval = minimax(copy, depth - 1, alpha, beta, false, other_player(active_player), mouvement);
             destroy_board(copy);
+            if (eval > max_eval && depth == DEPTH) *mouvement = liste_coup[i];
             max_eval = max(max_eval, eval);
             alpha = max(alpha, eval);
             if (beta <= alpha) break;
         }
-        free(liste_coup);
         return max_eval;
     }
     else {
@@ -347,31 +485,31 @@ int minimax(char** board, int depth, int alpha, int beta, bool max_player, char 
         for (int i=0; i<nb_coup; i++) {
             char** copy = copy_board(board);
             exec_mvt(copy, active_player, liste_coup[i]);
-            int eval = minimax(copy, depth - 1, alpha, beta, true, other_player(active_player));
+            int eval = minimax(copy, depth - 1, alpha, beta, true, other_player(active_player), mouvement);
             destroy_board(copy);
             min_eval = min(min_eval, eval);
             beta = min(beta, eval);
             if (beta <= alpha) break;
         }
-        free(liste_coup);
         return min_eval;
     }
 }
 
-void terminator_move(char** board, char player) {
-    int initial_score = minimax(board, DEPTH, INT_MIN, INT_MAX, true, player);
-    int nb_coup;
-    PMouvement liste_coup = ensemble_mouvement_possible(board, player, &nb_coup);
-    for (int i=0; i<nb_coup; i++) {
-        char** copy = copy_board(board);
-        exec_mvt(copy, player, liste_coup[i]);
-        int score = minimax(copy, DEPTH-1, INT_MIN, INT_MAX, false, other_player(player));
-        destroy_board(copy);
-        if (initial_score == score) {
-            exec_mvt(board, player, liste_coup[i]);
-            free(liste_coup);
-            return;
-        }
-        free(liste_coup);
+/**
+ * \fn void terminator_move(char** board, char player)
+ * \brief fait jouer un coup à l'algorithme minimax
+ * \param board le plateau
+ * \param player le joueur qui doit jouer
+ * \return le mouvement joué
+*/
+Mouvement terminator_move(char** board, char player) {
+    if (DEPTH == 0) {
+        return play_random_move(board, player);
+    } else {
+        Mouvement mouvement;
+        int score = minimax(board, DEPTH, INT_MIN, INT_MAX, true, player, &mouvement);
+        exec_mvt(board, player, mouvement);
+        return mouvement;
     }
 }
+            

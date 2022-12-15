@@ -1,18 +1,20 @@
 #ifndef IMM2223_GR6_SERVEUR_H
 #define IMM2223_GR6_SERVEUR_H
 
-#endif //IMM2223_GR6_SERVEUR_H
-
-
+#include <stdlib.h>
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <arpa/inet.h>
 #include <unistd.h>
 #include <stdio.h>
-#include <stdlib.h>
 #include <string.h>
 #include "client.h"
+
+#endif //IMM2223_GR6_SERVEUR_H
+
+
+
 
 typedef int SOCKET;
 typedef struct sockaddr_in SOCKADDR_IN;

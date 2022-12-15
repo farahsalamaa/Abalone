@@ -1,5 +1,4 @@
 #include "abalone_terminal.h"
-#include "client.h"
 /**
  * \file abalone_terminal.c
  * \brief Creation du jeu et lancement du jeu
@@ -266,13 +265,14 @@ char etat(PAbalone r){
 si le timer n as pas encore commencer ==> r.timer prend 0
 si le timer est entre 1 et 900 ==> r.timer prend 1
 si le timer a depasser 900 ==> r.timer prend 2*/
-	if (r->timer>=TIME_LIMIT){
+	if(has_player_won(r->board) != 'R'){
+		return has_player_won(r->board);
+	}else if (r->timer>=TIME_LIMIT){
 	   return STATE_TIMEOUT;
     }else if (r->timer == 0){
 		return STATE_INITIALIZED;
-	}else{
-		return has_player_won(r->board);
 	}
+	return STATE_RUNNING;
 }
 	
 /**
@@ -421,7 +421,12 @@ void play_game_random_ia() {
     }
 }
 
-void play_terminator(int depth) {
+
+/**
+ * \fn void play_terminator()
+ * \brief joue contre l'ia minmax, la pronfondeur est un variable globale
+*/
+void play_terminator() {
     PAbalone game = new_abalone();
     display_board(game->board);
     Mouvement mvt;
@@ -483,10 +488,11 @@ void play_terminator(int depth) {
             break;
     }
 }
+
 /**
  * \fn play_game_server(char* port)
- * \brief lance le jeu en mode serveur 
- * \param port le port ou la partie sera lancer
+ * \brief Lance le jeu en mode serveur 
+ * \param port Le port où la partie sera lancé
 */
 void play_game_server(char* port){
 	PAbalone game = new_abalone();
@@ -504,10 +510,12 @@ void play_game_server(char* port){
 		int a=recv(slave,move,sizeof(move),0);
 		//int a= TCP_String_Reader(slave, move);
 		//read(slave,move,sizeof(char)*6);
-		printf("%s",move);
+		//printf("%s",move);
 		string_to_mouvement(move,(&mvt));
 		finalise_mvt(game->board,COULEUR_NOIR,mvt);
 		display_board(game->board);
+		game->state = etat(game);
+		if (game->state == STATE_WON_BLANC || game->state == STATE_WON_NOIR){break;}
 		do {
 			do{
 				printf("lettres entre A-H , et les nembre entre 1-8\n");
@@ -550,12 +558,12 @@ void play_game_server(char* port){
 			break;
 	}
 }
+
 /**
  * \fn play_game_client(char* server)
- * \brief lance le jeu en mode client 
- * \param server contient l adress ip et le port necessaire pour la connection
+ * \brief Lance le jeu en mode client 
+ * \param server Contient l'adresse ip et le port nécessaire pour la connection
 */
-
 void play_game_client(char* server){  //server doit avoir comme format= 127.0.0.1:6969
 	PAbalone game = new_abalone();
 	display_board(game->board);
@@ -586,6 +594,8 @@ void play_game_client(char* server){  //server doit avoir comme format= 127.0.0.
 		}while(error);
 		write(s,a1,sizeof(char)*6);
 		display_board(game->board);
+		game->state = etat(game);
+		if (game->state == STATE_WON_BLANC || game->state == STATE_WON_NOIR){break;}
 		recv(s, move,sizeof(move),0 );
 		//read(s,move,sizeof(char)*6);
 		//pread(s,move,sizeof(move),7);
@@ -601,6 +611,112 @@ void play_game_client(char* server){  //server doit avoir comme format= 127.0.0.
 		game->state = etat(game);
 		//debug("Game state : %c\n",game->state);	
 
+	}
+	
+	switch(game->state){
+		case STATE_INITIALIZED:
+		    printf("la partie est initialisé\n");
+			break;
+		case STATE_WON_BLANC:
+		    printf("les blancs ont gagné !!!\n");
+			break;
+		case STATE_WON_NOIR:
+		    printf("les noirs ont gagné !!!\n");
+			break;
+		case STATE_TIMEOUT:
+		    printf("la partie s'est fini en égalité\n");
+			break;
+	}
+
+}
+
+void play_game_server_ia(char* port){
+	PAbalone game = new_abalone();
+	display_board(game->board);
+	game->player = COULEUR_BLANC;
+	Mouvement mvt;
+	char* a1=malloc(6*sizeof(char));
+	int error;
+	time_t start;
+	SOCKET master = TCP_Create_Server(atoi(port));
+    SOCKET slave = accept(master,NULL,0);
+	while (game->state == STATE_RUNNING || game->state == STATE_INITIALIZED){
+		start = time(NULL);
+		char *move = malloc(sizeof(char)*6);
+		int a=recv(slave,move,sizeof(move),0);
+		string_to_mouvement(move,(&mvt));
+		finalise_mvt(game->board,COULEUR_NOIR,mvt);
+		display_board(game->board);
+		game->state = etat(game);
+		if (game->state == STATE_WON_BLANC || game->state == STATE_WON_NOIR){break;}
+		mvt = terminator_move(game->board,game->player);
+		mouvement_to_string(mvt,a1);
+		write(slave,a1,sizeof(char)*6);
+		//TCP_Long_Writer(slave,);
+		if(game->state == STATE_INITIALIZED){
+			game->timer += 1;
+		}else{
+			int time_elapsed = difftime(time(NULL),start);
+			game->timer += time_elapsed;
+		}
+		game->state = etat(game);
+		//debug("Game state : %c\n",game->state);
+		//free(a1);
+		//free(move);
+		display_board(game->board);
+	}
+	
+	switch(game->state){
+		case STATE_INITIALIZED:
+		    printf("la partie est initialisé\n");
+			break;
+		case STATE_WON_BLANC:
+		    printf("les blancs ont gagné !!!\n");
+			break;
+		case STATE_WON_NOIR:
+		    printf("les noirs ont gagné !!!\n");
+			break;
+		case STATE_TIMEOUT:
+		    printf("la partie s'est fini en égalité\n");
+			break;
+	}
+}
+
+void play_game_client_ia(char* server){  //server doit avoir comme format= 127.0.0.1:6969
+	PAbalone game = new_abalone();
+	display_board(game->board);
+	game->player = COULEUR_NOIR;
+	Mouvement mvt;
+	char* a1=malloc(6*sizeof(char));
+	char *move = malloc(sizeof(char)*6);
+	int error;
+	time_t start;
+    char* server2 = strtok(server,":");
+    char* port = strtok(NULL," ");
+	SOCKET s = TCP_Create_Client(server2,atoi(port));
+	while (game->state == STATE_RUNNING || game->state == STATE_INITIALIZED){
+		start = time(NULL);
+		char *move = malloc(sizeof(char)*6);
+		mvt = terminator_move(game->board,game->player);
+		mouvement_to_string(mvt,a1);
+		write(s,a1,sizeof(char)*6);
+		display_board(game->board);
+		game->state = etat(game);
+		if (game->state == STATE_WON_BLANC || game->state == STATE_WON_NOIR){break;}
+		recv(s,move,sizeof(char)*6,0);
+		string_to_mouvement(move,(&mvt));
+		finalise_mvt(game->board,COULEUR_BLANC,mvt);
+		display_board(game->board);
+		if(game->state == STATE_INITIALIZED){
+			game->timer += 1;
+		}else{
+			int time_elapsed = difftime(time(NULL),start);
+			game->timer += time_elapsed;
+		}
+		game->state = etat(game);
+		//debug("Game state : %c\n",game->state);	
+		//free(a1);
+		//free(move);
 	}
 	
 	switch(game->state){

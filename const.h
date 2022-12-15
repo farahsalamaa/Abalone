@@ -1,5 +1,6 @@
 #ifndef IMM2223_GR6_CONST_H
 #define IMM2223_GR6_CONST_H
+#include "mouvement.h"
 
 /**
  * \file const.h
@@ -12,18 +13,27 @@
 /*! \def MVT_LARGEUR
     \brief Mouvement d'un groupe de pions est en largeur
 */
+#define MVT_LIGNE 'N'
+#define MVT_LARGEUR 'G'
+
 /*! \def VERTICAL
     \brief Mouvement d'un groupe de pions est vertical
 */
 /*! \def HORIZONTAL
     \brief Mouvement d'un groupe de pions est horizontal
 */
+#define VERTICAL 'V'
+#define HORIZONTAL 'H'
+
 /*! \def ERROR_NOT_ALIGNED
     \brief Erreur car un groupe de pions n'est pas aligné 
 */
 /*! \def ERROR_NOT_A_MOVEMENT
     \brief Renvoie erreur car l'input de l'utilisateur n'est pas un mouvement de type horizontal ou vertical
 */
+#define ERROR_NOT_ALIGNED 'E' 
+#define ERROR_NOT_A_MOVEMENT '\0'
+
 /*! \def DIR_UP
     \brief Mouvement d'un groupe de pions est vers le haut
 */
@@ -36,6 +46,11 @@
 /*! \def DIR_RIGHT
     \brief Mouvement d'un groupe de pions est vers la droite
 */
+#define DIR_UP 'U'
+#define DIR_DOWN 'D'
+#define DIR_LEFT 'L'
+#define DIR_RIGHT 'R'
+
 /*! \def L_0
     \brief Un groupe de pions sans longueur
 */
@@ -48,6 +63,11 @@
 /*! \def L_3
     \brief Un groupe de pions de longueur 3
 */
+#define L_0 '0'
+#define L_1 '1'
+#define L_2 '2'
+#define L_3 '3'
+
 /*! \def ERROR_UNKNOWN
     \brief Renvoie -1 car l'erreur n'est pas reconnue
 */
@@ -84,9 +104,24 @@
 /*! \def ERROR_OBSTRUCTED 
     \brief Tentative de déplacement d'un doublet/triplet vers un espace obstrué
 */
+#define ERROR_UNKNOWN -1
+#define VALIDATION_OK 0
+#define ERROR_OUT_OF_BOUNDS 1
+#define ERROR_MISSING_PIECE 2
+#define ERROR_WRONG_COLOR 3
+#define ERROR_NO_LENGTH 4   
+#define ERROR_BLOCKED 11
+#define ERROR_LINE_INCOMPLETE 21
+#define ERROR_NOT_ENOUGH_STRENGTH 22
+#define ERROR_ALLY_IN_THE_WAY 23
+#define ERROR_TUPLE_INCOMPLETE 31
+#define ERROR_OBSTRUCTED 32
+
 /*! \def TIME_LIMIT 
     \brief Le temps limite du jeu, défini à 900 secondes ou 15 minutes
 */
+#define TIME_LIMIT 900
+
 /*! \def STATE_RUNNING
     \brief L'état du jeu est en route
 */
@@ -104,112 +139,63 @@
 */ 
 /*! \def STATE_WON_NOIR
     \brief Noir gagne, jeu terminé
-*/ 
-/*! \def COULEUR_VIDE
-    \brief La case vide dans la grille
 */
-/*! \def COULEUR_BLANC
-    \brief Un pion blanc
-*/ 
-/*! \def COULEUR_NOIR
-    \brief Un pion noir
-*/
-
-#define MVT_LIGNE 'N'
-#define MVT_LARGEUR 'G'
-#define VERTICAL 'V'
-#define HORIZONTAL 'H'
-#define ERROR_NOT_ALIGNED 'E' 
-#define ERROR_NOT_A_MOVEMENT '\0'
-#define DIR_UP 'U'
-#define DIR_DOWN 'D'
-#define DIR_LEFT 'L'
-#define DIR_RIGHT 'R'
-#define L_0 '0'
-#define L_1 '1'
-#define L_2 '2'
-#define L_3 '3'
-#define ERROR_UNKNOWN -1
-#define VALIDATION_OK 0
-#define ERROR_OUT_OF_BOUNDS 1
-#define ERROR_MISSING_PIECE 2
-#define ERROR_WRONG_COLOR 3
-#define ERROR_NO_LENGTH 4   
-#define ERROR_BLOCKED 11
-#define ERROR_LINE_INCOMPLETE 21
-#define ERROR_NOT_ENOUGH_STRENGTH 22
-#define ERROR_ALLY_IN_THE_WAY 23
-#define ERROR_TUPLE_INCOMPLETE 31
-#define ERROR_OBSTRUCTED 32
-#define TIME_LIMIT 900
 #define STATE_RUNNING 'R'
 #define STATE_INITIALIZED 'I'
 #define STATE_TIMEOUT 'T'
 #define STATE_FINISHED 'F'
 #define STATE_WON_BLANC 'B'
 #define STATE_WON_NOIR 'N'
+
+/*! \def COULEUR_VIDE
+    \brief La case vide dans la grille
+*/
+/*! \def COULEUR_BLANC
+    \brief la couleur de joueur ou de pion blanche
+*/ 
+/*! \def COULEUR_NOIR
+    \brief la couleur de joueur ou de pion noire
+*/
 #define COULEUR_VIDE 'Z'
 #define COULEUR_BLANC 'B'
 #define COULEUR_NOIR 'N'
 
-#define MAX_CHILDREN 100
+/*! \def MAX_CHILDREN
+    \brief le nombre d'enfants max
+*/
+#define MAX_CHILDREN 300
 
-#define ALPHA 1
-#define BETA 1
-#define GAMMA 1
-#define THETA 1
+/*! \def C1
+    \brief Coefficient alpha dans le calcul de la fonction d'utilité
+*/
+/*! \def BETA
+    \brief Coefficient beta dans le calcul de la fonction d'utilité
+*/
+/*! \def GAMMA
+    \brief Coefficient gamma dans le calcul de la fonction d'utilité
+*/
+/*! \def THETA
+    \brief Coefficient theta dans le calcul de la fonction d'utilité
+*/
+#define C1 1
+#define C2 1
+#define C3 1
+#define C4 1
+#define C5 1
+#define C6 100
 
+/*! \def GROUP_2
+    \brief Nombre de points accordé à un joueur dans la focntion d'utilité lors d'un groupe de 2 pions
+*/
+/*! \def GROUP_3
+    \brief Nombre de points accordé à un joueur dans la focntion d'utilité lors d'un groupe de 3 pions
+*/
+#define GROUP_2 6
+#define GROUP_3 14
+
+/*! \def DEPTH
+    \brief Profondeur de l'arbre minimax
+*/
 #define DEPTH 4
-
-//Défintion des structures utilisées par l'ensemble du projet (temporaire!)
-
-/**
- * \struct Abalone
- * \brief Contient les informations du jeu: board, state, player, timer
-*/
-/**
- * \typedef PAbalone
- * \brief Pointeur vers  un Abalone
-*/
-typedef struct {
-    /*!Le plateau du jeu*/
-    char** board;
-    /*!L'état du jeu*/
-    char state;
-    /*!L'identité du joueur actif (qui doit jouer), noir ou blanc*/
-    char player;
-    /*!Le temps écoulé, en secondes*/
-    int timer;
-} Abalone, *PAbalone;
-
-/**
- * \struct Coord abalone_terminal.h abalone_terminal.c
- * \brief Les coordonnées en 2D de la grille board
-*/
-/**
- * \typedef PCoord
- * \brief Pointeur vers un Coord
-*/
-typedef struct {
-    /*!ordonnée*/
-    int x;
-    /*!abscisse*/
-    int y;
-} Coord, *PCoord;
-
-/**
- * \struct Mouvement mouvement.h mouvement.c
- * \brief Le structure d'un mouvement contenant ses caractéristiques
-*/
-/**
- * \typedef PMouvement
- * \brief Pointeur vers un mouvement 
-*/
-typedef struct {
-    /*! Coordonnées du depart*/
-    Coord start;
-    /*! Coordonnées d'arrivé*/
-    Coord end;
-} Mouvement, *PMouvement;
 
 #endif //IMM2223_GR6_CONST_H

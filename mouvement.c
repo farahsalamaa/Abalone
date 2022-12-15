@@ -1,5 +1,6 @@
 #include "mouvement.h"
 
+
 /**
  * \file mouvement.c
  * \brief les fonctions pour definir, valider et executer un mouvement
@@ -599,10 +600,10 @@ int validate_mvt(char** board, char player, Mouvement mvt){
 }
 
 /**
- * \fn string_to_coord(char* mvt, PCoord coord)
- * \brief Changement de la chaine donnée par utilisateur en coordonnées 2D
+ * \fn int string_to_mouvement(char* string, PMouvement mvt)
+ * \brief Changement de la chaine donnée par utilisateur en mouvement
  * \param string La chaine de caractère à convertir
- * \param mvt Le mouvement qui devient le mouvement converti. Ne pas utiliser si string_to_mouvement renvoie != 0
+ * \param mvt Le mouvement qui devient le mouvement converti.
  * \return 0 si les coordonnées existe dans la grille, 1 sinon
 */
 int string_to_mouvement(char* string, PMouvement mvt){
@@ -626,37 +627,14 @@ int string_to_mouvement(char* string, PMouvement mvt){
  * \return 0 si le buffer peut acceuillir la chaine, 1 sinon
 */
 int mouvement_to_string(Mouvement mvt, char* buffer){
-    if(strlen(buffer)<5){
-        return 1;
-    }else{
-        buffer[0] = mvt.start.x+65;
-        buffer[1] = mvt.start.y+49;
-        buffer[2] = ':';
-        buffer[3] = mvt.end.x+65;
-        buffer[4] = mvt.end.y+49;
-        return 0;
-    }
+    buffer[0] = mvt.start.x+65;
+    buffer[1] = mvt.start.y+49;
+    buffer[2] = ':';
+    buffer[3] = mvt.end.x+65;
+    buffer[4] = mvt.end.y+49;
+    return 0;
 }
 
-
-
-//fonction du dernier deplacement
-/* TODO Comprendre ce truc
-
-PCoord tposition=malloc(sizeof(tposition));
-typedef struct tposition{
-Coord pos[2];
-}tposition;
-
-tposition dernier_deplacement(){
-    return p;
-}
-*/
-//p variable globale contenant le dernier mvt valide 
-//une variable globale qui stock le dernier mouvement effectuer.
-
-/*une fonction qui prend un mouvement et si la fctVALIDATE return 0 il l applique 
-et le stock en d sinon il affiche un erreur qui depend du retour de validate */
 /**
  * \fn finalise_mvt(char** board, char player,Mouvement mvt)
  * \brief finaliser un mouvement et l'executer
@@ -678,7 +656,7 @@ int finalise_mvt(char** board, char player ,Mouvement mvt){
 }
 
 /**
- * \fn push_mvt(char** board, char player,Mouvement mvt)
+ * \fn push_mvt(char** board, char player,Mouvement p,int out)
  * \brief Fonction qui effectue la poussée des pions ADVERSES
  * \param p le mouvement donné
  * \param board le tableau de la partie
@@ -759,7 +737,7 @@ void push_mvt(char** board, char player,Mouvement p,int out){
 //fonction qui prend le plateau en entrée, le modifie avec le nouveau mvt et retourne le plateau actualisé
 //Appelle la fct push_mvt si un pion sort du plateau (à terminer)
 /**
- * \fn exec_mvt(char** board, char player,Mouvement mvt)
+ * \fn exec_mvt(char** board, char player,Mouvement p)
  * \brief fonction qui effectue le mouvement
  * \param p le mouvement donné
  * \param board le tableau de la partie

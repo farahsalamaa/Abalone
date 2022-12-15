@@ -1,5 +1,4 @@
 #include"mouvement_test.h"
-#include<assert.h>
 
 void test_type_mvt_ligne(){
     Mouvement m;
@@ -13,7 +12,6 @@ void test_type_mvt_ligne(){
     m.end = c2;
     assert(type_mvt(m) == MVT_LIGNE);
 }
-
 void test_type_mvt_largeur(){
     Mouvement m;
     Coord c1;
@@ -221,6 +219,19 @@ void validate_mvt_test2(){
     PAbalone a=new_abalone();
     assert(validate_mvt(a->board,a->player,m)==ERROR_NOT_A_MOVEMENT);
 }
+void validate_mvt_test3(){
+    Mouvement m;
+    Coord c1;
+    c1.x = 6;
+    c1.y = 1;
+    m.start = c1;
+    Coord c2;
+    c2.x = 5;
+    c2.y = 4;
+    m.end = c2;
+    PAbalone a=new_abalone();
+    assert(validate_mvt(a->board,a->player,m)==ERROR_UNKNOWN);
+}
 void exec_mvt_test(){
     Mouvement m;
     Coord c1;
@@ -248,9 +259,25 @@ void finalise_mvt_test(){
     debug("%d",validate_mvt(a->board,a->player,m));
     assert(finalise_mvt(a->board,a->player,m)==VALIDATION_OK);
 }
-void string_to_mouvement_test(){
+void string_to_mouvement_test1(){
     Mouvement m;
     assert(string_to_mouvement("A1:B1",&m)==0);
+}
+void string_to_mouvement_test2(){
+    Mouvement m;
+    assert(string_to_mouvement("A0:A1",&m)==ERROR_OUT_OF_BOUNDS);
+}
+void mouvement_to_string_test(){
+    Mouvement m;
+    Coord c1;
+    c1.x = 0;
+    c1.y = 0;
+    m.start = c1;
+    Coord c2;
+    c2.x = 1;
+    c2.y = 0;
+    m.end = c2;
+    assert(mouvement_to_string(m,"A1:B1")==0);
 }
 /* Ces fonctions ne sont pas à tester comme ca. il faut les tester avec validate mvt, car ce sont des fonctions filles.
 void validate_mvt_piece_test(){
@@ -322,9 +349,12 @@ void test_mouvement() {
     direction_mvt_up_test();
     validate_mvt_test1();
     validate_mvt_test2();
+    validate_mvt_test3();
     exec_mvt_test();
     finalise_mvt_test();
-    string_to_mouvement_test();
+    string_to_mouvement_test1();
+    string_to_mouvement_test2();
+    mouvement_to_string_test();
     /*validate_mvt_piece_test();
     validate_mvt_bounds_test();
     validate_mvt_ligne_1_test();

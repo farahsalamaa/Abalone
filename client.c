@@ -1,5 +1,6 @@
 #include "client.h"
 
+
 // partie client du serveur
 
 SOCKET TCP_Create_Client(char* serverName,short service){
@@ -20,11 +21,14 @@ SOCKET TCP_Create_Client(char* serverName,short service){
 
     return s;
 }
+
+/*
 int TCP_String_Writer(SOCKET s,char *output){
     int bytes_sent=send(s,output,strlen(output),0);
     if(bytes_sent==SOCKET_ERROR)exit(1);
     return bytes_sent;
 }
+
 int TCP_Long_Reader(SOCKET s,long *value){
     char buffer[1500];
     int bytes_received = TCP_String_Reader(s,buffer);
@@ -32,3 +36,4 @@ int TCP_Long_Reader(SOCKET s,long *value){
     *value=input;
     return bytes_received; 
 }
+*/

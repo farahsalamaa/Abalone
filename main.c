@@ -2,9 +2,12 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdbool.h>
+#include"const.h"
 
+#include "debug.h"
 #include "abalone_terminal.h"
 #include "abalone_gtk.h"
+#include "abalone_threads.h"
 
 /**
  * \file main.c
@@ -23,7 +26,9 @@ void afficheOptions(){
     printf("\t-l blanc => joueur blanc contre ia noir sous gtk\n");
     printf("\t-ia => ia contre ia sous gtk\n");
     printf("\t--r_ia => joueur contre ia aléatoire\n");
- 
+	
+	printf("\t--s XXXX => créer un serveur ia (ex:2000)\n");
+	printf("\t--c XXX.XXX.XXX.XXX:YYYY (ex:127.0.0.1:2000)=> se connecter au serveur ia\n");
     printf("\t--port XXXX => créer un serveur (ex:2000)\n");
     printf("\t--connect XXX.XXX.XXX.XXX:YYYY (ex:127.0.0.1:2000)=> se connecter au serveur\n");
 
@@ -56,7 +61,13 @@ int main(int argc, char **argv){
         else if(strcmp("--r_ia", argv[1]) == 0){ // on lance le mode joueur contre ia aléatoire
             play_game_random_ia();
         }
-         else if(strcmp("--port", argv[1]) == 0){
+		else if(strcmp("-s", argv[1]) == 0){
+			play_game_server_ia(argv[2]);
+		}
+		else if(strcmp("-c", argv[1]) == 0){
+			play_game_client_ia(argv[2]);
+		}
+        else if(strcmp("--port", argv[1]) == 0){
 			play_game_server(argv[2]);
 		}
 		else if(strcmp("--connect", argv[1]) == 0){
@@ -79,9 +90,17 @@ int main(int argc, char **argv){
     	 	play_game_gtk(argc, argv);
     	 	
     	 	}
-          }
+        }
+		else if(strcmp("--tpvp", argv[1]) == 0){
+			trace();
+			PThreadedAbalone ta = malloc(sizeof(ThreadedAbalone));
+			ta->attr = get_basic_tattributes();
+			setup_game(ta);
+			launch_game(ta);
+			free(ta);
+		}
           	
-   
+
     	 
     
     	else{
@@ -89,7 +108,7 @@ int main(int argc, char **argv){
         	fprintf(stderr,"Option invalide : %s !\n./abalone --help pour voir les options\n", argv[1]);
         	return EXIT_FAILURE;
 
-   	 }
+   	 	}
 	return 0;
 	
 }

@@ -1,5 +1,4 @@
 #include "serveur.h"
-#include <stdlib.h>
 
 /**
  * \fn TCP_Create_Server(short service)
@@ -25,6 +24,7 @@ SOCKET TCP_Create_Server(short service){
     return fdsocket;
 }
 
+/*
 int TCP_String_Reader(SOCKET s,char *input){
     char buffer[5];
     char *tmp=buffer;
@@ -51,3 +51,4 @@ int TCP_Long_Writer(SOCKET s,long value){
     if (bytes_sent==SOCKET_ERROR)exit(1);
     return bytes_sent;
 }
+*/
